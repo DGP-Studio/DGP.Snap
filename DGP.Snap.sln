@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGP.snap", "DGP.snap\DGP.snap.csproj", "{4C4A2562-5755-46A5-8F62-BABF45267253}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGP.Snap.Installer", "DGP.Snap.Installer\DGP.Snap.Installer.csproj", "{D79E5426-3F54-4A83-8314-6156B8BCDE8B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGP.Snap.OnlineInstaller", "DGP.Snap.OnlineInstaller\DGP.Snap.OnlineInstaller.csproj", "{4233593D-9AF6-4596-860E-D7AC15DD931D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{4C4A2562-5755-46A5-8F62-BABF45267253}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C4A2562-5755-46A5-8F62-BABF45267253}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C4A2562-5755-46A5-8F62-BABF45267253}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D79E5426-3F54-4A83-8314-6156B8BCDE8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D79E5426-3F54-4A83-8314-6156B8BCDE8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D79E5426-3F54-4A83-8314-6156B8BCDE8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D79E5426-3F54-4A83-8314-6156B8BCDE8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4233593D-9AF6-4596-860E-D7AC15DD931D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4233593D-9AF6-4596-860E-D7AC15DD931D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4233593D-9AF6-4596-860E-D7AC15DD931D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4233593D-9AF6-4596-860E-D7AC15DD931D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

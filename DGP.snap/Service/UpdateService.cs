@@ -51,7 +51,7 @@ namespace DGP.snap.Service
         [JsonProperty("browser_download_url")] public string Browser_download_url { get; set; }
     }
 
-    public class Root
+    public class ReleaseModel
     {
         [JsonProperty("url")] public string Url { get; set; }
         [JsonProperty("assets_url")] public string Assets_url { get; set; }
