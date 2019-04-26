@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGP.snap", "DGP.snap\DGP.sn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGP.Snap.OnlineInstaller", "DGP.Snap.OnlineInstaller\DGP.Snap.OnlineInstaller.csproj", "{4233593D-9AF6-4596-860E-D7AC15DD931D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGP.Snap.Updater", "DGP.Snap.Updater\DGP.Snap.Updater.csproj", "{B6131D3F-4933-4CA2-B180-7CFE541CE586}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4233593D-9AF6-4596-860E-D7AC15DD931D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4233593D-9AF6-4596-860E-D7AC15DD931D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4233593D-9AF6-4596-860E-D7AC15DD931D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6131D3F-4933-4CA2-B180-7CFE541CE586}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6131D3F-4933-4CA2-B180-7CFE541CE586}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6131D3F-4933-4CA2-B180-7CFE541CE586}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6131D3F-4933-4CA2-B180-7CFE541CE586}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

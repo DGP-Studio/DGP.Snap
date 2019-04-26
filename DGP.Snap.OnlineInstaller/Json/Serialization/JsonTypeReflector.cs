@@ -516,10 +516,10 @@ namespace Newtonsoft.Json.Serialization
             get
             {
 #if !(PORTABLE40 || PORTABLE || DOTNET || NETSTANDARD2_0)
-                if (DynamicCodeGeneration)
-                {
-                    return DynamicReflectionDelegateFactory.Instance;
-                }
+                //if (DynamicCodeGeneration)
+                //{
+                //    return DynamicReflectionDelegateFactory.Instance;
+                //}
 
                 return LateBoundReflectionDelegateFactory.Instance;
 #else
