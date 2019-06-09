@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:DGP.Snap.Updater"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <StackPanel>
+        <TextBlock Text="Version:"/>
+        <Button Content="检查更新"/>
+    </StackPanel>
 </Window>

@@ -23,6 +23,7 @@ namespace DGP.Snap.Updater
         public MainWindow()
         {
             InitializeComponent();
+            //if () 
         }
     }
 }
