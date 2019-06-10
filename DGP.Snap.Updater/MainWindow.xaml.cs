@@ -25,5 +25,10 @@ namespace DGP.Snap.Updater
             InitializeComponent();
             //if () 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

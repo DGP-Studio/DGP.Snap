@@ -1,16 +1,19 @@
-﻿using System;
+﻿using DGP.Snap.Helper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace DGP.snap.Services.Activation
+namespace DGP.Snap.Services.Activation
 {
     //internal class ActivationService
     //{
     //    private readonly App _app;
-    //    private readonly Lazy<UIElement> _shell;
     //    private readonly Type _defaultNavItem;
+    //    private Lazy<UIElement> _shell;
+
+    //    private object _lastActivationArgs;
 
     //    public ActivationService(App app, Type defaultNavItem, Lazy<UIElement> shell = null)
     //    {
@@ -25,6 +28,13 @@ namespace DGP.snap.Services.Activation
     //        {
     //            // Initialize things like registering background task before the app is loaded
     //            await InitializeAsync();
+    //            UserDataService.Initialize();
+    //            IdentityService.InitializeWithAadAndPersonalMsAccounts();
+    //            var silentLoginSuccess = await IdentityService.AcquireTokenSilentAsync();
+    //            if (!silentLoginSuccess || !IdentityService.IsAuthorized())
+    //            {
+    //                await RedirectLoginPageAsync();
+    //            }
 
     //            // Do not repeat app initialization when the Window already has content,
     //            // just ensure that the window is active
@@ -32,18 +42,60 @@ namespace DGP.snap.Services.Activation
     //            {
     //                // Create a Frame to act as the navigation context and navigate to the first page
     //                Window.Current.Content = _shell?.Value ?? new Frame();
-    //                NavigationService.NavigationFailed += (sender, e) =>
-    //                {
-    //                    throw e.Exception;
-    //                };
-    //                NavigationService.Navigated += Frame_Navigated;
-    //                if (SystemNavigationManager.GetForCurrentView() != null)
-    //                {
-    //                    SystemNavigationManager.GetForCurrentView().BackRequested += ActivationService_BackRequested;
-    //                }
     //            }
     //        }
 
+    //        if (IdentityService.IsLoggedIn())
+    //        {
+    //            await HandleActivationAsync(activationArgs);
+    //        }
+
+    //        _lastActivationArgs = activationArgs;
+
+    //        if (IsInteractive(activationArgs))
+    //        {
+    //            // Ensure the current window is active
+    //            Window.Current.Activate();
+
+    //            // Tasks after activation
+    //            await StartupAsync();
+    //        }
+    //    }
+
+    //    private async void OnLoggedIn(object sender, EventArgs e)
+    //    {
+    //        if (_shell?.Value != null)
+    //        {
+    //            Window.Current.Content = _shell.Value;
+    //        }
+    //        else
+    //        {
+    //            var frame = new Frame();
+    //            Window.Current.Content = frame;
+    //            NavigationService.Frame = frame;
+    //        }
+
+    //        await ThemeSelectorService.SetRequestedThemeAsync();
+    //        await HandleActivationAsync(_lastActivationArgs);
+    //    }
+
+    //    public async Task RedirectLoginPageAsync()
+    //    {
+    //        var frame = new Frame();
+    //        NavigationService.Frame = frame;
+    //        Window.Current.Content = frame;
+    //        await ThemeSelectorService.SetRequestedThemeAsync();
+    //        NavigationService.Navigate<Views.LogInPage>();
+    //    }
+
+    //    private async Task InitializeAsync()
+    //    {
+    //        SampleDataService.Initialize("ms-appx:///Assets");
+    //        await ThemeSelectorService.InitializeAsync();
+    //    }
+
+    //    private async Task HandleActivationAsync(object activationArgs)
+    //    {
     //        var activationHandler = GetActivationHandlers()
     //                                            .FirstOrDefault(h => h.CanHandle(activationArgs));
 
@@ -59,32 +111,24 @@ namespace DGP.snap.Services.Activation
     //            {
     //                await defaultHandler.HandleAsync(activationArgs);
     //            }
-
-    //            // Ensure the current window is active
-    //            Window.Current.Activate();
-
-    //            // Tasks after activation
-    //            await StartupAsync();
     //        }
-    //    }
-
-    //    private async Task InitializeAsync()
-    //    {
-    //        await Singleton<LiveTileService>.Instance.EnableQueueAsync();
-    //        await ThemeSelectorService.InitializeAsync();
     //    }
 
     //    private async Task StartupAsync()
     //    {
-    //        ThemeSelectorService.SetRequestedTheme();
-    //        Singleton<LiveTileService>.Instance.SampleUpdate();
-    //        await Task.CompletedTask;
+    //        await ThemeSelectorService.SetRequestedThemeAsync();
+
+    //        // TODO WTS: This is a sample to demonstrate how to add a UserActivity. Please adapt and move this method call to where you consider convenient in your app.
+    //        await UserActivityService.AddSampleUserActivity();
+    //        await FirstRunDisplayService.ShowIfAppropriateAsync();
+    //        await WhatsNewDisplayService.ShowIfAppropriateAsync();
     //    }
 
     //    private IEnumerable<ActivationHandler> GetActivationHandlers()
     //    {
-    //        yield return Singleton<LiveTileService>.Instance;
     //        yield return Singleton<ToastNotificationsService>.Instance;
+    //        yield return Singleton<SchemeActivationHandler>.Instance;
+    //        yield return Singleton<ShareTargetActivationHandler>.Instance;
     //    }
 
     //    private bool IsInteractive(object args)
@@ -92,18 +136,17 @@ namespace DGP.snap.Services.Activation
     //        return args is IActivatedEventArgs;
     //    }
 
-    //    private void Frame_Navigated(object sender, NavigationEventArgs e)
+    //    public void SetShell(Lazy<UIElement> shell)
     //    {
-    //        SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = NavigationService.CanGoBack ?
-    //            AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+    //        _shell = shell;
     //    }
 
-    //    private void ActivationService_BackRequested(object sender, BackRequestedEventArgs e)
+    //    internal async Task ActivateFromShareTargetAsync(ShareTargetActivatedEventArgs activationArgs)
     //    {
-    //        if (NavigationService.CanGoBack)
+    //        var shareTargetHandler = GetActivationHandlers().FirstOrDefault(h => h.CanHandle(activationArgs));
+    //        if (shareTargetHandler != null)
     //        {
-    //            NavigationService.GoBack();
-    //            e.Handled = true;
+    //            await shareTargetHandler.HandleAsync(activationArgs);
     //        }
     //    }
     //}

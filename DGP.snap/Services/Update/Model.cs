@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DGP.snap.Services.Update
+namespace DGP.Snap.Services.Update
 {
 
     public class People

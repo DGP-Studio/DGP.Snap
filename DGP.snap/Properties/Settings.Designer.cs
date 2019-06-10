@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DGP.snap.Properties
+namespace DGP.Snap.Properties
 {
 
 

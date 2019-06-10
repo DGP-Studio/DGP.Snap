@@ -1,17 +1,30 @@
-﻿using System;
+﻿using DGP.Snap.Services.Shell;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace DGP.snap
+namespace DGP.Snap
 {
     /// <summary>
     /// App.xaml 的交互逻辑
     /// </summary>
     public partial class App : Application
     {
+
+        //public static readonly string AppFullPath = Assembly.GetExecutingAssembly().Location;
+
+
+
+        //重写startup
+        protected override void OnStartup(StartupEventArgs e)
+        {          
+            base.OnStartup(e);
+        }
+
     }
 }

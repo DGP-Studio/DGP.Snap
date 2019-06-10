@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DGP.Snap.Services.Shell;
+using DGP.Snap.Services.Update;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DGP.snap
+namespace DGP.Snap
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
@@ -23,6 +25,9 @@ namespace DGP.snap
         public MainWindow()
         {
             InitializeComponent();
+            UpdateService.CheckForUpdate();
+            TrayIconManager.GetInstance();
+            TrayIconManager.NotificationManager.ShowNotification("Snap Desktop", "正常启动");
         }
     }
 }
