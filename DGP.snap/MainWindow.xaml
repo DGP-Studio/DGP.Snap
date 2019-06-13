@@ -3,10 +3,704 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DGP.snap"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
         
+        xmlns:local="clr-namespace:DGP.Snap"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+            xmlns:helpers="clr-namespace:DGP.Snap.Services.Navigation"
+        
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        Height="600" 
+        Width="1024" 
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        Background="{x:Null}"
+        SnapsToDevicePixels="True"
+        Style="{DynamicResource DefaultWindowStyle}" 
+        StateChanged="Window_StateChanged"
+        
+        >
+    <Window.Resources>
+        <Style x:Key="DefaultWindowStyle" TargetType="{x:Type Window}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
+                        <Grid Margin="0">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Padding="{TemplateBinding Margin}"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                    CornerRadius="5">
+                                <ContentPresenter/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="MenuItemDataTemplate">
+            <Grid Height="40">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock FontSize="16" Text="{Binding Icon}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe MDL2 Assets"/>
+                <TextBlock Margin="0,0,0,0" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding Label}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            </Grid>
+        </DataTemplate>
+
+        <ItemContainerTemplate x:Key="MenuButtonTemplate">
+            <TextBlock Foreground="White" Style="{StaticResource BodyTextBlockStyle}" FontSize="16" FontFamily="Segoe MDL2 Assets"  Text="&#xE700;"/>
+        </ItemContainerTemplate>
+
+        <Style x:Key="HamburgerMenuStyle" TargetType="{x:Type mah:HamburgerMenu}">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="OptionsItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="mah:ItemHelper.SelectedBackgroundBrush" Value="Transparent"/>
+                        <Setter Property="FocusVisualStyle" Value="{Binding ItemFocusVisualStyle, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type mah:HamburgerMenu}}}"/>
+                        <Setter Property="IsEnabled" Value="{Binding IsEnabled, FallbackValue=true, Mode=OneWay}"/>
+                        <Setter Property="IsTabStop" Value="{Binding IsTabStop, FallbackValue=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type mah:HamburgerMenu}}}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+
+                                    <Grid x:Name="MarkedGrid" Background="{TemplateBinding Background}" RenderOptions.ClearTypeHint="{TemplateBinding RenderOptions.ClearTypeHint}">
+                                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                        <Grid Margin="{TemplateBinding BorderThickness}" >
+                                            <Border  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0,0,0" >
+                                                <Border.Visibility>
+                                                    <Binding Mode="OneWay" Path="ShowSelectionIndicator" RelativeSource="{RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type mah:HamburgerMenu}}">
+                                                        <Binding.Converter>
+                                                            <BooleanToVisibilityConverter/>
+                                                        </Binding.Converter>
+                                                    </Binding>
+                                                </Border.Visibility>
+                                                <Rectangle x:Name="SelectionIndicator" RadiusX="1" RadiusY="1" Opacity="0" Focusable="False" Fill="White" Height="{DynamicResource HamburgerMenuSelectionIndicatorThemeHeight}" Width="2" Margin="0,0,0,0"/>
+
+
+                                            </Border>
+                                            <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                        </Grid>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.SelectedForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.SelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                            <Setter Property="Opacity" TargetName="SelectionIndicator" Value="1"/>
+                                        </Trigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsSelected" Value="True"/>
+                                                <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.ActiveSelectionForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.ActiveSelectionBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                        </MultiTrigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsMouseOver" Value="True"/>
+                                                <Condition Property="IsSelected" Value="True"/>
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.HoverSelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                        </MultiTrigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsMouseOver" Value="True"/>
+                                                <Condition Property="IsSelected" Value="False"/>
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.HoverBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                        </MultiTrigger>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.DisabledForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.DisabledBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                        </Trigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsEnabled" Value="False"/>
+                                                <Condition Property="IsSelected" Value="True"/>
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.DisabledSelectedForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.DisabledSelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                        </MultiTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.BasedOn>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Foreground" Value="{Binding Foreground, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="Margin" Value="0"/>
+                                <Setter Property="MinHeight" Value="0"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                                <Style.BasedOn>
+                                    <Style TargetType="{x:Type ListBoxItem}">
+                                        <Setter Property="Background" Value="{DynamicResource WhiteBrush}"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="mah:ItemHelper.ActiveSelectionBackgroundBrush" Value="Transparent"/>
+                                        <Setter Property="mah:ItemHelper.ActiveSelectionForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}"/>
+                                        <Setter Property="mah:ItemHelper.DisabledForegroundBrush" Value="{DynamicResource GrayNormalBrush}"/>
+                                        <Setter Property="mah:ItemHelper.DisabledSelectedBackgroundBrush" Value="{DynamicResource GrayBrush7}"/>
+                                        <Setter Property="mah:ItemHelper.DisabledSelectedForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}"/>
+                                        <Setter Property="mah:ItemHelper.HoverBackgroundBrush" Value="{DynamicResource AccentColorBrush3}"/>
+                                        <Setter Property="mah:ItemHelper.HoverSelectedBackgroundBrush" Value="{DynamicResource AccentColorBrush}"/>
+                                        <Setter Property="mah:ItemHelper.SelectedBackgroundBrush" Value="Transparent"/>
+                                        <Setter Property="mah:ItemHelper.SelectedForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, FallbackValue=Stretch, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
+                                        <Setter Property="Margin" Value="0"/>
+                                        <Setter Property="MinHeight" Value="25"/>
+                                        <Setter Property="Padding" Value="5,0,0,0"/>
+                                        <Setter Property="RenderOptions.ClearTypeHint" Value="{Binding (RenderOptions.ClearTypeHint), FallbackValue=Auto, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
+                                        <Setter Property="SnapsToDevicePixels" Value="True"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                    <Grid Background="{TemplateBinding Background}" RenderOptions.ClearTypeHint="{TemplateBinding RenderOptions.ClearTypeHint}">
+                                                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                                        <Grid Margin="{TemplateBinding BorderThickness}">
+                                                            <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <!--<Setter Property="Foreground" Value="{Binding (mah:ItemHelper.SelectedForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.SelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>-->
+                                                            <Setter Property="Foreground" Value="Transparent"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="Transparent"/>
+                                                        </Trigger>
+                                                        <MultiTrigger>
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="IsSelected" Value="True"/>
+                                                                <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                                            </MultiTrigger.Conditions>
+                                                            <!--<Setter Property="Foreground" Value="{Binding (mah:ItemHelper.ActiveSelectionForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.ActiveSelectionBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>-->
+                                                            <Setter Property="Foreground" Value="Transparent"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="Transparent"/>
+                                                        </MultiTrigger>
+                                                        <MultiTrigger>
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="IsMouseOver" Value="True"/>
+                                                                <Condition Property="IsSelected" Value="True"/>
+                                                            </MultiTrigger.Conditions>
+                                                            <!--<Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.HoverSelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>-->
+                                                            <Setter Property="Background" TargetName="Border" Value="Transparent"/>
+                                                        </MultiTrigger>
+                                                        <MultiTrigger>
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="IsMouseOver" Value="True"/>
+                                                                <Condition Property="IsSelected" Value="False"/>
+                                                            </MultiTrigger.Conditions>
+                                                            <!--<Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.HoverBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>-->
+                                                            <Setter Property="Background" TargetName="Border" Value="Transparent"/>
+                                                        </MultiTrigger>
+                                                        <Trigger Property="IsEnabled" Value="False">
+                                                            <!--<Setter Property="Foreground" Value="{Binding (mah:ItemHelper.DisabledForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.DisabledBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>-->
+                                                            <Setter Property="Foreground" Value="Transparent"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="Transparent"/>
+                                                        </Trigger>
+                                                        <MultiTrigger>
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="IsEnabled" Value="False"/>
+                                                                <Condition Property="IsSelected" Value="True"/>
+                                                            </MultiTrigger.Conditions>
+                                                            <!--<Setter Property="Foreground" Value="{Binding (mah:ItemHelper.DisabledSelectedForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.DisabledSelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>-->
+                                                            <Setter Property="Foreground" Value="Transparent"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="Transparent"/>
+                                                        </MultiTrigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, FallbackValue=Center, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
+                                    </Style>
+                                </Style.BasedOn>
+                            </Style>
+                        </Style.BasedOn>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="mah:ItemHelper.SelectedBackgroundBrush" Value="Transparent"/>
+                        <Setter Property="FocusVisualStyle" Value="{Binding ItemFocusVisualStyle, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type mah:HamburgerMenu}}}"/>
+                        <Setter Property="IsEnabled" Value="{Binding IsEnabled, FallbackValue=true, Mode=OneWay}"/>
+                        <Setter Property="IsTabStop" Value="{Binding IsTabStop, FallbackValue=True, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type mah:HamburgerMenu}}}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+
+                                    <Grid x:Name="MarkedGrid" Background="{TemplateBinding Background}" RenderOptions.ClearTypeHint="{TemplateBinding RenderOptions.ClearTypeHint}">
+                                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                        <Grid Margin="{TemplateBinding BorderThickness}" >
+                                            <Border  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0,0,0" >
+                                                <Border.Visibility>
+                                                    <Binding Mode="OneWay" Path="ShowSelectionIndicator" RelativeSource="{RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type mah:HamburgerMenu}}">
+                                                        <Binding.Converter>
+                                                            <BooleanToVisibilityConverter/>
+                                                        </Binding.Converter>
+                                                    </Binding>
+                                                </Border.Visibility>
+                                                <Rectangle x:Name="SelectionIndicator" RadiusX="1" RadiusY="1" Opacity="0" Focusable="False" Fill="White" Height="{DynamicResource HamburgerMenuSelectionIndicatorThemeHeight}" Width="2" Margin="0,0,0,0"/>
+
+
+                                            </Border>
+                                            <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                        </Grid>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.SelectedForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.SelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                            <Setter Property="Opacity" TargetName="SelectionIndicator" Value="1"/>
+                                        </Trigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsSelected" Value="True"/>
+                                                <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.ActiveSelectionForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.ActiveSelectionBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                        </MultiTrigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsMouseOver" Value="True"/>
+                                                <Condition Property="IsSelected" Value="True"/>
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.HoverSelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                        </MultiTrigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsMouseOver" Value="True"/>
+                                                <Condition Property="IsSelected" Value="False"/>
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.HoverBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                        </MultiTrigger>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.DisabledForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.DisabledBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                        </Trigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsEnabled" Value="False"/>
+                                                <Condition Property="IsSelected" Value="True"/>
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.DisabledSelectedForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.DisabledSelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                        </MultiTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.BasedOn>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Foreground" Value="{Binding Foreground, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="Margin" Value="0"/>
+                                <Setter Property="MinHeight" Value="0"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                                <Style.BasedOn>
+                                    <Style TargetType="{x:Type ListBoxItem}">
+                                        <Setter Property="Background" Value="{DynamicResource WhiteBrush}"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="mah:ItemHelper.ActiveSelectionBackgroundBrush" Value="Transparent"/>
+                                        <Setter Property="mah:ItemHelper.ActiveSelectionForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}"/>
+                                        <Setter Property="mah:ItemHelper.DisabledForegroundBrush" Value="{DynamicResource GrayNormalBrush}"/>
+                                        <Setter Property="mah:ItemHelper.DisabledSelectedBackgroundBrush" Value="{DynamicResource GrayBrush7}"/>
+                                        <Setter Property="mah:ItemHelper.DisabledSelectedForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}"/>
+                                        <Setter Property="mah:ItemHelper.HoverBackgroundBrush" Value="{DynamicResource AccentColorBrush3}"/>
+                                        <Setter Property="mah:ItemHelper.HoverSelectedBackgroundBrush" Value="{DynamicResource AccentColorBrush}"/>
+                                        <Setter Property="mah:ItemHelper.SelectedBackgroundBrush" Value="Transparent"/>
+                                        <Setter Property="mah:ItemHelper.SelectedForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, FallbackValue=Stretch, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
+                                        <Setter Property="Margin" Value="0"/>
+                                        <Setter Property="MinHeight" Value="25"/>
+                                        <Setter Property="Padding" Value="5,0,0,0"/>
+                                        <Setter Property="RenderOptions.ClearTypeHint" Value="{Binding (RenderOptions.ClearTypeHint), FallbackValue=Auto, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
+                                        <Setter Property="SnapsToDevicePixels" Value="True"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                    <Grid Background="{TemplateBinding Background}" RenderOptions.ClearTypeHint="{TemplateBinding RenderOptions.ClearTypeHint}">
+                                                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                                        <Grid Margin="{TemplateBinding BorderThickness}">
+                                                            <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <!--<Setter Property="Foreground" Value="{Binding (mah:ItemHelper.SelectedForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.SelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>-->
+                                                            <Setter Property="Foreground" Value="Transparent"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="Transparent"/>
+                                                        </Trigger>
+                                                        <MultiTrigger>
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="IsSelected" Value="True"/>
+                                                                <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                                            </MultiTrigger.Conditions>
+                                                            <!--<Setter Property="Foreground" Value="{Binding (mah:ItemHelper.ActiveSelectionForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.ActiveSelectionBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>-->
+                                                            <Setter Property="Foreground" Value="Transparent"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="Transparent"/>
+                                                        </MultiTrigger>
+                                                        <MultiTrigger>
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="IsMouseOver" Value="True"/>
+                                                                <Condition Property="IsSelected" Value="True"/>
+                                                            </MultiTrigger.Conditions>
+                                                            <!--<Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.HoverSelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>-->
+                                                            <Setter Property="Background" TargetName="Border" Value="Transparent"/>
+                                                        </MultiTrigger>
+                                                        <MultiTrigger>
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="IsMouseOver" Value="True"/>
+                                                                <Condition Property="IsSelected" Value="False"/>
+                                                            </MultiTrigger.Conditions>
+                                                            <!--<Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.HoverBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>-->
+                                                            <Setter Property="Background" TargetName="Border" Value="Transparent"/>
+                                                        </MultiTrigger>
+                                                        <Trigger Property="IsEnabled" Value="False">
+                                                            <!--<Setter Property="Foreground" Value="{Binding (mah:ItemHelper.DisabledForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.DisabledBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>-->
+                                                            <Setter Property="Foreground" Value="Transparent"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="Transparent"/>
+                                                        </Trigger>
+                                                        <MultiTrigger>
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="IsEnabled" Value="False"/>
+                                                                <Condition Property="IsSelected" Value="True"/>
+                                                            </MultiTrigger.Conditions>
+                                                            <!--<Setter Property="Foreground" Value="{Binding (mah:ItemHelper.DisabledSelectedForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.DisabledSelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>-->
+                                                            <Setter Property="Foreground" Value="Transparent"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="Transparent"/>
+                                                        </MultiTrigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, FallbackValue=Center, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
+                                    </Style>
+                                </Style.BasedOn>
+                            </Style>
+                        </Style.BasedOn>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="KeyboardNavigation.ControlTabNavigation" Value="Local"/>
+            <Setter Property="KeyboardNavigation.DirectionalNavigation" Value="Local"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="Local"/>
+            <Setter Property="PaneHeaderMargin" Value="0,0,0,8"/>
+            <Setter Property="PaneMargin" Value="0,0,0,8"/>
+            <Setter Property="SeparatorItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="Focusable" Value="False"/>
+                        <Setter Property="IsHitTestVisible" Value="False"/>
+                        <Setter Property="IsTabStop" Value="False"/>
+                        <Setter Property="Padding" Value="0,5"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Grid Background="{TemplateBinding Background}" RenderOptions.ClearTypeHint="{TemplateBinding RenderOptions.ClearTypeHint}">
+                                        <Separator HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.BasedOn>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Foreground" Value="{Binding Foreground, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="Margin" Value="0"/>
+                                <Setter Property="MinHeight" Value="0"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                                <Style.BasedOn>
+                                    <Style TargetType="{x:Type ListBoxItem}">
+                                        <Setter Property="Background" Value="{DynamicResource WhiteBrush}"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="mah:ItemHelper.ActiveSelectionBackgroundBrush" Value="Transparent"/>
+                                        <Setter Property="mah:ItemHelper.ActiveSelectionForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}"/>
+                                        <Setter Property="mah:ItemHelper.DisabledForegroundBrush" Value="{DynamicResource GrayNormalBrush}"/>
+                                        <Setter Property="mah:ItemHelper.DisabledSelectedBackgroundBrush" Value="{DynamicResource GrayBrush7}"/>
+                                        <Setter Property="mah:ItemHelper.DisabledSelectedForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}"/>
+                                        <Setter Property="mah:ItemHelper.HoverBackgroundBrush" Value="{DynamicResource AccentColorBrush3}"/>
+                                        <Setter Property="mah:ItemHelper.HoverSelectedBackgroundBrush" Value="{DynamicResource AccentColorBrush}"/>
+                                        <Setter Property="mah:ItemHelper.SelectedBackgroundBrush" Value="Transparent"/>
+                                        <Setter Property="mah:ItemHelper.SelectedForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, FallbackValue=Stretch, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
+                                        <Setter Property="Margin" Value="0"/>
+                                        <Setter Property="MinHeight" Value="25"/>
+                                        <Setter Property="Padding" Value="5,0,0,0"/>
+                                        <Setter Property="RenderOptions.ClearTypeHint" Value="{Binding (RenderOptions.ClearTypeHint), FallbackValue=Auto, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
+                                        <Setter Property="SnapsToDevicePixels" Value="True"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                    <Grid Background="{TemplateBinding Background}" RenderOptions.ClearTypeHint="{TemplateBinding RenderOptions.ClearTypeHint}">
+                                                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                                        <Grid Margin="{TemplateBinding BorderThickness}">
+                                                            <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.SelectedForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.SelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                        </Trigger>
+                                                        <MultiTrigger>
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="IsSelected" Value="True"/>
+                                                                <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                                            </MultiTrigger.Conditions>
+                                                            <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.ActiveSelectionForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.ActiveSelectionBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                        </MultiTrigger>
+                                                        <MultiTrigger>
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="IsMouseOver" Value="True"/>
+                                                                <Condition Property="IsSelected" Value="True"/>
+                                                            </MultiTrigger.Conditions>
+                                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.HoverSelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                        </MultiTrigger>
+                                                        <MultiTrigger>
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="IsMouseOver" Value="True"/>
+                                                                <Condition Property="IsSelected" Value="False"/>
+                                                            </MultiTrigger.Conditions>
+                                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.HoverBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                        </MultiTrigger>
+                                                        <Trigger Property="IsEnabled" Value="False">
+                                                            <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.DisabledForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.DisabledBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                                        </Trigger>
+                                                        <MultiTrigger>
+                                                            <MultiTrigger.Conditions>
+                                                                <Condition Property="IsEnabled" Value="False"/>
+                                                                <Condition Property="IsSelected" Value="True"/>
+                                                            </MultiTrigger.Conditions>
+                                                            <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.DisabledSelectedForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                                            <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.DisabledSelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                                        </MultiTrigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, FallbackValue=Center, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
+                                    </Style>
+                                </Style.BasedOn>
+                            </Style>
+                        </Style.BasedOn>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template" Value="{DynamicResource HamburgerMenuTemplate}"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        </Style>
+
+        <ControlTemplate x:Key="HamburgerMenuTemplate" TargetType="{x:Type mah:HamburgerMenu}">
+            <Grid>
+                <mah:SplitView x:Name="MainSplitView"
+                                CompactPaneLength="{TemplateBinding CompactPaneLength}"
+                                DisplayMode="{TemplateBinding DisplayMode}"
+                                IsPaneOpen="{Binding IsPaneOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                IsTabStop="False"
+                                OpenPaneLength="{TemplateBinding OpenPaneLength}"
+                                PaneBackground="{TemplateBinding PaneBackground}"
+                                PaneForeground="{TemplateBinding PaneForeground}"
+                                PanePlacement="{TemplateBinding PanePlacement}">
+                    <mah:SplitView.Pane>
+                        <Grid x:Name="PaneGrid" Margin="{TemplateBinding PaneMargin}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <DockPanel x:Name="PaneHeader"
+                                   Grid.Row="0"
+                                   Height="{TemplateBinding HamburgerHeight}"
+                                   Margin="{TemplateBinding PaneHeaderMargin}"
+                                   LastChildFill="True">
+                                <Button x:Name="HamburgerButton"
+                                    Width="{TemplateBinding HamburgerWidth}"
+                                    Height="{TemplateBinding HamburgerHeight}"
+                                    Padding="{TemplateBinding HamburgerMargin}"
+                                    AutomationProperties.Name="Main button"
+                                    ContentTemplate="{TemplateBinding HamburgerButtonTemplate}"
+                                    DockPanel.Dock="Left"
+                                    Foreground="{TemplateBinding PaneForeground}"
+                                    IsTabStop="{TemplateBinding IsTabStop}"
+                                    Style="{TemplateBinding HamburgerButtonStyle}"
+                                    TabIndex="0"
+                                    Visibility="{TemplateBinding HamburgerVisibility}" />
+                                <ContentControl x:Name="PaneHeaderContent"
+                                            ContentTemplate="{TemplateBinding HamburgerMenuHeaderTemplate}"
+                                            IsTabStop="False" />
+                            </DockPanel>
+                            <ListBox Name="ButtonsListView"
+                                 Grid.Row="1"
+                                 Width="{TemplateBinding OpenPaneLength}"
+                                 mah:ScrollViewerHelper.VerticalScrollBarOnLeftSide="{TemplateBinding VerticalScrollBarOnLeftSide}"
+                                 AutomationProperties.Name="Menu items"
+                                 Foreground="{TemplateBinding PaneForeground}"
+                                 IsTextSearchEnabled="False"
+                                 ItemContainerStyleSelector="{StaticResource HamburgerMenuItemStyleSelector}"
+                                 ItemTemplate="{TemplateBinding ItemTemplate}"
+                                 ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                 ItemsSource="{TemplateBinding ItemsSource}"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                 SelectedIndex="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedIndex, Mode=TwoWay}"
+                                 SelectedItem="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedItem, Mode=TwoWay}"
+                                 SelectionMode="Single"
+                                 Style="{StaticResource HamburgerMenuListStyle}"
+                                 TabIndex="1" />
+                            <ListBox Name="OptionsListView"
+                                 Grid.Row="2"
+                                 Width="{TemplateBinding OpenPaneLength}"
+                                 Margin="0 20 0 0"
+                                 VerticalAlignment="Bottom"
+                                 AutomationProperties.Name="Option items"
+                                 Foreground="{TemplateBinding PaneForeground}"
+                                 IsTextSearchEnabled="False"
+                                 ItemContainerStyleSelector="{StaticResource HamburgerMenuItemOptionsStyleSelector}"
+                                 ItemTemplate="{TemplateBinding OptionsItemTemplate}"
+                                 ItemTemplateSelector="{TemplateBinding OptionsItemTemplateSelector}"
+                                 ItemsSource="{TemplateBinding OptionsItemsSource}"
+                                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                 SelectedIndex="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedOptionsIndex, Mode=TwoWay}"
+                                 SelectedItem="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedOptionsItem, Mode=TwoWay}"
+                                 SelectionMode="Single"
+                                 Style="{StaticResource HamburgerMenuListStyle}"
+                                 TabIndex="2" />
+                        </Grid>
+                    </mah:SplitView.Pane>
+                    <!--Content-->
+                    <mah:TransitioningContentControl x:Name="ContentPart"
+                                                      Padding="{TemplateBinding Padding}"
+                                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                      AutomationProperties.Name="Content"
+                                                      Content="{TemplateBinding Content}"
+                                                      ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                      ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                                      RestartTransitionOnContentChange="True"
+                                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                      Transition="{TemplateBinding ContentTransition}" />
+                </mah:SplitView>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="PanePlacement" Value="Right">
+                    <Setter TargetName="HamburgerButton" Property="DockPanel.Dock" Value="Right" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+    </Window.Resources>
+
+    <Grid Background="Black">
+        <mah:HamburgerMenu 
+            x:Name="NavigationView"
+            OptionsItemTemplate="{DynamicResource MenuItemDataTemplate}" 
+            ItemTemplate="{DynamicResource MenuItemDataTemplate}" 
+            HamburgerHeight="40"
+            HamburgerWidth="40"
+            
+            ContentTransition="Up"
+            HamburgerButtonTemplate="{DynamicResource MenuButtonTemplate}"
+            PaneBackground="#FF2E2E2E"
+            SelectedIndex="0"
+            ItemInvoked="NavigationView_ItemInvoked"
+            DisplayMode="CompactOverlay"
+            OpenPaneLength="240" 
+            CompactPaneLength="40"
+            Style="{DynamicResource HamburgerMenuStyle}"
+            ShowSelectionIndicator="True" 
+            Margin="0,32,0,0"
+            >
+            <mah:HamburgerMenu.ItemsSource>
+                <mah:HamburgerMenuItemCollection>
+                    <mah:HamburgerMenuIconItem Label="主页" Icon="&#xE80F;" helpers:NavHelper.NavigateTo="{x:Type local:HomePage}"/>
+                    <!--<mah:HamburgerMenuIconItem Label="倒计时" Icon="&#xE916;" helpers:NavHelper.NavigateTo="{x:Type pages:CountdownPage}" />-->
+                </mah:HamburgerMenuItemCollection>
+            </mah:HamburgerMenu.ItemsSource>
+
+            <mah:HamburgerMenu.OptionsItemsSource>
+                <mah:HamburgerMenuItemCollection>
+                    <mah:HamburgerMenuIconItem Label="设置" Icon="&#xE713;"/>
+                </mah:HamburgerMenuItemCollection>
+            </mah:HamburgerMenu.OptionsItemsSource>
+
+            <Frame x:Name="currentFrame" NavigationUIVisibility="Hidden"/>
+
+        </mah:HamburgerMenu>
+
+        <Grid x:Name="TitleBar" VerticalAlignment="Top" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" Background="Transparent" IsHitTestVisible="True">
+            <StackPanel x:Name="LeftMatrix" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Button 
+                            x:Name="BackButton" 
+                            Foreground="White"
+                            Content="&#xE830;"  
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Top" 
+                            Width="40" 
+                            Height="32" 
+                            Click="BackButton_Click"
+                            Grid.Column="1" 
+                            Style="{DynamicResource DefaultButtonStyle}"  
+                            FontSize="10" FontFamily="Segoe MDL2 Assets" />
+            </StackPanel>
+            <StackPanel x:Name="RightMatrix" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Button 
+                            x:Name="MinButton" 
+                            Foreground="White"
+                            Content="&#xE921;"  
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Top" 
+                            Width="48" 
+                            Height="32" 
+                            Click="MinimizeButton_Click"
+                            Grid.Column="1" 
+                            Style="{DynamicResource DefaultButtonStyle}"  
+                            FontSize="10" FontFamily="Segoe MDL2 Assets" />
+                <Button 
+                            x:Name="CloseButton" 
+                            Foreground="White"
+                            Content="&#xE8BB;"  
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Top" 
+                            Width="48" 
+                            Height="32" 
+                            Click="CloseButton_Click"
+                            Grid.Column="1" 
+                            Style="{DynamicResource DefaultButtonStyle}" 
+                            FontSize="10" FontFamily="Segoe MDL2 Assets" />
+            </StackPanel>
+            
+        </Grid>
     </Grid>
 </Window>

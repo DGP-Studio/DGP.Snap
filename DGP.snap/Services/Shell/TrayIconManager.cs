@@ -1,11 +1,10 @@
 ﻿using DGP.Snap.Properties;
 using DGP.Snap.Services.Activation;
-using DGP.Snap.Services.Update;
+using DGP.Snap.Window;
+using DGP.Snap.Window.Wallpaper;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Windows.Data.Xml.Dom;
-using Windows.UI.Notifications;
 
 namespace DGP.Snap.Services.Shell
 {
@@ -37,15 +36,16 @@ namespace DGP.Snap.Services.Shell
                 Visible = true,
                 ContextMenu = new ContextMenu(new[]
                 {
-                    new MenuItem($"Snap Desktop {System.Windows.Forms.Application.ProductVersion}") {Enabled = false},
+                    new MenuItem($"Snap Desktop {Application.ProductVersion}") {Enabled = false},
+                    //new MenuItem("检查更新", async (sender, e) => await UpdateService.CheckUpdateAvailability()),
+                        //new MenuItem(TranslationHelper.Get("Icon_GetPlugin"),
+                        //    (sender, e) => Process.Start("https://github.com/QL-Win/QuickLook/wiki/Available-Plugins")),
+                        //_itemAutorun,
                     new MenuItem("-"),//分割线
-                    new MenuItem("检查更新", (sender, e) => UpdateService.CheckForUpdate()),
-                    //new MenuItem(TranslationHelper.Get("Icon_GetPlugin"),
-                    //    (sender, e) => Process.Start("https://github.com/QL-Win/QuickLook/wiki/Available-Plugins")),
-                    //_itemAutorun,
+                    new MenuItem("主页",(sender, e) => System.Windows.Application.Current.MainWindow.Show()),
+                    new MenuItem("壁纸",(sender, e) => WindowManager.WallpaperWindow.Show()),
                     new MenuItem("-"),//分割线
-                    new MenuItem("退出",
-                        (sender, e) => System.Windows.Application.Current.Shutdown())
+                    new MenuItem("退出",(sender, e) => System.Windows.Application.Current.Shutdown())
                 })
             };
 

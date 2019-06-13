@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO.Compression;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,24 +11,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DGP.Snap.Updater
+namespace DGP.Snap.Window.Wallpaper
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// WallpaperWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class WallpaperWindow : System.Windows.Window
     {
-        public MainWindow()
+        public WallpaperWindow()
         {
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
-            
+            e.Cancel = true;  // cancels the window close    
+            this.Hide();
+            base.OnClosing(e);
         }
     }
 }

@@ -1,0 +1,15 @@
+﻿<Window x:Class="DGP.Snap.Window.Wallpaper.WallpaperWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:local="clr-namespace:DGP.Snap.Window.Wallpaper"
+        mc:Ignorable="d"
+        Title="WallpaperWindow" Height="450" Width="800">
+    <Grid Background="#FFCBCBCB">
+        <ScrollViewer>
+            <WrapPanel x:Name="ImageGridView" HorizontalAlignment="Center" />
+        </ScrollViewer>
+    </Grid>
+</Window>

@@ -68,4 +68,12 @@ namespace DGP.Snap.Services.Update
         [JsonProperty("zipball_url")] public string Zipball_url { get; set; }
         [JsonProperty("body")] public string Body { get; set; }
     }
+
+    public enum UpdateAvailability
+    {
+        NeedUpdate=0,
+        IsNewestRelease=1,
+        IsInsiderVersion=2,
+        NotAvailable=3
+    }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DGP.Snap.Updater
+namespace DGP.Snap
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// SettingPage.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SettingPage : Page
     {
-        public MainWindow()
+        public SettingPage()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
         }
     }
 }

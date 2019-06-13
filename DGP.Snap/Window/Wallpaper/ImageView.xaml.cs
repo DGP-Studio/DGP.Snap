@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DGP.Snap.Updater
+namespace DGP.Snap.Window.Wallpaper
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// ImageView.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ImageView : UserControl
     {
-        public MainWindow()
+        public ImageView()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
         }
     }
 }
