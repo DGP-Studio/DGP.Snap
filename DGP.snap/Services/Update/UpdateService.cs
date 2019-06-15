@@ -26,7 +26,7 @@ namespace DGP.Snap.Services.Update
         {
             try
             {
-                Release release = await Json.GetWebRequestJsonObject<Release>("https://api.github.com/repos/DGP-Studio/DGP.Snap/releases/latest");
+                Release release = await Json.GetWebRequestJsonObjectAsync<Release>("https://api.github.com/repos/DGP-Studio/DGP.Snap/releases/latest");
 
                 var newVersion = release.Tag_name;
 

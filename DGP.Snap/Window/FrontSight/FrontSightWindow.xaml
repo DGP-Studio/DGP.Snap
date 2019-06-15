@@ -1,0 +1,22 @@
+﻿<Window x:Class="DGP.Snap.Window.FrontSight.FrontSightWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DGP.Snap.Window.FrontSight"
+        mc:Ignorable="d"
+        Topmost="True"
+        WindowStyle="None"
+        AllowsTransparency="true"
+        Background="#005D2929"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Title="FrontSightWindow" Height="130" Width="130">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" >
+        
+        <Image Source="pack://siteoforigin:,,,/Resources/FrontSight.png" RenderOptions.BitmapScalingMode="HighQuality" d:IsHidden="True" />
+        <Line X1="0" Y1="65" X2="150" Y2="65" StrokeThickness="1" Stroke="#FF42C554"></Line>
+        <Line X1="65" Y1="0" X2="65" Y2="150" StrokeThickness="1" Stroke="#FF42C554"></Line>
+        <Rectangle Stroke="#FF42C554" StrokeThickness="1" Fill="Transparent" Height="60" Width="60"/>
+    </Grid>
+</Window>

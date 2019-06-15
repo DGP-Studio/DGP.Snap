@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -26,9 +27,27 @@ namespace DGP.Snap.Window.Wallpaper
         }
         protected override void OnClosing(CancelEventArgs e)
         {
-            e.Cancel = true;  // cancels the window close    
-            this.Hide();
-            base.OnClosing(e);
+            GC.Collect();
+        }
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            //网络连接
+            await WallPaperService.GetBingImageUriCollectionAsync();
+            await WallPaperService.Get360ImageUriCollectionAsync();
+
+            //List<ImageView> uIElementCollection = new List<ImageView>();
+            //foreach(WallpaperInfo wallpaperInfo in WallPaperService.WallpaperInfos)
+            //{
+            //    uIElementCollection.Add(new ImageView(wallpaperInfo));
+            //}
+            //ImageGridView.ItemsSource = uIElementCollection;
+
+            foreach (WallpaperInfo wallpaperInfo in WallPaperService.WallpaperInfos)
+            {
+                ImageGridView.Children.Add(new ImageView(wallpaperInfo));
+            }
+
         }
     }
 }

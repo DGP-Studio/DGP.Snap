@@ -26,6 +26,20 @@ namespace DGP.Snap.Services.Shell
                 });
 
 
+        private MenuItem _itemFrontSight =
+            new MenuItem("辅助屏幕准星",
+            (sender, e)=>{
+                if (WindowManager.FrontSightWindow?.IsLoaded==null||WindowManager.FrontSightWindow?.IsLoaded==false)
+                {
+                    WindowManager.FrontSightWindow.Show();
+                    
+                }
+                else
+                {
+                    WindowManager.FrontSightWindow.Close();
+                }
+            });
+
 
         private TrayIconManager()
         {
@@ -45,16 +59,26 @@ namespace DGP.Snap.Services.Shell
                     new MenuItem("主页",(sender, e) => System.Windows.Application.Current.MainWindow.Show()),
                     new MenuItem("壁纸",(sender, e) => WindowManager.WallpaperWindow.Show()),
                     new MenuItem("-"),//分割线
+                    _itemFrontSight,
+                    new MenuItem("-"),//分割线
                     new MenuItem("退出",(sender, e) => System.Windows.Application.Current.Shutdown())
                 })
             };
 
-            _notifyIcon.ContextMenu.Popup += (sender, e) => { _itemAutorun.Checked = AutoStartupHelper.IsAutorun(); };//设置check
+            _notifyIcon.ContextMenu.Popup += 
+                (sender, e) => 
+                {
+                    _itemAutorun.Checked = AutoStartupHelper.IsAutorun();
+                    _itemFrontSight.Checked = WindowManager.IsFrontSightWindowShowing;
+                };//设置check
+
+
         }
 
         public void Dispose()
         {
             _itemAutorun.Dispose();
+            _itemFrontSight.Dispose();
             NotifyIcon.Visible = false;
         }
 

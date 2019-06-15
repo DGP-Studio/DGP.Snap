@@ -5,11 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:DGP.Snap.Window.Wallpaper"
+        xmlns:control="clr-namespace:DGP.Snap.Control"
         mc:Ignorable="d"
-        Title="WallpaperWindow" Height="450" Width="800">
+        Title="WallpaperWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid Background="#FFCBCBCB">
+        <!--<control:VirtualizingWrapPanel IsVirtualizing="True"  HorizontalAlignment="Center" />--><!--
+        <ListView  VirtualizingPanel.IsVirtualizing="True" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Center">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <control:VirtualizingWrapPanel HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>-->
         <ScrollViewer>
-            <WrapPanel x:Name="ImageGridView" HorizontalAlignment="Center" />
+            <WrapPanel HorizontalAlignment="Center" x:Name="ImageGridView" />
         </ScrollViewer>
+        
     </Grid>
 </Window>

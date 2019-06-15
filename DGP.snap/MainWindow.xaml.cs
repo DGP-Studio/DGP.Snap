@@ -29,7 +29,7 @@ namespace DGP.Snap
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.MainWindow.Hide();
+            Application.Current.MainWindow.Close();
         }
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)

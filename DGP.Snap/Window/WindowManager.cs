@@ -1,4 +1,5 @@
-﻿using DGP.Snap.Window.Wallpaper;
+﻿using DGP.Snap.Window.FrontSight;
+using DGP.Snap.Window.Wallpaper;
 
 namespace DGP.Snap.Window
 {
@@ -21,6 +22,23 @@ namespace DGP.Snap.Window
             }
 
         }
+
+
+
+
+        private static FrontSightWindow _frontSightWindow;
+        public static FrontSightWindow FrontSightWindow
+        {
+            get
+            {
+                if (_frontSightWindow == null || _frontSightWindow.IsLoaded == false)
+                {
+                    _frontSightWindow = new FrontSightWindow();
+                }
+                return _frontSightWindow;
+            }
+        }
+        public static bool IsFrontSightWindowShowing=false;
     }
 
 }

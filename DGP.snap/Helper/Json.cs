@@ -26,7 +26,7 @@ namespace DGP.Snap.Helper
                 return JsonConvert.SerializeObject(value, jsonSerializerSettings);
             });
         }
-        public static async Task<TRequestType> GetWebRequestJsonObject<TRequestType>(string requesturl)
+        public static async Task<TRequestType> GetWebRequestJsonObjectAsync<TRequestType>(string requesturl)
         {
             //WebRequest webRequest = WebRequest.CreateHttp
             

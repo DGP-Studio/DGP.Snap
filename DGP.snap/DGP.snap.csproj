@@ -84,6 +84,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Control\VirtualizingWrapPanel.cs" />
     <Compile Include="Helper\Extensions\FileExtensions.cs" />
     <Compile Include="Helper\Json.cs" />
     <Compile Include="Helper\Singleton.cs" />
@@ -117,9 +118,14 @@
     <Compile Include="SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window\FrontSight\FrontSightWindow.xaml.cs">
+      <DependentUpon>FrontSightWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\Wallpaper\ImageView.xaml.cs">
       <DependentUpon>ImageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window\Wallpaper\Model.cs" />
+    <Compile Include="Window\Wallpaper\WallpaperService.cs" />
     <Compile Include="Window\Wallpaper\WallpaperWindow.xaml.cs">
       <DependentUpon>WallpaperWindow.xaml</DependentUpon>
     </Compile>
@@ -141,6 +147,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SettingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\FrontSight\FrontSightWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -209,18 +223,15 @@
     <None Include="Resources\snapico.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DMSkin">
-      <Version>3.0.0.1000</Version>
-    </PackageReference>
-    <PackageReference Include="DMSkin.Core">
-      <Version>3.0.0.1000</Version>
-    </PackageReference>
     <PackageReference Include="MahApps.Metro">
       <Version>2.0.0-alpha0316</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.2</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FrontSight.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
