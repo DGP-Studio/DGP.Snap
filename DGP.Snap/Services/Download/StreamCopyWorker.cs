@@ -4,12 +4,12 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------------
 
+using FileDownloade.Logging;
 using System;
 using System.IO;
 using System.Threading;
-using FileDownloader.Logging;
 
-namespace FileDownloader
+namespace FileDownloade
 {
     internal class StreamCopyWorker : IStreamCopyWorker, IDisposable
     {
@@ -205,7 +205,7 @@ namespace FileDownloader
 
             try
             {
-                stream.Close();
+                //stream.Close();
                 stream.Dispose();
                 stream = null;
             }

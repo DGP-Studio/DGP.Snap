@@ -3,11 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        
         xmlns:local="clr-namespace:DGP.Snap.Updater"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <StackPanel Margin="24,0">
-        <TextBlock Text="Version:" Margin="0,12"/>
-        <Button Height="48" Content="检查更新" Click="Button_Click"/>
-    </StackPanel>
+        WindowStyle="None"
+        AllowsTransparency="True" 
+        Background="Black"
+        ShowInTaskbar="False"
+        ShowActivated="True"
+        Topmost="True"
+        Title="MainWindow" Height="200" Width="480"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,36,0,0">
+            <TextBlock Text="正在从包中提取 Snap Desktop 的文件"  Style="{StaticResource TitleTextBlockStyle}"/>
+            <TextBlock Text="一会就好" Style="{StaticResource BodyTextBlockStyle}" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+            <mah:ProgressRing Foreground="White" Margin="0,24,0,0" Width="36" Height="36" IsLarge="False"/>
+        </StackPanel>
+    </Grid>
 </Window>

@@ -6,7 +6,7 @@
 
 using System;
 
-namespace FileDownloader
+namespace FileDownloade
 {
     internal static class EventHandlerExtensions
     {

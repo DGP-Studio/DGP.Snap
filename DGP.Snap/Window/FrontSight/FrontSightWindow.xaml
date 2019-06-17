@@ -8,15 +8,21 @@
         Topmost="True"
         WindowStyle="None"
         AllowsTransparency="true"
-        Background="#005D2929"
+        Background="Transparent"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="FrontSightWindow" Height="130" Width="130">
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" >
-        
-        <Image Source="pack://siteoforigin:,,,/Resources/FrontSight.png" RenderOptions.BitmapScalingMode="HighQuality" d:IsHidden="True" />
-        <Line X1="0" Y1="65" X2="150" Y2="65" StrokeThickness="1" Stroke="#FF42C554"></Line>
-        <Line X1="65" Y1="0" X2="65" Y2="150" StrokeThickness="1" Stroke="#FF42C554"></Line>
-        <Rectangle Stroke="#FF42C554" StrokeThickness="1" Fill="Transparent" Height="60" Width="60"/>
+        Title="FrontSightWindow" Height="120" Width="120">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Resources/FrontSight.png" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Button HorizontalAlignment="Left"  Width="25"  Height="70" Style="{StaticResource DefaultButtonStyle}" x:Name="Left" Click="Left_Click"/>
+        <Button HorizontalAlignment="Right" Width="25"  Height="70" Style="{StaticResource DefaultButtonStyle}" x:Name="Right" Click="Right_Click"/>
+        <Button VerticalAlignment="Top"     Height="25" Width="70"  Style="{StaticResource DefaultButtonStyle}" x:Name="Top" Click="Top_Click"/>
+        <Button VerticalAlignment="Bottom"  Height="25" Width="70"  Style="{StaticResource DefaultButtonStyle}" x:Name="Bottom" Click="Bottom_Click"/>
+        <!--<Image Source="pack://siteoforigin:,,,/Resources/FrontSight.png" RenderOptions.BitmapScalingMode="HighQuality" />
+        <Line X1="0" Y1="65" X2="150" Y2="65" StrokeThickness="1" Stroke="#FF42C554" d:IsHidden="True"></Line>
+        <Line X1="65" Y1="0" X2="65" Y2="150" StrokeThickness="1" Stroke="#FF42C554" d:IsHidden="True"></Line>
+        <Rectangle Stroke="#FF42C554" StrokeThickness="1" Fill="Transparent" Height="60" Width="60" d:IsHidden="True"/>-->
     </Grid>
 </Window>

@@ -12,11 +12,12 @@ namespace DGP.Snap
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : System.Windows.Window
+    public partial class MainWindow : MetroWindow
     {
         public MainWindow()
         {
             InitializeComponent();
+            Services.Navigation.NavigationService.Navigate<HomePage>();
             Services.Navigation.NavigationService.Navigated += Frame_Navigated;
         }
 

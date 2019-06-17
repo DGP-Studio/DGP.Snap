@@ -6,7 +6,7 @@
 
 using System;
 
-namespace FileDownloader
+namespace FileDownloade
 {
     /// <summary>
     /// DownloadFileCompleted event args

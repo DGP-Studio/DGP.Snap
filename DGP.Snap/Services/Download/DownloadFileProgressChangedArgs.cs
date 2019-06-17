@@ -6,7 +6,7 @@
 
 using System.ComponentModel;
 
-namespace FileDownloader
+namespace FileDownloade
 {
     /// <summary>
     /// DownloadFileProgressChanged event args

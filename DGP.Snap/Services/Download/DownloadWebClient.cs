@@ -8,9 +8,9 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
-using FileDownloader.Logging;
+using FileDownloade.Logging;
 
-namespace FileDownloader
+namespace FileDownloade
 {
     [DesignerCategory("Code")]
     internal class DownloadWebClient : WebClient

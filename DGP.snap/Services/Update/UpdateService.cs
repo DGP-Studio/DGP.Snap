@@ -1,14 +1,10 @@
 ﻿using DGP.Snap.Helper;
-using DGP.Snap.Services.Shell;
-using DGP.Snap.Services.Update;
-using FileDownloader;
+using FileDownloade;
 using Microsoft.VisualBasic.Devices;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,6 +18,12 @@ namespace DGP.Snap.Services.Update
         /// </summary>
         public static Uri PackageUri { get; set; } = null;
 
+        /// <summary>
+        /// 不要在调用 <see cref="CheckUpdateAvailability()"/> 前使用，默认为<see cref="null"/>
+        /// </summary>
+        public static Version NewVersion { get; set; } = null;
+
+        public static Version CurrentVersion { get { return Assembly.GetExecutingAssembly().GetName().Version; } }
         public static async Task<UpdateAvailability> CheckUpdateAvailability()
         {
             try
@@ -29,18 +31,17 @@ namespace DGP.Snap.Services.Update
                 Release release = await Json.GetWebRequestJsonObjectAsync<Release>("https://api.github.com/repos/DGP-Studio/DGP.Snap/releases/latest");
 
                 var newVersion = release.Tag_name;
+                NewVersion = new Version(release.Tag_name);
 
-                if (new Version(newVersion) > Assembly.GetExecutingAssembly().GetName().Version)//有新版本
+                if (new Version(newVersion) > CurrentVersion)//有新版本
                 {
-                    
-                    Debug.WriteLine(newVersion);
+                    //Debug.WriteLine(newVersion);
                     PackageUri = new Uri(release.Assets[0].Browser_download_url);
                     return UpdateAvailability.NeedUpdate;
-
                 }
                 else
                 {
-                    if(new Version(newVersion) == Assembly.GetExecutingAssembly().GetName().Version)
+                    if(new Version(newVersion) == CurrentVersion)
                     {
                         //最新发行版
                         return UpdateAvailability.IsNewestRelease;
@@ -63,7 +64,9 @@ namespace DGP.Snap.Services.Update
 
         public static void DownloadAndInstallPackage()
         {
-            IFileDownloader fileDownloader = new FileDownloader.FileDownloader();
+            UpdateProgressWindow = new UpdateProgressWindow();//弹出下载更新窗口
+            UpdateProgressWindow.Show();
+            IFileDownloader fileDownloader = new FileDownloade.FileDownloader();
             fileDownloader.DownloadProgressChanged += OnDownloadProgressChanged;
             fileDownloader.DownloadFileCompleted += OnDownloadFileCompleted;
 
@@ -72,33 +75,37 @@ namespace DGP.Snap.Services.Update
             //directorySecurity.AddAccessRule(new FileSystemAccessRule(@"Everyone", FileSystemRights.FullControl, AccessControlType.Allow));
             //Directory.CreateDirectory(destinationPath);
             fileDownloader.DownloadFileAsync(PackageUri, destinationPath);
-
-            
         }
 
         internal static void OnDownloadProgressChanged(object sender, DownloadFileProgressChangedArgs args)
         {
-            double percent = ((double)args.BytesReceived/ args.TotalBytesToReceive)*100;
-            Debug.WriteLine("Downloaded {0}", percent);
+            double percent = Math.Round((double)args.BytesReceived/ args.TotalBytesToReceive*100,2);
+            UpdateProgressWindow.ProgressBar.IsIndeterminate = false;
+            UpdateProgressWindow.SetNewProgress(percent);
+            UpdateProgressWindow.ProgressIndicatorText.Text = $@"{percent}% - {args.BytesReceived/1024}B / {args.TotalBytesToReceive/1024}B";
         }
 
-        internal static async void OnDownloadFileCompleted(object sender, DownloadFileCompletedArgs eventArgs)
+        internal static void OnDownloadFileCompleted(object sender, DownloadFileCompletedArgs eventArgs)
         {
             if (eventArgs.State == CompletedState.Succeeded)
             {
                 //download completed
-                Debug.WriteLine("Downloaded Completed");
-                TrayIconManager.NotificationManager.ShowNotification("Snap Desktop", "下载完成,开始安装");
-                await Task.Run(() => { Thread.Sleep(3000); });
+                UpdateProgressWindow.SetNewProgress(100);
+                UpdateProgressWindow.ProgressIndicatorText.Text = "下载已完成，请稍候...";
+                Thread.Sleep(2000);
+                //await Task.Run(() => { Thread.Sleep(2000); });
 
-
+                UpdateProgressWindow.Close();
                 StartUpdateInstall();
+
             }
             else if (eventArgs.State == CompletedState.Failed)
             {
                 //download failed
             }
         }
+
+        private static UpdateProgressWindow UpdateProgressWindow { get; set; } = null;
 
         public static void StartUpdateInstall()
         {

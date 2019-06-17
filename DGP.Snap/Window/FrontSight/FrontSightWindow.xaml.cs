@@ -32,5 +32,25 @@ namespace DGP.Snap.Window.FrontSight
             WindowManager.IsFrontSightWindowShowing = false;
             base.OnClosing(e);
         }
+
+        private void Left_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Right_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Top_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Bottom_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

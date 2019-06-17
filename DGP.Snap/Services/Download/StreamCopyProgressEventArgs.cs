@@ -6,7 +6,7 @@
 
 using System;
 
-namespace FileDownloader
+namespace FileDownloade
 {
     internal class StreamCopyProgressEventArgs : EventArgs
     {

@@ -7,19 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DGP.Snap.Services.Activation
+namespace DGP.Snap.Services.Shell
 {
     internal class AutoStartupHelper
     {
+
         /// <summary>
         /// 快捷方式名称-任意自定义
         /// </summary>
         private const string ShortcutName = "DGP.Snap";
-
-        /// <summary>
-        /// 自动获取系统自动启动目录
-        /// </summary>
-        private static string SystemStartPath { get { return Environment.GetFolderPath(Environment.SpecialFolder.Startup); } }
 
         /// <summary>
         /// 自动获取程序完整路径
@@ -30,10 +26,10 @@ namespace DGP.Snap.Services.Activation
         /// 设置开机自动启动-只需要调用改方法就可以了参数里面的bool变量是控制开机启动的开关的，默认为开启自启启动
         /// </summary>
         /// <param name="IsAutoStart">自启开关</param>
-        public static void SwitchAutoStartState(bool IsAutoStart = true)
+        public static void SetAutoStartState(bool IsAutoStart = true)
         {
 
-            List<string> shortcutPaths = GetAppShortcutFromFolder(SystemStartPath, AppFullPath);
+            List<string> shortcutPaths = GetAppShortcutFromFolder(Environment.GetFolderPath(Environment.SpecialFolder.Startup), AppFullPath);
 
             if (IsAutoStart)//开机启动
             {
@@ -49,7 +45,7 @@ namespace DGP.Snap.Services.Activation
                 }
                 else if (shortcutPaths.Count < 1)//不存在则创建快捷方式
                 {
-                    CreateShortcut(SystemStartPath, ShortcutName, AppFullPath, "Snap Desktop");
+                    CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.Startup), ShortcutName, AppFullPath, "Snap Desktop");
                 }
             }
             else//IsOff//开机不启动
@@ -66,7 +62,7 @@ namespace DGP.Snap.Services.Activation
         }
         public static bool IsAutorun()
         {
-            List<string> shortcutPaths = GetAppShortcutFromFolder(SystemStartPath, AppFullPath);
+            List<string> shortcutPaths = GetAppShortcutFromFolder(Environment.GetFolderPath(Environment.SpecialFolder.Startup), AppFullPath);
 
             if (shortcutPaths.Count >= 1)//存在快捷方式，会开机自启
             {

@@ -1,7 +1,7 @@
 ﻿using DGP.Snap.Services.Shell;
 using DGP.Snap.Services.Update;
 using DGP.Snap.Window.Wallpaper;
-using FileDownloader;
+using FileDownloade;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -21,14 +21,15 @@ namespace DGP.Snap
     /// </summary>
     public partial class App : Application
     {
-        
+
 
         protected override async void OnStartup(StartupEventArgs e)
         {
-            //更新
-            UpdateAvailability updateAvailability = await UpdateService.CheckUpdateAvailability();
             //托盘图标
             TrayIconManager.GetInstance();
+
+            //更新
+            UpdateAvailability updateAvailability = await UpdateService.CheckUpdateAvailability();
 
             switch (updateAvailability)
             {
@@ -39,9 +40,7 @@ namespace DGP.Snap
                     TrayIconManager.NotificationManager.ShowNotification("Snap Desktop", "正常启动");
                     break;
                 case UpdateAvailability.NeedUpdate:
-                    TrayIconManager.NotificationManager.ShowNotification("Snap Desktop", "正在下载可用更新...");
-
-                    UpdateService.DownloadAndInstallPackage();
+                    TrayIconManager.NotificationManager.ShowNotification("Snap Desktop", "单击此通知以下载可用更新...", false, 5000, () => { UpdateService.DownloadAndInstallPackage(); });
                     break;
 
                 case UpdateAvailability.NotAvailable:
@@ -50,8 +49,6 @@ namespace DGP.Snap
             }
 
             base.OnStartup(e);
-            if(!Debugger.IsAttached)
-                AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
         }
 
         private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)

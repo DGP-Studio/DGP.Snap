@@ -7,7 +7,7 @@
 using System.Net;
 using System.Net.Mime;
 
-namespace FileDownloader
+namespace FileDownloade
 {
     internal static class WebHeaderCollectionExtensions
     {

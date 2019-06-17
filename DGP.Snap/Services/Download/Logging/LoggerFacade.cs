@@ -7,7 +7,7 @@
 using System;
 using System.Diagnostics;
 
-namespace FileDownloader.Logging
+namespace FileDownloade.Logging
 {
     internal class LoggerFacade : ILogger, IDisposable
     {

@@ -1,5 +1,8 @@
 ﻿using DGP.Snap.Window.FrontSight;
 using DGP.Snap.Window.Wallpaper;
+using System;
+using System.Reflection;
+using System.Windows;
 
 namespace DGP.Snap.Window
 {
@@ -24,8 +27,6 @@ namespace DGP.Snap.Window
         }
 
 
-
-
         private static FrontSightWindow _frontSightWindow;
         public static FrontSightWindow FrontSightWindow
         {
@@ -39,6 +40,20 @@ namespace DGP.Snap.Window
             }
         }
         public static bool IsFrontSightWindowShowing=false;
+
+        /// <summary>
+        /// 查找 <see cref="Application.Current.Windows"/> 中的对应 <see cref="TWindow"/> 类型的 Window
+        /// </summary>
+        /// <returns>未找到返回新实例</returns>
+        public static System.Windows.Window FindWindow<TWindow>()
+        {
+            foreach(System.Windows.Window window in Application.Current.Windows)
+            {
+                if (window.GetType() == typeof(TWindow))
+                    return window;
+            }
+            return (System.Windows.Window)typeof(TWindow).Assembly.CreateInstance(typeof(TWindow).FullName);
+        }
     }
 
 }

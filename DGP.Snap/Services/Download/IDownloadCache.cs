@@ -7,7 +7,7 @@
 using System;
 using System.Net;
 
-namespace FileDownloader
+namespace FileDownloade
 {
     /// <summary>
     /// IDownloadCache interface

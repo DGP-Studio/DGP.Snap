@@ -4,7 +4,7 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------------
 
-namespace FileDownloader.Logging
+namespace FileDownloade.Logging
 {
     internal interface ILogger
     {

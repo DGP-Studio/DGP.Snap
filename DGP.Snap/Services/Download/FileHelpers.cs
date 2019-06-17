@@ -6,9 +6,9 @@
 
 using System;
 using System.IO;
-using FileDownloader.Logging;
+using FileDownloade.Logging;
 
-namespace FileDownloader
+namespace FileDownloade
 {
     internal static class FileHelpers
     {

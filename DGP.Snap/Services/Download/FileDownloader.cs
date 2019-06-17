@@ -9,9 +9,9 @@ using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Threading;
-using FileDownloader.Logging;
+using FileDownloade.Logging;
 
-namespace FileDownloader
+namespace FileDownloade
 {
     /// <summary>
     /// Class used for downloading files. The .NET WebClient is used for downloading.
@@ -754,7 +754,7 @@ namespace FileDownloader
                 try
                 {
                     var fileHandle = File.Open(fileName, FileMode.Open, FileAccess.Read);
-                    fileHandle.Close();
+                    //fileHandle.Close();
                     fileHandle.Dispose();
                     Thread.Sleep(500);
                     return;

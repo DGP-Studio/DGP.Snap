@@ -4,7 +4,7 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------------
 
-namespace FileDownloader
+namespace FileDownloade
 {
     /// <summary>
     /// Downloaded completed states

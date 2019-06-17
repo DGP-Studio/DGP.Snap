@@ -26,19 +26,23 @@ namespace DGP.Snap.Helper
                 return JsonConvert.SerializeObject(value, jsonSerializerSettings);
             });
         }
-        public static async Task<TRequestType> GetWebRequestJsonObjectAsync<TRequestType>(string requesturl)
-        {
-            //WebRequest webRequest = WebRequest.CreateHttp
-            
 
-            
-            HttpWebRequest request = (HttpWebRequest)WebRequest.CreateHttp(requesturl);
+        /// <summary>
+        /// 向指定 <paramref name="requestUrl"/> 的服务器请求Json数据，并将结果返回为类型为 <typeparamref name="TRequestType"/> 的实例
+        /// </summary>
+        /// <typeparam name="TRequestType"></typeparam>
+        /// <param name="requestUrl"></param>
+        /// <returns></returns>
+        public static async Task<TRequestType> GetWebRequestJsonObjectAsync<TRequestType>(string requestUrl)
+        {
+            HttpWebRequest request = WebRequest.CreateHttp(requestUrl);
             request.Proxy = WebRequest.DefaultWebProxy;
             request.Credentials = CredentialCache.DefaultCredentials;
             request.Method = "GET";
             request.ContentType = "application/json;charset=UTF-8";
             //request.Headers.Add(HttpRequestHeader.UserAgent, "Wget/1.9.1");
             request.UserAgent = "Wget/1.9.1";
+            request.Timeout = 5000;
             string jsonMetaString;
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())//获取响应
             {

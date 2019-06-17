@@ -1,5 +1,4 @@
 ﻿using DGP.Snap.Properties;
-using DGP.Snap.Services.Activation;
 using DGP.Snap.Window;
 using DGP.Snap.Window.Wallpaper;
 using System;
@@ -20,9 +19,9 @@ namespace DGP.Snap.Services.Shell
                 (sender, e) =>
                 {
                     if (AutoStartupHelper.IsAutorun())
-                        AutoStartupHelper.SwitchAutoStartState(false);
+                        AutoStartupHelper.SetAutoStartState(false);
                     else
-                        AutoStartupHelper.SwitchAutoStartState(true);
+                        AutoStartupHelper.SetAutoStartState(true);
                 });
 
 
@@ -40,7 +39,9 @@ namespace DGP.Snap.Services.Shell
                 }
             });
 
-
+        /// <summary>
+        /// private的原因是为了防止利用 <see cref="TrayIconManager()"/> 构造函数生成多个实例
+        /// </summary>
         private TrayIconManager()
         {
             _notifyIcon = new NotifyIcon
@@ -48,6 +49,7 @@ namespace DGP.Snap.Services.Shell
                 Text = "Snap Desktop",/*string.Format(TranslationHelper.Get("Icon_ToolTip"),*/
                 Icon = GetTrayIconInResources(),
                 Visible = true,
+                
                 ContextMenu = new ContextMenu(new[]
                 {
                     new MenuItem($"Snap Desktop {Application.ProductVersion}") {Enabled = false},
@@ -56,8 +58,8 @@ namespace DGP.Snap.Services.Shell
                         //    (sender, e) => Process.Start("https://github.com/QL-Win/QuickLook/wiki/Available-Plugins")),
                         //_itemAutorun,
                     new MenuItem("-"),//分割线
-                    new MenuItem("主页",(sender, e) => System.Windows.Application.Current.MainWindow.Show()),
-                    new MenuItem("壁纸",(sender, e) => WindowManager.WallpaperWindow.Show()),
+                    new MenuItem("主页",(sender, e) => WindowManager.FindWindow<MainWindow>().Show()/*System.Windows.Application.Current.MainWindow.Show()*/),
+                    new MenuItem("壁纸",(sender, e) => WindowManager.FindWindow<WallpaperWindow>().Show()),
                     new MenuItem("-"),//分割线
                     _itemFrontSight,
                     new MenuItem("-"),//分割线
@@ -71,8 +73,6 @@ namespace DGP.Snap.Services.Shell
                     _itemAutorun.Checked = AutoStartupHelper.IsAutorun();
                     _itemFrontSight.Checked = WindowManager.IsFrontSightWindowShowing;
                 };//设置check
-
-
         }
 
         public void Dispose()
@@ -108,6 +108,7 @@ namespace DGP.Snap.Services.Shell
                     icon.BalloonTipClosed -= OnIconOnBalloonTipClosed;
                 }
             }
+
         }
         public static TrayIconManager GetInstance()
         {
