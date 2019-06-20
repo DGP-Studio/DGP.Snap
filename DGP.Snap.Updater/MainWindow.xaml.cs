@@ -32,7 +32,6 @@ namespace DGP.Snap.Updater
                     }
                 }
             }
-
             Process.Start("DGP.Snap.exe");
             Application.Current.Shutdown();
         }

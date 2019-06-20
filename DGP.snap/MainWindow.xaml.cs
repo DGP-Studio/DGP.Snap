@@ -1,4 +1,4 @@
-﻿using DGP.Snap.Services.Navigation;
+﻿using DGP.Snap.Service.Navigation;
 using MahApps.Metro.Controls;
 using System;
 using System.Linq;
@@ -17,8 +17,8 @@ namespace DGP.Snap
         public MainWindow()
         {
             InitializeComponent();
-            Services.Navigation.NavigationService.Navigate<HomePage>();
-            Services.Navigation.NavigationService.Navigated += Frame_Navigated;
+            Service.Navigation.NavigationService.Navigate<HomePage>();
+            Service.Navigation.NavigationService.Navigated += Frame_Navigated;
         }
 
         private void Frame_Navigated(object sender, NavigationEventArgs e)
@@ -42,7 +42,7 @@ namespace DGP.Snap
         {
             if (args.IsItemOptions)
             {
-                Services.Navigation.NavigationService.Navigate<SettingPage>();
+                Service.Navigation.NavigationService.Navigate<InformationPage>();
                 return;
             }
 
@@ -51,20 +51,11 @@ namespace DGP.Snap
                             .First(menuItem => menuItem.Label == ((HamburgerMenuItem)args.InvokedItem).Label);
 
             var pageType = item.GetValue(NavHelper.NavigateToProperty) as Type;
-            Services.Navigation.NavigationService.Navigate(pageType);
+            Service.Navigation.NavigationService.Navigate(pageType);
         }
 
-        private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Window_StateChanged(object sender, EventArgs e)
         {
 
         }

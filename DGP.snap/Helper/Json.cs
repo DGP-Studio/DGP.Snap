@@ -35,6 +35,15 @@ namespace DGP.Snap.Helper
         /// <returns></returns>
         public static async Task<TRequestType> GetWebRequestJsonObjectAsync<TRequestType>(string requestUrl)
         {
+            return await Task.Run(async () =>
+            {
+                 string jsonMetaString = GetWebResponse(requestUrl);
+                return await ToObjectAsync<TRequestType>(jsonMetaString);
+            });
+        }
+
+        private static string GetWebResponse(string requestUrl)
+        {
             HttpWebRequest request = WebRequest.CreateHttp(requestUrl);
             request.Proxy = WebRequest.DefaultWebProxy;
             request.Credentials = CredentialCache.DefaultCredentials;
@@ -42,7 +51,7 @@ namespace DGP.Snap.Helper
             request.ContentType = "application/json;charset=UTF-8";
             //request.Headers.Add(HttpRequestHeader.UserAgent, "Wget/1.9.1");
             request.UserAgent = "Wget/1.9.1";
-            request.Timeout = 5000;
+            //request.Timeout = 5000;
             string jsonMetaString;
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())//获取响应
             {
@@ -51,7 +60,8 @@ namespace DGP.Snap.Helper
                     jsonMetaString = responseStreamReader.ReadToEnd();
                 }
             }
-            return await ToObjectAsync<TRequestType>(jsonMetaString);
+
+            return jsonMetaString;
         }
     }
 }

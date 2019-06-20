@@ -121,6 +121,18 @@
   <data name="FrontSight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FrontSight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="MahApps_Metro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MahApps.Metro.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NetFileDownloader" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NetFileDownloader.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Newtonsoft_Json" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Newtonsoft.Json.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QuickLook" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QuickLook.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Snapico" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\snapico.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

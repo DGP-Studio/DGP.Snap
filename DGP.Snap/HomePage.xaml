@@ -4,13 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DGP.Snap"
+      xmlns:hc="https://handyorg.github.io/handycontrol"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="HomePage">
 
     <Grid>
-        <TextBlock Foreground="White" Style="{StaticResource HeaderTextBlockStyle}"  HorizontalAlignment="Center" VerticalAlignment="Center">
-            主页
-        </TextBlock>
+        <ScrollViewer Width="280" HorizontalAlignment="Right" VerticalScrollBarVisibility="Hidden">
+            <StackPanel  Margin="0"></StackPanel>
+        </ScrollViewer>
+        
     </Grid>
 </Page>

@@ -35,22 +35,22 @@ namespace DGP.Snap.Window.FrontSight
 
         private void Left_Click(object sender, RoutedEventArgs e)
         {
-            
+            Left -= 1;
         }
 
         private void Right_Click(object sender, RoutedEventArgs e)
         {
-
+            Left += 1;
         }
 
         private void Top_Click(object sender, RoutedEventArgs e)
         {
-
+            Top -= 1;
         }
 
         private void Bottom_Click(object sender, RoutedEventArgs e)
         {
-
+            Top += 1;
         }
     }
 }

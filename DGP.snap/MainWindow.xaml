@@ -6,7 +6,9 @@
         mc:Ignorable="d"
         xmlns:local="clr-namespace:DGP.Snap"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:helpers="clr-namespace:DGP.Snap.Services.Navigation"
+        xmlns:helpers="clr-namespace:DGP.Snap.Service.Navigation"
+                 Height="450"
+                 Width="800"
         ResizeMode="CanResize"
         IsWindowDraggable="True"
                  ShowMinButton="True"
@@ -17,7 +19,10 @@
         TitleCharacterCasing="Normal"
         TitleBarHeight="30"
         Background="Black"
-        SnapsToDevicePixels="True" Icon="Resources/snapico.ico"  
+        SnapsToDevicePixels="True" 
+                 Icon="Resources/snapico.ico"  
+                 MinWidth="800"
+                 MinHeight="450"
         >
     <mah:MetroWindow.Resources>
 
@@ -617,23 +622,25 @@
             PaneBackground="#FF2E2E2E"
             SelectedIndex="0"
             ItemInvoked="NavigationView_ItemInvoked"
-            DisplayMode="CompactOverlay"
             OpenPaneLength="240" 
             CompactPaneLength="40"
             Style="{DynamicResource HamburgerMenuStyle}"
             ShowSelectionIndicator="True" 
             Margin="0"
+            DisplayMode="CompactInline"
             >
             <mah:HamburgerMenu.ItemsSource>
                 <mah:HamburgerMenuItemCollection>
-                    <mah:HamburgerMenuIconItem Label="主页" Icon="&#xE80F;" helpers:NavHelper.NavigateTo="{x:Type local:HomePage}"/>
+                    <mah:HamburgerMenuIconItem Label="通知" Icon="&#xE7E7;" helpers:NavHelper.NavigateTo="{x:Type local:HomePage}"/>
+                    <mah:HamburgerMenuIconItem Label="设置" Icon="&#xE15F;"/>
                     <!--<mah:HamburgerMenuIconItem Label="倒计时" Icon="&#xE916;" helpers:NavHelper.NavigateTo="{x:Type pages:CountdownPage}" />-->
                 </mah:HamburgerMenuItemCollection>
             </mah:HamburgerMenu.ItemsSource>
 
             <mah:HamburgerMenu.OptionsItemsSource>
                 <mah:HamburgerMenuItemCollection>
-                    <mah:HamburgerMenuIconItem Label="设置" Icon="&#xE713;"/>
+                    <!--这里可以不用helper-->
+                    <mah:HamburgerMenuIconItem Label="组件信息" Icon="&#xEA86;"/>
                 </mah:HamburgerMenuItemCollection>
             </mah:HamburgerMenu.OptionsItemsSource>
 

@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>DGP.Snap</RootNamespace>
     <AssemblyName>DGP.Snap</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -29,6 +29,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -39,7 +40,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -87,50 +89,50 @@
     </ApplicationDefinition>
     <Compile Include="Helper\Json.cs" />
     <Compile Include="Helper\Singleton.cs" />
+    <Compile Include="Helper\Xml.cs" />
     <Compile Include="HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\Shell\AutoStartupHelper.cs" />
-    <Compile Include="Services\Download\CompletedState.cs" />
-    <Compile Include="Services\Download\DownloadFileCompletedArgs.cs" />
-    <Compile Include="Services\Download\DownloadFileProgressChangedArgs.cs" />
-    <Compile Include="Services\Download\DownloadWebClient.cs" />
-    <Compile Include="Services\Download\EventHandlerExtensions.cs" />
-    <Compile Include="Services\Download\FileDownloader.cs" />
-    <Compile Include="Services\Download\FileHelpers.cs" />
-    <Compile Include="Services\Download\IDnsFallbackResolver.cs" />
-    <Compile Include="Services\Download\IDownloadCache.cs" />
-    <Compile Include="Services\Download\IFileDownloader.cs" />
-    <Compile Include="Services\Download\Logging\ILogger.cs" />
-    <Compile Include="Services\Download\IStreamCopyWorker.cs" />
-    <Compile Include="Services\Download\Logging\LoggerFacade.cs" />
-    <Compile Include="Services\Download\StreamCopyCompleteEventArgs.cs" />
-    <Compile Include="Services\Download\StreamCopyProgressEventArgs.cs" />
-    <Compile Include="Services\Download\StreamCopyWorker.cs" />
-    <Compile Include="Services\Download\WebHeaderCollectionExtensions.cs" />
-    <Compile Include="Services\Navigation\NavHelper.cs" />
-    <Compile Include="Services\Navigation\NavigationService.cs" />
-    <Compile Include="Services\Shell\TrayIconManager.cs" />
-    <Compile Include="Services\Update\Model.cs" />
-    <Compile Include="Services\Update\UpdateProgressWindow.xaml.cs">
+    <Compile Include="Service\Kernel\GCHelper.cs" />
+    <Compile Include="Service\Shell\AutoStartupHelper.cs" />
+    <Compile Include="Service\Download\CompletedState.cs" />
+    <Compile Include="Service\Download\DownloadFileCompletedArgs.cs" />
+    <Compile Include="Service\Download\DownloadFileProgressChangedArgs.cs" />
+    <Compile Include="Service\Download\DownloadWebClient.cs" />
+    <Compile Include="Service\Download\EventHandlerExtensions.cs" />
+    <Compile Include="Service\Download\FileDownloader.cs" />
+    <Compile Include="Service\Download\FileHelpers.cs" />
+    <Compile Include="Service\Download\IDnsFallbackResolver.cs" />
+    <Compile Include="Service\Download\IDownloadCache.cs" />
+    <Compile Include="Service\Download\IFileDownloader.cs" />
+    <Compile Include="Service\Download\Logging\ILogger.cs" />
+    <Compile Include="Service\Download\IStreamCopyWorker.cs" />
+    <Compile Include="Service\Download\Logging\LoggerFacade.cs" />
+    <Compile Include="Service\Download\StreamCopyCompleteEventArgs.cs" />
+    <Compile Include="Service\Download\StreamCopyProgressEventArgs.cs" />
+    <Compile Include="Service\Download\StreamCopyWorker.cs" />
+    <Compile Include="Service\Download\WebHeaderCollectionExtensions.cs" />
+    <Compile Include="Service\Navigation\NavHelper.cs" />
+    <Compile Include="Service\Navigation\NavigationService.cs" />
+    <Compile Include="Service\Shell\TrayIconManager.cs" />
+    <Compile Include="Service\Update\Model.cs" />
+    <Compile Include="Service\Update\UpdateProgressWindow.xaml.cs">
       <DependentUpon>UpdateProgressWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\Update\UpdateService.cs" />
-    <Compile Include="SettingPage.xaml.cs">
-      <DependentUpon>SettingPage.xaml</DependentUpon>
+    <Compile Include="Service\Update\UpdateService.cs" />
+    <Compile Include="InformationPage.xaml.cs">
+      <DependentUpon>InformationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Window\FrontSight\FrontSightSettingWindow.cs" />
     <Compile Include="Window\FrontSight\FrontSightWindow.xaml.cs">
       <DependentUpon>FrontSightWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Window\Wallpaper\ImageView.xaml.cs">
-      <DependentUpon>ImageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window\Wallpaper\Model.cs" />
     <Compile Include="Window\Wallpaper\WallpaperService.cs" />
     <Compile Include="Window\Wallpaper\WallpaperWindow.xaml.cs">
       <DependentUpon>WallpaperWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window\Weather\Model.cs" />
+    <Compile Include="Window\Weather\WeatherService.cs" />
     <Compile Include="Window\WindowManager.cs" />
     <Page Include="HomePage.xaml">
       <SubType>Designer</SubType>
@@ -148,19 +150,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Services\Update\UpdateProgressWindow.xaml">
+    <Page Include="Service\Update\UpdateProgressWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SettingPage.xaml">
+    <Page Include="InformationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window\FrontSight\FrontSightWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Window\Wallpaper\ImageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -187,6 +185,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -206,8 +205,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helper\Extensions\" />
-    <Folder Include="NativeMethods\" />
-    <Folder Include="Services\Kernel\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="IWshRuntimeLibrary">
@@ -239,6 +236,24 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="snapico.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MahApps.Metro.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Newtonsoft.Json.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\NetFileDownloader.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\QuickLook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DGP.Snap.UI\DGP.Snap.UI.csproj">
+      <Project>{454c50cd-f0eb-4702-a222-15f8ce72b21e}</Project>
+      <Name>DGP.Snap.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

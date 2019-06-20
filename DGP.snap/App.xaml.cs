@@ -1,17 +1,9 @@
-﻿using DGP.Snap.Services.Shell;
-using DGP.Snap.Services.Update;
-using DGP.Snap.Window.Wallpaper;
-using FileDownloade;
+﻿using DGP.Snap.Helper;
+using DGP.Snap.Service.Shell;
+using DGP.Snap.Service.Update;
+using DGP.Snap.Window.Weather;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Security.AccessControl;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace DGP.Snap
@@ -27,36 +19,34 @@ namespace DGP.Snap
         {
             //托盘图标
             TrayIconManager.GetInstance();
-
             //更新
             UpdateAvailability updateAvailability = await UpdateService.CheckUpdateAvailability();
 
             switch (updateAvailability)
             {
                 case UpdateAvailability.IsInsiderVersion:
-                    TrayIconManager.NotificationManager.ShowNotification("Snap Desktop", "你正在运行 Snap Desktop 的测试版本");
+                    TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "开发版 Snap Desktop");
                     break;
                 case UpdateAvailability.IsNewestRelease:
-                    TrayIconManager.NotificationManager.ShowNotification("Snap Desktop", "正常启动");
+                    TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "欢迎");
                     break;
                 case UpdateAvailability.NeedUpdate:
-                    TrayIconManager.NotificationManager.ShowNotification("Snap Desktop", "单击此通知以下载可用更新...", false, 5000, () => { UpdateService.DownloadAndInstallPackage(); });
+                    TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "单击此通知以下载可用更新...", () => { UpdateService.DownloadAndInstallPackage(); });
                     break;
 
                 case UpdateAvailability.NotAvailable:
-                    TrayIconManager.NotificationManager.ShowNotification("Snap Desktop", "检查更新失败...");
+                    TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "检查更新失败...");
                     break;
             }
 
             base.OnStartup(e);
+            
         }
 
         private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Debug.WriteLine(e.ExceptionObject.ToString());
         }
-
-        //public static readonly string AppFullPath = Assembly.GetExecutingAssembly().Location;
 
         protected override void OnExit(ExitEventArgs e)
         {

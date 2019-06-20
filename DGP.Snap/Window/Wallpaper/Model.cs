@@ -10,10 +10,10 @@ namespace DGP.Snap.Window.Wallpaper
     /// <summary>
     /// 定义壁纸的共有基本信息与操作类型
     /// </summary>
-    public class WallpaperInfo
+    public class Wallpaper
     {
-        public Uri ThumbnailUri;
-        public string Description;
+        public Uri Uri { get; set; }
+        public string Description { get; set; }
     }
 
     public class ThreeSixZeroWallpaperJsonObject
