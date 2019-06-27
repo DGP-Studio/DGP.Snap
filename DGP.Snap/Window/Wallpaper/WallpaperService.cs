@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,8 +19,16 @@ namespace DGP.Snap.Window.Wallpaper
         {
             if (WallpaperInfos.Count < 1)
             {
-                await GetBingImageUriCollectionAsync();
-                await Get360ImageUriCollectionAsync();
+                //网络问题
+                try
+                {
+                    await GetBingImageUriCollectionAsync();
+                    await Get360ImageUriCollectionAsync();
+                }
+                catch (WebException)
+                {
+
+                }
             }
         }
 

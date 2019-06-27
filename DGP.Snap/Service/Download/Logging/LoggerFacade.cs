@@ -7,7 +7,7 @@
 using System;
 using System.Diagnostics;
 
-namespace FileDownload.Logging
+namespace DGP.Snap.Service.Download.Logging
 {
     internal class LoggerFacade : ILogger, IDisposable
     {

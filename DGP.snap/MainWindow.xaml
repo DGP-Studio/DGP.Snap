@@ -1,28 +1,29 @@
-﻿<mah:MetroWindow x:Class="DGP.Snap.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
-        xmlns:local="clr-namespace:DGP.Snap"
-        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:helpers="clr-namespace:DGP.Snap.Service.Navigation"
-                 Height="450"
-                 Width="800"
-        ResizeMode="CanResize"
-        IsWindowDraggable="True"
-                 ShowMinButton="True"
-                 ShowMaxRestoreButton="True"
-                 ShowSystemMenu="True"
-        Title="Snap Desktop" 
-        WindowStartupLocation="CenterScreen"
-        TitleCharacterCasing="Normal"
-        TitleBarHeight="30"
-        Background="Black"
-        SnapsToDevicePixels="True" 
-                 Icon="Resources/snapico.ico"  
-                 MinWidth="800"
-                 MinHeight="450"
+﻿<mah:MetroWindow 
+    x:Class="DGP.Snap.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:local="clr-namespace:DGP.Snap"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:helpers="clr-namespace:DGP.Snap.Service.Navigation"
+    Height="450"
+    Width="800"
+    ResizeMode="CanResize"
+    IsWindowDraggable="True"
+    ShowMinButton="True"
+    ShowMaxRestoreButton="True"
+    ShowSystemMenu="True"
+    Title="操作中心" 
+    WindowStartupLocation="CenterScreen"
+    TitleCharacterCasing="Normal"
+    TitleBarHeight="30"
+    Background="Black"
+    SnapsToDevicePixels="True" 
+    Icon="Resources/SnapNewIcon.ico"  
+    MinWidth="800"
+    MinHeight="450"
         >
     <mah:MetroWindow.Resources>
 
@@ -631,9 +632,8 @@
             >
             <mah:HamburgerMenu.ItemsSource>
                 <mah:HamburgerMenuItemCollection>
-                    <mah:HamburgerMenuIconItem Label="通知" Icon="&#xE7E7;" helpers:NavHelper.NavigateTo="{x:Type local:HomePage}"/>
-                    <mah:HamburgerMenuIconItem Label="设置" Icon="&#xE15F;"/>
-                    <!--<mah:HamburgerMenuIconItem Label="倒计时" Icon="&#xE916;" helpers:NavHelper.NavigateTo="{x:Type pages:CountdownPage}" />-->
+                    <mah:HamburgerMenuIconItem Label="通知" Icon="&#xE7E7;" helpers:NavHelper.NavigateTo="{x:Type local:NotificationPage}"/>
+                    <!--<mah:HamburgerMenuIconItem Label="设置" Icon="&#xE713;"/>-->
                 </mah:HamburgerMenuItemCollection>
             </mah:HamburgerMenu.ItemsSource>
 

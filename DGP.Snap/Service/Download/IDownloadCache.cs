@@ -7,7 +7,7 @@
 using System;
 using System.Net;
 
-namespace FileDownload
+namespace DGP.Snap.Service.Download
 {
     /// <summary>
     /// IDownloadCache interface

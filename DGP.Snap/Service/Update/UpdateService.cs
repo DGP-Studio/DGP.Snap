@@ -1,5 +1,6 @@
 ﻿using DGP.Snap.Helper;
-using FileDownload;
+using DGP.Snap.Service.Download;
+using DGP.Snap.Service.Shell;
 using Microsoft.VisualBasic.Devices;
 using System;
 using System.Diagnostics;
@@ -118,6 +119,27 @@ namespace DGP.Snap.Service.Update
 
             Process.Start("OldUpdater.exe");
             Application.Current.Shutdown();
+        }
+
+        public static async Task HandleUpdateCheck()
+        {
+            UpdateAvailability updateAvailability = await CheckUpdateAvailability();
+            switch (updateAvailability)
+            {
+                case UpdateAvailability.IsInsiderVersion:
+                    TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "开发版 Snap Desktop");
+                    break;
+                case UpdateAvailability.IsNewestRelease:
+                    TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "欢迎");
+                    break;
+                case UpdateAvailability.NeedUpdate:
+                    TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "单击此通知以下载可用更新...", () => { DownloadAndInstallPackage(); });
+                    break;
+
+                case UpdateAvailability.NotAvailable:
+                    TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "检查更新失败...");
+                    break;
+            }
         }
     }
 

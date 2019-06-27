@@ -4,7 +4,7 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------------
 
-namespace FileDownload.Logging
+namespace DGP.Snap.Service.Download.Logging
 {
     internal interface ILogger
     {

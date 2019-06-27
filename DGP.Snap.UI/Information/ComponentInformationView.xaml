@@ -1,9 +1,8 @@
-﻿<UserControl x:Class="DGP.Snap.UI.ComponentInformationView"
+﻿<UserControl x:Class="DGP.Snap.UI.Information.ComponentInformationView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DGP.Snap.UI"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="48" d:DesignWidth="800" Margin="16,16,16,0">
     <UserControl.Resources>

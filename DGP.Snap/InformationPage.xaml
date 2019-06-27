@@ -4,10 +4,11 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DGP.Snap"
-      xmlns:ui="clr-namespace:DGP.Snap.UI;assembly=DGP.Snap.UI"
+      xmlns:update="clr-namespace:DGP.Snap.Service.Update"
+      xmlns:ui="clr-namespace:DGP.Snap.UI.Information;assembly=DGP.Snap.UI"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="800"
-      MinWidth="780"
+      d:DesignHeight="800" d:DesignWidth="760"
+      MinWidth="760"
       Title="SettingPage"
       SnapsToDevicePixels="True"
       UseLayoutRounding="True">
@@ -16,30 +17,13 @@
         <ScrollViewer>
             <StackPanel>
                 <TextBlock Text="本程序" Margin="24,16,16,0" Grid.Column="1" Foreground="Black" Style="{StaticResource SubtitleTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <Grid Background="White" Margin="16,16,16,0">
-                    <Grid.Effect>
-                        <DropShadowEffect ShadowDepth="0" BlurRadius="10" Opacity="0.6" />
-                    </Grid.Effect>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="240"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Grid.Column="0" Height="48" Source="Resources/snaplogoblack.png" HorizontalAlignment="Left"/>
-
-                    <TextBlock Text="DGP.Snap" Margin="8,4,0,0" Grid.Column="1" Foreground="Black" Style="{StaticResource BaseTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <TextBlock Text="DGP Studio" Margin="8,0,0,4" Grid.Column="1" Foreground="#CC000000" Style="{StaticResource CaptionTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-
-                    <TextBlock Text="The Snap Desktop" Grid.Column="2" Foreground="Black" Margin="8,4,0,0" Style="{StaticResource BodyTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Grid.Column="2" Margin="8,0,0,4" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                        <Hyperlink NavigateUri="https://github.com/DGP-Studio/DGP.Snap" Click="OnHyperLinkInvoked" RequestNavigate="OnHyperlinkRequestNavigate">
-                            Github Repository
-                        </Hyperlink>
-                        <Hyperlink NavigateUri="https://github.com/DGP-Studio/DGP.Snap/blob/master/LICENSE.md" Click="OnHyperLinkInvoked" RequestNavigate="OnHyperlinkRequestNavigate">
-                            MIT License
-                        </Hyperlink>
-                    </TextBlock>
-                </Grid>
+                <ui:ComponentInformationView 
+                    ComponentImageSource="/Resources/SnapNewLogo.png" 
+                    ComponentName="DGP.Snap" 
+                    ComponentAuthor="DGP Studio" 
+                    ComponentDescription="The Snap Desktop"
+                    ComponentRepositoryUri="https://github.com/DGP-Studio/DGP.Snap"
+                    ComponentLicenseUri="https://github.com/DGP-Studio/DGP.Snap/blob/master/LICENSE.md"/>
                 <TextBlock Text="第三方组件" Margin="24,16,16,0" Grid.Column="1" Foreground="Black" Style="{StaticResource SubtitleTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 <ui:ComponentInformationView 
                     ComponentImageSource="Resources/MahApps.Metro.png" 
@@ -59,14 +43,15 @@
                     ComponentImageSource="Resources/NetFileDownloader.png"
                     ComponentName=".NetFileDownloader"
                     ComponentAuthor="Avira"
-                    ComponentDescription="This repository has been merged into our project."
+                    ComponentDescription="This repository has been entirely merged into our project."
                     ComponentRepositoryUri="https://github.com/Avira/.NetFileDownloader"
                     ComponentLicenseUri="https://github.com/Avira/.NetFileDownloader/blob/master/LICENSE"/>
+                
                 <ui:ComponentInformationView 
                     ComponentImageSource="Resources/QuickLook.png"
                     ComponentName="QuickLook"
                     ComponentAuthor="QL-Win"
-                    ComponentDescription="This repository gives us inspiration."
+                    ComponentDescription="This repository has been partially merged into our project."
                     ComponentRepositoryUri="https://github.com/QL-Win/QuickLook"
                     ComponentLicenseUri="https://github.com/QL-Win/QuickLook/blob/master/LICENSE-GPL.txt"/>
             </StackPanel>

@@ -6,9 +6,9 @@
 
 using System;
 using System.IO;
-using FileDownload.Logging;
+using DGP.Snap.Service.Download.Logging;
 
-namespace FileDownload
+namespace DGP.Snap.Service.Download
 {
     internal static class FileHelpers
     {

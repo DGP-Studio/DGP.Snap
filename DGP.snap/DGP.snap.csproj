@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>DGP.Snap</RootNamespace>
     <AssemblyName>DGP.Snap</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -59,7 +59,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ApplicationIcon>snapico.ico</ApplicationIcon>
+    <ApplicationIcon>SnapNewIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
@@ -87,13 +87,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helper\Extensions\WindowExtension.cs" />
     <Compile Include="Helper\Json.cs" />
     <Compile Include="Helper\Singleton.cs" />
     <Compile Include="Helper\Xml.cs" />
-    <Compile Include="HomePage.xaml.cs">
-      <DependentUpon>HomePage.xaml</DependentUpon>
+    <Compile Include="NotificationPage.xaml.cs">
+      <DependentUpon>NotificationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Service\Kernel\GCHelper.cs" />
+    <Compile Include="Service\Kernel\NativeMethod.cs" />
     <Compile Include="Service\Shell\AutoStartupHelper.cs" />
     <Compile Include="Service\Download\CompletedState.cs" />
     <Compile Include="Service\Download\DownloadFileCompletedArgs.cs" />
@@ -126,6 +128,9 @@
     <Compile Include="Window\FrontSight\FrontSightWindow.xaml.cs">
       <DependentUpon>FrontSightWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window\TileWindow.xaml.cs">
+      <DependentUpon>TileWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\Wallpaper\Model.cs" />
     <Compile Include="Window\Wallpaper\WallpaperService.cs" />
     <Compile Include="Window\Wallpaper\WallpaperWindow.xaml.cs">
@@ -133,8 +138,11 @@
     </Compile>
     <Compile Include="Window\Weather\Model.cs" />
     <Compile Include="Window\Weather\WeatherService.cs" />
+    <Compile Include="Window\Weather\WeatherView.xaml.cs">
+      <DependentUpon>WeatherView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\WindowManager.cs" />
-    <Page Include="HomePage.xaml">
+    <Page Include="NotificationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -162,7 +170,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Window\TileWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Window\Wallpaper\WallpaperWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\Weather\WeatherView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -204,7 +220,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Helper\Extensions\" />
+    <Resource Include="Resources\SnapNewLogo.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="IWshRuntimeLibrary">
@@ -218,12 +234,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\snaplogoblack.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\snapico.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="MahApps.Metro">
       <Version>2.0.0-alpha0391</Version>
     </PackageReference>
@@ -233,9 +243,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\FrontSight.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="snapico.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\MahApps.Metro.png" />
@@ -254,6 +261,15 @@
       <Project>{454c50cd-f0eb-4702-a222-15f8ce72b21e}</Project>
       <Name>DGP.Snap.UI</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SnapNewIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SnapNewIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Service\Setting\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

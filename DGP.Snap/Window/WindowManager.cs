@@ -4,6 +4,7 @@ using DGP.Snap.Window.Wallpaper;
 using System;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace DGP.Snap.Window
 {
@@ -41,7 +42,17 @@ namespace DGP.Snap.Window
             //return Singleton<TWindow>.Instance as System.Windows.Window;
         }
 
+        public static Canvas DesktopBottomMostCanvas
+        {
+            get
+            {
+                Singleton<TileWindow>.Instance.Show();
+                return Singleton<TileWindow>.Instance.Presenter;
+            }
+        }
+        
 
+        
     }
 
 }

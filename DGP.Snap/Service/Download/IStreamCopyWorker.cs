@@ -7,7 +7,7 @@
 using System;
 using System.IO;
 
-namespace FileDownload
+namespace DGP.Snap.Service.Download
 {
     internal interface IStreamCopyWorker
     {

@@ -24,9 +24,9 @@ namespace DGP.Snap.Service.Navigation
         {
             get
             {
-                MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
-                //有时返回null？
-                _frame = mainWindow?.CurrentFrame;
+
+
+                //_frame = mainWindow?.CurrentFrame;
                 return _frame;
             }
 

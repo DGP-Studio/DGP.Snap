@@ -6,7 +6,7 @@
 
 using System.ComponentModel;
 
-namespace FileDownload
+namespace DGP.Snap.Service.Download
 {
     /// <summary>
     /// DownloadFileProgressChanged event args

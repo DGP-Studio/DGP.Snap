@@ -8,7 +8,7 @@ Snap Desktop(Project name is DGP.Snap) is a WPF Application that provide many us
 
 - Windows 10(10.0.18362.1(2019 May Update) or later)
 
-- .Net Framework 4.6 (Windows 10 is originally merged this)
+- .Net Framework 4.8
 
 - 20M available disk space(Use empty folders for the best experience)
 

@@ -1,7 +1,7 @@
 ﻿using DGP.Snap.Helper;
+using DGP.Snap.Service.Download;
 using DGP.Snap.Service.Kernel;
 using DGP.Snap.Service.Shell;
-using FileDownload;
 using MahApps.Metro.Controls;
 using System;
 using System.Collections;
@@ -40,6 +40,8 @@ namespace DGP.Snap.Window.Wallpaper
 
             InitializeComponent();
         }
+
+
         protected override void OnClosing(CancelEventArgs e)
         {
             GC.Collect();
@@ -104,5 +106,9 @@ namespace DGP.Snap.Window.Wallpaper
             TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop/壁纸", "壁纸下载完成！");
         }
 
+        private void MetroWindow_WindowTransitionCompleted(object sender, RoutedEventArgs e)
+        {
+            Selected = ObservableWallpaperInfos[0];
+        }
     }
 }

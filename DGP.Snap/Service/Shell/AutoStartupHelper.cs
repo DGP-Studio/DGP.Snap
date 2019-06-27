@@ -15,7 +15,7 @@ namespace DGP.Snap.Service.Shell
         /// <summary>
         /// 快捷方式名称-任意自定义
         /// </summary>
-        private const string ShortcutName = "DGP.Snap";
+        private const string ShortcutName = "Snap Desktop";
 
         /// <summary>
         /// 自动获取程序完整路径
@@ -25,13 +25,13 @@ namespace DGP.Snap.Service.Shell
         /// <summary>
         /// 设置开机自动启动-只需要调用改方法就可以了参数里面的bool变量是控制开机启动的开关的，默认为开启自启启动
         /// </summary>
-        /// <param name="IsAutoStart">自启开关</param>
-        public static void SetAutoStartState(bool IsAutoStart = true)
+        /// <param name="autoStartFlag">自启开关</param>
+        public static void SetAutoStartState(bool autoStartFlag = true)
         {
 
             List<string> shortcutPaths = GetAppShortcutFromFolder(Environment.GetFolderPath(Environment.SpecialFolder.Startup), AppFullPath);
 
-            if (IsAutoStart)//开机启动
+            if (autoStartFlag)//开机启动
             {
                 //获取启动路径应用程序快捷方式的路径集合
                 

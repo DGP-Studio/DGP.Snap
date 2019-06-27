@@ -113,9 +113,9 @@ namespace DGP.Snap.Properties {
         /// <summary>
         ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
-        public static System.Drawing.Icon Snapico {
+        public static System.Drawing.Icon SnapNewIcon {
             get {
-                object obj = ResourceManager.GetObject("Snapico", resourceCulture);
+                object obj = ResourceManager.GetObject("SnapNewIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -123,9 +123,9 @@ namespace DGP.Snap.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        public static System.Drawing.Bitmap snaplogoblack {
+        public static System.Drawing.Bitmap SnapNewLogo {
             get {
-                object obj = ResourceManager.GetObject("snaplogoblack", resourceCulture);
+                object obj = ResourceManager.GetObject("SnapNewLogo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

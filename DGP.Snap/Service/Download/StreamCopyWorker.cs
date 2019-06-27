@@ -4,12 +4,12 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------------
 
-using FileDownload.Logging;
+using DGP.Snap.Service.Download.Logging;
 using System;
 using System.IO;
 using System.Threading;
 
-namespace FileDownload
+namespace DGP.Snap.Service.Download
 {
     internal class StreamCopyWorker : IStreamCopyWorker, IDisposable
     {

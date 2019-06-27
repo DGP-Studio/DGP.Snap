@@ -1,8 +1,9 @@
 ﻿using DGP.Snap.Properties;
+using DGP.Snap.Service.Update;
 using DGP.Snap.Window;
 using DGP.Snap.Window.Wallpaper;
+using DGP.Snap.Window.Weather;
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace DGP.Snap.Service.Shell
@@ -14,7 +15,7 @@ namespace DGP.Snap.Service.Shell
     {
         private MenuItem MenuItemSeparator { get { return new MenuItem("-"); } }
 
-        private static TrayIconManager _instance;
+
 
         private readonly NotifyIcon _notifyIcon;
         public NotifyIcon NotifyIcon => _notifyIcon;
@@ -36,7 +37,6 @@ namespace DGP.Snap.Service.Shell
                 if (WindowManager.FrontSightWindow?.IsLoaded==null||WindowManager.FrontSightWindow?.IsLoaded==false)
                 {
                     WindowManager.FrontSightWindow.Show();
-                    
                 }
                 else
                 {
@@ -52,23 +52,31 @@ namespace DGP.Snap.Service.Shell
             _notifyIcon = new NotifyIcon
             {
                 Text = "Snap Desktop",/*string.Format(TranslationHelper.Get("Icon_ToolTip"),*/
-                Icon = GetTrayIconInResources(),
+                Icon = Resources.SnapNewIcon,
                 Visible = true,
-                
                 ContextMenu = new ContextMenu(new[]
                 {
-                    new MenuItem($"Snap Desktop {Application.ProductVersion}") {Enabled = false},
-                    //new MenuItem("检查更新", async (sender, e) => await UpdateService.CheckUpdateAvailability()),
-                        //new MenuItem(TranslationHelper.Get("Icon_GetPlugin"),
-                        //    (sender, e) => Process.Start("https://github.com/QL-Win/QuickLook/wiki/Available-Plugins")),
+                    //修改MenuItem的OwnerDraw属性可以自定义外观
+                    new MenuItem($"Snap Desktop {Application.ProductVersion}") { Enabled = false },
+                    new MenuItem("检查更新", async (sender, e) => await UpdateService.HandleUpdateCheck()),
+                    //new MenuItem(TranslationHelper.Get("Icon_GetPlugin"),
+                    //    (sender, e) => Process.Start("https://github.com/QL-Win/QuickLook/wiki/Available-Plugins")),
                     _itemAutorun,
                     MenuItemSeparator,
-                    new MenuItem("操作中心",(sender, e) => WindowManager.GetOrAddNormalWindow<MainWindow>().Show()/*System.Windows.Application.Current.MainWindow.Show()*/),
-                    new MenuItem("壁纸",(sender, e) => WindowManager.GetOrAddNormalWindow<WallpaperWindow>().Show()),
+                    new MenuItem("操作中心", (sender, e) => WindowManager.GetOrAddNormalWindow<MainWindow>().Show()/*System.Windows.Application.Current.MainWindow.Show()*/),
+                    MenuItemSeparator,
+                    new MenuItem("壁纸", (sender, e) => WindowManager.GetOrAddNormalWindow<WallpaperWindow>().Show()),
+                    MenuItemSeparator,
+                    new MenuItem(
+                        "桌面磁贴",
+                        new[] {
+                            new MenuItem("天气", (sender, e) => WindowManager.DesktopBottomMostCanvas.Children.Add(new WeatherView())),
+                        }),
+                    
                     MenuItemSeparator,
                     _itemFrontSight,
                     MenuItemSeparator,
-                    new MenuItem("退出",(sender, e) => System.Windows.Application.Current.Shutdown()),
+                    new MenuItem("退出", (sender, e) => System.Windows.Application.Current.Shutdown()),
                 })
             };
 
@@ -79,19 +87,15 @@ namespace DGP.Snap.Service.Shell
                     _itemFrontSight.Checked = WindowManager.IsFrontSightWindowShowing;
                 };//设置check
         }
-
+        /// <summary>
+        /// 实现 <see cref="IDisposable"/> 接口
+        /// </summary>
         public void Dispose()
         {
             _itemAutorun.Dispose();
             _itemFrontSight.Dispose();
             NotifyIcon.Visible = false;
         }
-
-        private Icon GetTrayIconInResources()
-        {
-            return Resources.Snapico;
-        }
-
 
         public class SystemNotificationManager
         {
@@ -104,7 +108,7 @@ namespace DGP.Snap.Service.Shell
             /// <param name="closeEvent">通知消失时触发的<see cref="Action"/></param>
             public static void ShowNotification(string title, string content, Action clickEvent = null, Action closeEvent = null)
             {
-                var icon = GetInstance().NotifyIcon;
+                var icon = Instance().NotifyIcon;
                 icon.ShowBalloonTip(5000, title, content, ToolTipIcon.None);
                 icon.BalloonTipClicked += OnIconOnBalloonTipClicked;
                 icon.BalloonTipClosed += OnIconOnBalloonTipClosed;
@@ -123,7 +127,14 @@ namespace DGP.Snap.Service.Shell
             }
 
         }
-        public static TrayIconManager GetInstance()
+
+        private static TrayIconManager _instance;
+
+        /// <summary>
+        /// 获取<see cref="TrayIconManager"/>的实例
+        /// </summary>
+        /// <returns></returns>
+        public static TrayIconManager Instance()
         {
             return _instance ?? (_instance = new TrayIconManager());
         }

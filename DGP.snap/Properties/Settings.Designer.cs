@@ -22,5 +22,29 @@ namespace DGP.Snap.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public int WeatherTileWindow_Left {
+            get {
+                return ((int)(this["WeatherTileWindow_Left"]));
+            }
+            set {
+                this["WeatherTileWindow_Left"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public int WeatherTileWindow_Top {
+            get {
+                return ((int)(this["WeatherTileWindow_Top"]));
+            }
+            set {
+                this["WeatherTileWindow_Top"] = value;
+            }
+        }
     }
 }

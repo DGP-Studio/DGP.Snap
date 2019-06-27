@@ -17,13 +17,14 @@ namespace DGP.Snap
         public MainWindow()
         {
             InitializeComponent();
-            Service.Navigation.NavigationService.Navigate<HomePage>();
+            Service.Navigation.NavigationService.Frame = currentFrame;
+            Service.Navigation.NavigationService.Navigate<NotificationPage>();
             Service.Navigation.NavigationService.Navigated += Frame_Navigated;
         }
 
         private void Frame_Navigated(object sender, NavigationEventArgs e)
         {
-            throw new NotImplementedException();
+
         }
 
         public Frame CurrentFrame => currentFrame;

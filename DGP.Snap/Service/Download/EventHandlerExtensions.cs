@@ -6,7 +6,7 @@
 
 using System;
 
-namespace FileDownload
+namespace DGP.Snap.Service.Download
 {
     internal static class EventHandlerExtensions
     {

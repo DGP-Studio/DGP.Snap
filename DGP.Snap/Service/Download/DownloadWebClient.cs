@@ -8,9 +8,9 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
-using FileDownload.Logging;
+using DGP.Snap.Service.Download.Logging;
 
-namespace FileDownload
+namespace DGP.Snap.Service.Download
 {
     [DesignerCategory("Code")]
     internal class DownloadWebClient : WebClient

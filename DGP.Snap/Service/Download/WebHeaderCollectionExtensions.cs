@@ -7,7 +7,7 @@
 using System.Net;
 using System.Net.Mime;
 
-namespace FileDownload
+namespace DGP.Snap.Service.Download
 {
     internal static class WebHeaderCollectionExtensions
     {

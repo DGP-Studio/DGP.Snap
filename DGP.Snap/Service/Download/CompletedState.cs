@@ -4,7 +4,7 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------------
 
-namespace FileDownload
+namespace DGP.Snap.Service.Download
 {
     /// <summary>
     /// Downloaded completed states

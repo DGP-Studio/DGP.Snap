@@ -18,7 +18,7 @@
         TitleCharacterCasing="Normal"
         TitleBarHeight="30" 
     BorderThickness="1"
-    Icon="/DGP.Snap;component/Resources/snapico.ico"
+    Icon="/DGP.Snap;component/Resources/SnapNewIcon.ico" WindowTransitionCompleted="MetroWindow_WindowTransitionCompleted"
     
     >
     <mah:MetroWindow.WindowButtonCommands>
@@ -37,11 +37,9 @@
                                 <Border.Effect>
                                     <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.6"/>
                                 </Border.Effect>
-                                <Grid>
-                                    <StackPanel Background="#FFFFFFFF">
-                                        <TextBlock Foreground="Black" Text="{Binding Path=Description}" Style="{StaticResource BodyTextBlockStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"></TextBlock>
-                                        <TextBlock Foreground="Black" Text="{Binding Path=Uri}" Style="{StaticResource CaptionTextBlockStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
-                                    </StackPanel>
+                                <Grid Background="#FFFFFFFF">
+                                    <TextBlock Margin="8" VerticalAlignment="Top" Foreground="Black" Text="{Binding Path=Description}" Style="{StaticResource BodyTextBlockStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"></TextBlock>
+                                    <TextBlock Foreground="Black" Margin="4" VerticalAlignment="Bottom" Text="{Binding Path=Uri}" Style="{StaticResource CaptionTextBlockStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>
@@ -134,8 +132,10 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="48"/>
                     </Grid.RowDefinitions>
-                    
-                    <Image Source="{Binding Selected.Uri,Mode=OneWay}" Grid.Row="0"/>
+                    <Grid Grid.Row="0">
+                        <mah:ProgressRing Width="44" Height="44" />
+                        <Image Source="{Binding Selected.Uri,Mode=OneWay}" Stretch="Uniform"/>
+                    </Grid>
                     
                     <!--ToolBar-->
                     <Grid Grid.Row="1">
