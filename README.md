@@ -1,6 +1,6 @@
 # DGP.Snap / The Snap Desktop
 
-![SnapNewLogo]([https://github.com/DGP-Studio/DGP.Snap/blob/master/DGP.Snap/Resources/SnapNewLogo.png](https://github.com/DGP-Studio/DGP.Snap/blob/master/DGP.Snap/Resources/SnapNewLogo.png))
+![SnapNewLogo](https://github.com/DGP-Studio/DGP.Snap/raw/master/DGP.Snap/Resources/SnapNewLogo.png)
 
 ## Summary:
 
