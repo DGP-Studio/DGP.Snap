@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Interop;
 
 namespace DGP.Snap.Service.Kernel
 {
@@ -71,7 +66,7 @@ namespace DGP.Snap.Service.Kernel
         /// <param name="className"></param>
         /// <param name="windowTitle"></param>
         /// <returns></returns>
-        [DllImport("user32.dll",CharSet =CharSet.Unicode, SetLastError = true)]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern IntPtr FindWindowEx(IntPtr hWndParent, IntPtr hWndChildAfter, string lpszClass, IntPtr windowTitle);
         #endregion
 
@@ -82,7 +77,7 @@ namespace DGP.Snap.Service.Kernel
         /// <param name="hWndChild"></param>
         /// <param name="hWndNewParent"></param>
         /// <returns></returns>
-        [DllImport("user32.dll",SetLastError =true)]
+        [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
         #endregion
 

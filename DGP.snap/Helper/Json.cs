@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -38,7 +37,7 @@ namespace DGP.Snap.Helper
         {
             return await Task.Run(async () =>
             {
-                 string jsonMetaString = GetWebResponse(requestUrl);
+                string jsonMetaString = GetWebResponse(requestUrl);
                 return await ToObjectAsync<TRequestType>(jsonMetaString);
             });
         }

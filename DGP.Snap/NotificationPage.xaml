@@ -9,8 +9,8 @@
       Title="HomePage">
 
     <Grid>
-        <ScrollViewer Width="280" HorizontalAlignment="Right" VerticalScrollBarVisibility="Hidden">
-            <StackPanel Margin="0"></StackPanel>
+        <ScrollViewer Width="480" HorizontalAlignment="Right" VerticalScrollBarVisibility="Hidden">
+            <StackPanel Margin="0" x:Name="NotificationPresenter"></StackPanel>
         </ScrollViewer>
         
     </Grid>

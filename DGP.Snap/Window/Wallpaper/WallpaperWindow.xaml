@@ -145,8 +145,6 @@
                             <Button Click="DownloadButton_Click" ToolTipService.ToolTip="下载" Width="48" Height="48" Style="{StaticResource DefaultButtonStyle}" FontSize="16" FontFamily="Segoe MDL2 Assets" Content="&#xE896;" Foreground="Black"/>
                         </StackPanel>
                     </Grid>
-                    
-                    
                 </Grid>
             </mah:SplitView.Content>
         </mah:SplitView>

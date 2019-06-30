@@ -1,11 +1,6 @@
 ﻿using DGP.Snap.Helper;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DGP.Snap.Window.Weather
@@ -25,14 +20,16 @@ namespace DGP.Snap.Window.Weather
         private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
 
-        private const string BaseUri = "http://wthrcdn.etouch.cn/WeatherApi?city=";
-        public async Task<WeatherQueryModel> GetWeatherAsync()
+        public async Task InitializeAsync()
         {
-            return await Xml.GetWebRequestXmlObjectAsync<WeatherQueryModel>(BaseUri+"余姚");
+            if (_weatherInformation == null)
+                _weatherInformation = await Xml.GetWebRequestXmlObjectAsync<WeatherModel>(BaseUri + "余姚");
         }
 
-        private WeatherQueryModel _weatherInformation = null;
-        public WeatherQueryModel WeatherInformation
+        private const string BaseUri = "http://wthrcdn.etouch.cn/WeatherApi?city=";
+
+        private WeatherModel _weatherInformation = null;
+        public WeatherModel WeatherInformation
         {
             get
             {

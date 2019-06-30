@@ -4,9 +4,9 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------------
 
+using DGP.Snap.Service.Download.Logging;
 using System;
 using System.IO;
-using DGP.Snap.Service.Download.Logging;
 
 namespace DGP.Snap.Service.Download
 {

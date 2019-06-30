@@ -24,6 +24,7 @@
     Icon="Resources/SnapNewIcon.ico"  
     MinWidth="800"
     MinHeight="450"
+    FontSize="12"
         >
     <mah:MetroWindow.Resources>
 
@@ -69,8 +70,6 @@
                                                     </Binding>
                                                 </Border.Visibility>
                                                 <Rectangle x:Name="SelectionIndicator" RadiusX="1" RadiusY="1" Opacity="0" Focusable="False" Fill="White" Height="{DynamicResource HamburgerMenuSelectionIndicatorThemeHeight}" Width="2" Margin="0,0,0,0"/>
-
-
                                             </Border>
                                             <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                                         </Grid>

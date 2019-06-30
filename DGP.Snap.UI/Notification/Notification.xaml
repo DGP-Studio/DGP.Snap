@@ -83,8 +83,8 @@
 
 
         <Style x:Key="BaseTextBlockStyle" TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="Microsoft YaHei UI Light" />
-            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontFamily" Value="Microsoft YaHei UI" />
+            <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="FontSize" Value="15" />
             <Setter Property="TextTrimming" Value="None" />
             <Setter Property="TextWrapping" Value="Wrap" />
@@ -134,15 +134,15 @@
                 <RowDefinition Height="44"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Image Source="{Binding IconSource}" Width="36" Height="36" HorizontalAlignment="Left" Margin="4,4,0,4" Grid.Column="0" Grid.Row="0"/>
-            <TextBlock Grid.Column="1" Margin="4" Text="{Binding Title, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
-            <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="4" Text="{Binding Info,Mode=OneWay}" Style="{StaticResource CaptionTextBlockStyle}" TextTrimming="WordEllipsis"/>
+            <Image Source="{Binding IconSource,Mode=OneWay}" Width="36" Height="36" HorizontalAlignment="Left" Margin="4,4,0,4" Grid.Column="0" Grid.Row="0"/>
+            <TextBlock Foreground="Black" Grid.Column="1" Margin="4" Text="{Binding Title, Mode=OneWay}" Style="{StaticResource BaseTextBlockStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" VerticalAlignment="Center"/>
+            <TextBlock Foreground="Black" Grid.Row="1" Grid.Column="1" Margin="4" Text="{Binding Info,Mode=OneWay}" Style="{StaticResource BodyTextBlockStyle}" TextTrimming="WordEllipsis"/>
         </Grid>
 
         <StackPanel HorizontalAlignment="Right" Grid.Row="1" Orientation="Horizontal">
-            <Button x:Name="PrimaryButton" Click="PrimaryButton_Click" Visibility="{Binding PrimaryButtonVisibility}" Width="120" Margin="4" Content="确认" Foreground="Black" Style="{StaticResource DefaultButtonStyle}" FontSize="14"/>
-            <Button x:Name="SecondaryButton" Click="SecondaryButton_Click" Visibility="{Binding SecondaryButtonVisibility}" Width="120" Margin="4" Content="稍后" Foreground="Black" Style="{StaticResource DefaultButtonStyle}" FontSize="14"/>
-            <Button x:Name="CloseButton" Click="CloseButton_Click" Visibility="{Binding CloseButtonVisibility}" Width="120" Margin="4" Content="取消" Foreground="Black" Style="{StaticResource DefaultButtonStyle}" FontSize="14"/>
+            <Button x:Name="PrimaryButton" Click="PrimaryButton_Click" Visibility="{Binding PrimaryButtonVisibility,Mode=OneWay}" Width="120" Margin="4" Content="确认" Foreground="Black" Style="{StaticResource DefaultButtonStyle}" FontSize="14"/>
+            <Button x:Name="SecondaryButton" Click="SecondaryButton_Click" Visibility="{Binding SecondaryButtonVisibility,Mode=OneWay}" Width="120" Margin="4" Content="稍后" Foreground="Black" Style="{StaticResource DefaultButtonStyle}" FontSize="14"/>
+            <Button x:Name="CloseButton" Click="CloseButton_Click" Visibility="{Binding CloseButtonVisibility,Mode=OneWay}" Width="120" Margin="4" Content="取消" Foreground="Black" Style="{StaticResource DefaultButtonStyle}" FontSize="14"/>
         </StackPanel>
 
     </Grid>

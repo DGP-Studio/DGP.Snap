@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGP.Snap.Updater", "DGP.Snap.Updater\DGP.Snap.Updater.csproj", "{B6131D3F-4933-4CA2-B180-7CFE541CE586}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGP.Snap", "DGP.Snap\DGP.Snap.csproj", "{4C4A2562-5755-46A5-8F62-BABF45267253}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B6131D3F-4933-4CA2-B180-7CFE541CE586} = {B6131D3F-4933-4CA2-B180-7CFE541CE586}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGP.Snap.UI", "DGP.Snap.UI\DGP.Snap.UI.csproj", "{454C50CD-F0EB-4702-A222-15F8CE72B21E}"
 EndProject

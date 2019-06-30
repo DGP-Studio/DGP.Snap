@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DGP.Snap.Service.Update
 {
@@ -71,9 +67,9 @@ namespace DGP.Snap.Service.Update
 
     public enum UpdateAvailability
     {
-        NeedUpdate=0,
-        IsNewestRelease=1,
-        IsInsiderVersion=2,
-        NotAvailable=3
+        NeedUpdate = 0,
+        IsNewestRelease = 1,
+        IsInsiderVersion = 2,
+        NotAvailable = 3
     }
 }

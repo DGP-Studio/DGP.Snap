@@ -15,6 +15,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -29,7 +30,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -89,6 +89,7 @@
     </ApplicationDefinition>
     <Compile Include="Helper\Extensions\WindowExtension.cs" />
     <Compile Include="Helper\Json.cs" />
+    <Compile Include="Helper\Setting.cs" />
     <Compile Include="Helper\Singleton.cs" />
     <Compile Include="Helper\Xml.cs" />
     <Compile Include="NotificationPage.xaml.cs">
@@ -125,9 +126,6 @@
     <Compile Include="InformationPage.xaml.cs">
       <DependentUpon>InformationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Window\FrontSight\FrontSightWindow.xaml.cs">
-      <DependentUpon>FrontSightWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Window\TileWindow.xaml.cs">
       <DependentUpon>TileWindow.xaml</DependentUpon>
     </Compile>
@@ -138,8 +136,11 @@
     </Compile>
     <Compile Include="Window\Weather\Model.cs" />
     <Compile Include="Window\Weather\WeatherService.cs" />
-    <Compile Include="Window\Weather\WeatherView.xaml.cs">
-      <DependentUpon>WeatherView.xaml</DependentUpon>
+    <Compile Include="Window\LiveWallpaper\LiveWallpaperView.xaml.cs">
+      <DependentUpon>LiveWallpaperView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Weather\WeatherTileWindow.xaml.cs">
+      <DependentUpon>WeatherTileWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window\WindowManager.cs" />
     <Page Include="NotificationPage.xaml">
@@ -166,10 +167,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Window\FrontSight\FrontSightWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Window\TileWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -178,7 +175,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Window\Weather\WeatherView.xaml">
+    <Page Include="Window\LiveWallpaper\LiveWallpaperView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\Weather\WeatherTileWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -192,20 +193,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6">
@@ -257,12 +249,6 @@
     <Resource Include="Resources\QuickLook.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DGP.Snap.UI\DGP.Snap.UI.csproj">
-      <Project>{454c50cd-f0eb-4702-a222-15f8ce72b21e}</Project>
-      <Name>DGP.Snap.UI</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="SnapNewIcon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -270,6 +256,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Service\Setting\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DGP.Snap.UI\DGP.Snap.UI.csproj">
+      <Project>{454c50cd-f0eb-4702-a222-15f8ce72b21e}</Project>
+      <Name>DGP.Snap.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

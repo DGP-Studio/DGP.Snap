@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,6 +56,6 @@ namespace DGP.Snap.Helper
                 return (TRequestType)new XmlSerializer(typeof(TRequestType)).Deserialize(xmlstream);
             });
         }
-    
+
     }
 }

@@ -3,6 +3,7 @@ using DGP.Snap.Service.Download;
 using DGP.Snap.Service.Shell;
 using Microsoft.VisualBasic.Devices;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -14,18 +15,20 @@ namespace DGP.Snap.Service.Update
 {
     class UpdateService
     {
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public UpdateService(){}
         /// <summary>
         /// 不要在调用 <see cref="CheckUpdateAvailability()"/> 前使用，默认为<see cref="null"/>
         /// </summary>
-        public static Uri PackageUri { get; set; } = null;
+        public Uri PackageUri { get; set; } = null;
 
         /// <summary>
         /// 不要在调用 <see cref="CheckUpdateAvailability()"/> 前使用，默认为<see cref="null"/>
         /// </summary>
-        public static Version NewVersion { get; set; } = null;
+        public Version NewVersion { get; set; } = null;
 
-        public static Version CurrentVersion { get { return Assembly.GetExecutingAssembly().GetName().Version; } }
-        public static async Task<UpdateAvailability> CheckUpdateAvailability()
+        public Version CurrentVersion { get { return Assembly.GetExecutingAssembly().GetName().Version; } }
+        public async Task<UpdateAvailability> CheckUpdateAvailability()
         {
             try
             {
@@ -42,7 +45,7 @@ namespace DGP.Snap.Service.Update
                 }
                 else
                 {
-                    if(new Version(newVersion) == CurrentVersion)
+                    if (new Version(newVersion) == CurrentVersion)
                     {
                         //最新发行版
                         return UpdateAvailability.IsNewestRelease;
@@ -63,7 +66,7 @@ namespace DGP.Snap.Service.Update
             }
         }
 
-        public static void DownloadAndInstallPackage()
+        public void DownloadAndInstallPackage()
         {
             UpdateProgressWindow = new UpdateProgressWindow();//弹出下载更新窗口
             UpdateProgressWindow.Show();
@@ -71,7 +74,7 @@ namespace DGP.Snap.Service.Update
             IFileDownloader fileDownloader = new FileDownloader();
             fileDownloader.DownloadProgressChanged += OnDownloadProgressChanged;
             fileDownloader.DownloadFileCompleted += OnDownloadFileCompleted;
-            
+
             string destinationPath = AppDomain.CurrentDomain.BaseDirectory + @"\Package.zip";
             //DirectorySecurity directorySecurity = new DirectorySecurity();
             //directorySecurity.AddAccessRule(new FileSystemAccessRule(@"Everyone", FileSystemRights.FullControl, AccessControlType.Allow));
@@ -79,15 +82,15 @@ namespace DGP.Snap.Service.Update
             fileDownloader.DownloadFileAsync(PackageUri, destinationPath);
         }
 
-        internal static void OnDownloadProgressChanged(object sender, DownloadFileProgressChangedArgs args)
+        internal void OnDownloadProgressChanged(object sender, DownloadFileProgressChangedArgs args)
         {
-            double percent = Math.Round((double)args.BytesReceived/ args.TotalBytesToReceive*100,2);
+            double percent = Math.Round((double)args.BytesReceived / args.TotalBytesToReceive * 100, 2);
             UpdateProgressWindow.ProgressBar.IsIndeterminate = false;
             UpdateProgressWindow.SetNewProgress(percent);
-            UpdateProgressWindow.ProgressIndicatorText.Text = $@"{percent}% - {args.BytesReceived/1024}KB / {args.TotalBytesToReceive/1024}KB";
+            UpdateProgressWindow.ProgressIndicatorText.Text = $@"{percent}% - {args.BytesReceived / 1024}KB / {args.TotalBytesToReceive / 1024}KB";
         }
 
-        internal static void OnDownloadFileCompleted(object sender, DownloadFileCompletedArgs eventArgs)
+        internal void OnDownloadFileCompleted(object sender, DownloadFileCompletedArgs eventArgs)
         {
             if (eventArgs.State == CompletedState.Succeeded)
             {
@@ -103,17 +106,16 @@ namespace DGP.Snap.Service.Update
             }
             else if (eventArgs.State == CompletedState.Failed)
             {
+                TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "在下载更新包时遇到问题");
                 //download failed
             }
         }
 
-        private static UpdateProgressWindow UpdateProgressWindow { get; set; } = null;
+        private UpdateProgressWindow UpdateProgressWindow { get; set; } = null;
 
         public static void StartUpdateInstall()
         {
-            if (File.Exists("OldUpdater.exe"))
-                File.Delete("OldUpdater.exe");
-            
+
             Computer MyComputer = new Computer();
             MyComputer.FileSystem.RenameFile(Path.GetFullPath("DGP.Snap.Updater.exe"), "OldUpdater.exe");
 
@@ -121,23 +123,31 @@ namespace DGP.Snap.Service.Update
             Application.Current.Shutdown();
         }
 
-        public static async Task HandleUpdateCheck()
+        public async Task HandleUpdateCheck(bool isStartupCheck=true)
         {
             UpdateAvailability updateAvailability = await CheckUpdateAvailability();
             switch (updateAvailability)
             {
                 case UpdateAvailability.IsInsiderVersion:
-                    TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "开发版 Snap Desktop");
+                    if (isStartupCheck)
+                        TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", $"{Environment.UserName}:\n你正在使用开发版 Snap Desktop",()=> { });
+                    else
+                        TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "开发版 Snap Desktop ，不需要更新");
                     break;
+
                 case UpdateAvailability.IsNewestRelease:
-                    TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "欢迎");
+                    if(isStartupCheck)
+                        TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", $"欢迎{Environment.UserName}");
+                    else
+                        TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "不需要更新，这是 Snap Desktop 的最新发行版");
                     break;
+
                 case UpdateAvailability.NeedUpdate:
-                    TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "单击此通知以下载可用更新...", () => { DownloadAndInstallPackage(); });
+                    TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "发现可用的更新，单击此通知以下载...", () => { DownloadAndInstallPackage(); });
                     break;
 
                 case UpdateAvailability.NotAvailable:
-                    TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "检查更新失败...");
+                    TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "检查更新失败...\n ·你的设备可能需要联网");
                     break;
             }
         }

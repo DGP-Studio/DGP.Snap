@@ -26,13 +26,16 @@ namespace DGP.Snap.UI.Notification
 
         public Notification()
         {
-
-        }
-
-        public void ShowNotification()
-        {
+            DataContext = this;
             InitializeComponent();
         }
+
+        public Notification(string title,string info):this()
+        {
+            Title = title;
+            Info = info;
+        }
+
 
         private void PrimaryButton_Click(object sender, RoutedEventArgs e)
         {
@@ -63,7 +66,7 @@ namespace DGP.Snap.UI.Notification
 
         // Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title", typeof(Notification), typeof(Notification));
+            DependencyProperty.Register("Title", typeof(string), typeof(Notification));
 
         public string Info
         {

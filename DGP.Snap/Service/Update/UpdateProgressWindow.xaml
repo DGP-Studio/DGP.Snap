@@ -15,10 +15,14 @@
     </Window.Resources>
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="正在下载 Snap Desktop 的更新安装包"  Style="{StaticResource TitleTextBlockStyle}"/>
-            <TextBlock Text="可能需要一点时间，请不要退出本程序。" Style="{StaticResource BodyTextBlockStyle}" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+            <TextBlock Text="正在下载 Snap Desktop 的更新安装包"  Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center"/>
+            <TextBlock  Style="{StaticResource BodyTextBlockStyle}" HorizontalAlignment="Center" Margin="0,8,0,0" >
+                可能需要一点时间，请不要退出本程序。
+                <LineBreak/>
+                如果下载遇到问题，可以尝试<Hyperlink>手动下载</Hyperlink>。
+            </TextBlock>
             <TextBlock x:Name="ProgressIndicatorText" Margin="0,48,0,4" Style="{StaticResource CaptionTextBlockStyle}" HorizontalAlignment="Left"/>
-            <mah:MetroProgressBar IsIndeterminate="True" BorderThickness="0"  Foreground="White" Background="DimGray" x:Name="ProgressBar" Value="0" Height="6" ></mah:MetroProgressBar>
+            <mah:MetroProgressBar IsIndeterminate="True" BorderThickness="0"  Foreground="White" Background="DimGray" x:Name="ProgressBar" Value="0" Height="6" Width="420"></mah:MetroProgressBar>
         </StackPanel>
     </Grid>
 </Window>

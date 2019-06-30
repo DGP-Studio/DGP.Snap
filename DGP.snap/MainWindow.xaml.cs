@@ -4,7 +4,6 @@ using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Navigation;
 
 namespace DGP.Snap
@@ -36,7 +35,7 @@ namespace DGP.Snap
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.MainWindow.WindowState=WindowState.Minimized;
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
         }
 
         private void NavigationView_ItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs args)

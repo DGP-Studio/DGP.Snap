@@ -4,31 +4,18 @@ using DGP.Snap.Service.Kernel;
 using DGP.Snap.Service.Shell;
 using MahApps.Metro.Controls;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace DGP.Snap.Window.Wallpaper
 {
     /// <summary>
     /// WallpaperWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class WallpaperWindow : MetroWindow ,INotifyPropertyChanged
+    public partial class WallpaperWindow : MetroWindow, INotifyPropertyChanged
     {
         public WallpaperWindow()
         {
@@ -85,10 +72,10 @@ namespace DGP.Snap.Window.Wallpaper
                 //不使用InitialDirectory以记忆上次选择的位置
                 //InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.CommonPictures),
                 Filter = "png图像文件| *.png"
-                
+
             };
             saveFileDialog.ShowDialog();
-            _ = Environment.CurrentDirectory;
+
             string path = saveFileDialog.FileName;
             if (path == "")
             {

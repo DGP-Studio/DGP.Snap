@@ -1,17 +1,19 @@
 ﻿using DGP.Snap.Helper;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
+using System.ComponentModel;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DGP.Snap.Window.Wallpaper
 {
+    /// <summary>
+    /// 使用时先调用<see cref="InitializeAsync()"/>
+    /// </summary>
     public class WallpaperService
     {
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public WallpaperService() { }
         /// <summary>
         /// 异步初始化 <see cref="WallpaperService"/>
         /// </summary>
@@ -51,7 +53,7 @@ namespace DGP.Snap.Window.Wallpaper
                 Wallpaper wallpaperInfo = new Wallpaper()
                 {
                     Uri = new Uri(dataItem.Url),
-                    Description=dataItem.Utag,
+                    Description = dataItem.Utag,
                 };
                 WallpaperInfos.Add(wallpaperInfo);
             }
@@ -71,8 +73,8 @@ namespace DGP.Snap.Window.Wallpaper
             {
                 Wallpaper wallpaperInfo = new Wallpaper()
                 {
-                    Uri= new Uri(basedBingUrl + imageItemForBing.Url),
-                    Description=imageItemForBing.Copyright,
+                    Uri = new Uri(basedBingUrl + imageItemForBing.Url),
+                    Description = imageItemForBing.Copyright,
                 };
                 WallpaperInfos.Add(wallpaperInfo);
             }

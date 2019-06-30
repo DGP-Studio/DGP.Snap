@@ -4,12 +4,12 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------------
 
+using DGP.Snap.Service.Download.Logging;
 using System;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Threading;
-using DGP.Snap.Service.Download.Logging;
 
 namespace DGP.Snap.Service.Download
 {

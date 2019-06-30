@@ -3,9 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DGP.Snap.Service.Shell
 {
@@ -34,7 +31,7 @@ namespace DGP.Snap.Service.Shell
             if (autoStartFlag)//开机启动
             {
                 //获取启动路径应用程序快捷方式的路径集合
-                
+
                 //存在2个以快捷方式则保留一个快捷方式-避免重复多余
                 if (shortcutPaths.Count >= 2)
                 {

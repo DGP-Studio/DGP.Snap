@@ -1,29 +1,16 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using DGP.Snap.UI.Notification;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DGP.Snap
 {
-    /// <summary>
-    /// HomePage.xaml 的交互逻辑
-    /// </summary>
+
     public partial class NotificationPage : Page
     {
         public NotificationPage()
         {
             InitializeComponent();
+            NotificationPresenter.Children.Add(new Notification { Title="通知", Info="测试",IconSource= new BitmapImage(new System.Uri(@"/Resources/SnapNewLogo.png", System.UriKind.Relative)) });
         }
     }
 }
