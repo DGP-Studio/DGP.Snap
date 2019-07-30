@@ -9,11 +9,12 @@
         mc:Ignorable="d"
         Background="Black"
         Topmost="True"
-        Title="UpdateProgressWindow" Height="200" Width="480" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True">
+        Title="UpdateProgressWindow" Height="200" Width="480" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True"
+        ResizeMode="NoResize" ShowInTaskbar="False">
     <Window.Resources>
 
     </Window.Resources>
-    <Grid>
+    <Grid MouseDown="Grid_MouseDown">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="正在下载 Snap Desktop 的更新安装包"  Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center"/>
             <TextBlock  Style="{StaticResource BodyTextBlockStyle}" HorizontalAlignment="Center" Margin="0,8,0,0" >

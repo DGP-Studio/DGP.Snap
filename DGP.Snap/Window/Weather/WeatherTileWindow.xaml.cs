@@ -31,7 +31,14 @@ namespace DGP.Snap.Window.Weather
         //保持置底状态
         private void HandleWindowBottomState(object sender, EventArgs e) => this.SetBottomWithInteractivity();
 
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e) => DragMove();
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (IsPinned == Visibility.Hidden)
+            {
+                DragMove();
+            }
+            
+        }
 
         public WeatherModel WeatherInfo
         {
@@ -46,6 +53,39 @@ namespace DGP.Snap.Window.Weather
         {
             await Singleton<WeatherService>.Instance.InitializeAsync();
             WeatherInfo = Singleton<WeatherService>.Instance.WeatherInformation;
+        }
+
+        private async void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                WeatherInfo = await Singleton<WeatherService>.Instance.GetRefreshedWeatherAsync(((TextBox)sender).Text);
+            }
+        }
+
+
+
+        public Visibility IsPinned
+        {
+            get { return (Visibility)GetValue(IsPinnedProperty); }
+            set { SetValue(IsPinnedProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsPinned.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsPinnedProperty =
+            DependencyProperty.Register("IsPinned", typeof(Visibility), typeof(WeatherTileWindow), new PropertyMetadata(Visibility.Hidden));
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsPinned == Visibility.Hidden)
+                IsPinned = Visibility.Visible;
+            else
+                IsPinned = Visibility.Hidden;
+        }
+
+        private async void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            WeatherInfo = await Singleton<WeatherService>.Instance.GetRefreshedWeatherAsync(WeatherInfo.City);
         }
     }
 }

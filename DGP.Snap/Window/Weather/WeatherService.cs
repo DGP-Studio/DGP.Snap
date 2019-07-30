@@ -23,7 +23,12 @@ namespace DGP.Snap.Window.Weather
         public async Task InitializeAsync()
         {
             if (_weatherInformation == null)
-                _weatherInformation = await Xml.GetWebRequestXmlObjectAsync<WeatherModel>(BaseUri + "余姚");
+                _weatherInformation = await Xml.GetWebRequestXmlObjectAsync<WeatherModel>(BaseUri + "北京");
+        }
+
+        public async Task<WeatherModel> GetRefreshedWeatherAsync(string cityname)
+        {
+            return await Xml.GetWebRequestXmlObjectAsync<WeatherModel>(BaseUri + cityname);
         }
 
         private const string BaseUri = "http://wthrcdn.etouch.cn/WeatherApi?city=";

@@ -87,11 +87,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helper\" />
-    <Folder Include="Model\" />
-    <Folder Include="Service\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <PackageReference Include="MahApps.Metro">
       <Version>2.0.0-alpha0391</Version>

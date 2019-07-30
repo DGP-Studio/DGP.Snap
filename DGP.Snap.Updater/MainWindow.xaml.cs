@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO.Compression;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -26,13 +27,15 @@ namespace DGP.Snap.Updater
                     {
                         entry.ExtractToFile(entry.FullName, overwrite: true);
                     }
-                    catch (Exception ex)
+                    catch(Exception e)
                     {
-                        Debug.WriteLine(ex.Message);
+                        MessageBox.Show(e.Message);
                     }
                 }
             }
+            
             Process.Start("DGP.Snap.exe");
+            
             Application.Current.Shutdown();
         }
 
@@ -40,5 +43,7 @@ namespace DGP.Snap.Updater
         {
             await Task.Run(() => InstallPackage());
         }
+
+        private void Grid_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e) => DragMove();
     }
 }

@@ -7,9 +7,9 @@ namespace DGP.Snap.Window
     public class WindowManager
     {
         /// <summary>
-        /// 查找 <see cref="Application.Current.Windows"/> 中的对应 <typeparamref name="TWindow"/> 类型的 Window
+        /// 查找 <see cref="Application.Current.Windows"/> 集合中的对应 <typeparamref name="TWindow"/> 类型的 Window
         /// </summary>
-        /// <returns>未找到返回新实例</returns>
+        /// <returns>返回唯一的窗口，未找到返回新实例</returns>
         public static System.Windows.Window GetOrAddNormalWindow<TWindow>()
         {
             foreach (System.Windows.Window window in Application.Current.Windows)

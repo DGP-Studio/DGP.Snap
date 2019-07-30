@@ -126,6 +126,10 @@
     <Compile Include="InformationPage.xaml.cs">
       <DependentUpon>InformationPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Service\User\QQHelper.cs" />
+    <Compile Include="Service\User\UserInfoTileWindow.xaml.cs">
+      <DependentUpon>UserInfoTileWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\TileWindow.xaml.cs">
       <DependentUpon>TileWindow.xaml</DependentUpon>
     </Compile>
@@ -164,6 +168,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InformationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Service\User\UserInfoTileWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

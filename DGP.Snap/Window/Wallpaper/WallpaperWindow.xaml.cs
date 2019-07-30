@@ -71,7 +71,7 @@ namespace DGP.Snap.Window.Wallpaper
                 Title = "选择下载位置",
                 //不使用InitialDirectory以记忆上次选择的位置
                 //InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.CommonPictures),
-                Filter = "png图像文件| *.png"
+                Filter = "jpg压缩图像文件| *.jpg"
 
             };
             saveFileDialog.ShowDialog();

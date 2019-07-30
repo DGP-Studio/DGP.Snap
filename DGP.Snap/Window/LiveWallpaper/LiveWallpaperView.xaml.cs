@@ -18,6 +18,7 @@ namespace DGP.Snap.Window.LiveWallPaper
             {
                 Title = "选择本地视频",
                 Filter = "mp4视频文件| *.mp4|所有文件|*.*"
+
             };
             openFileDialog.ShowDialog();
 

@@ -27,5 +27,7 @@ namespace DGP.Snap.Service.Update
             };
             ProgressBar.BeginAnimation(MetroProgressBar.ValueProperty, doubleAnimation);
         }
+
+        private void Grid_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e) => DragMove();
     }
 }

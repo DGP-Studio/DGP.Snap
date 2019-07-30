@@ -97,7 +97,7 @@ namespace DGP.Snap.Service.Update
                 //download completed
                 UpdateProgressWindow.SetNewProgress(100);
                 UpdateProgressWindow.ProgressIndicatorText.Text = "下载已完成，请稍候...";
-                Thread.Sleep(2000);
+
                 //await Task.Run(() => { Thread.Sleep(2000); });
 
                 UpdateProgressWindow.Close();
@@ -115,6 +115,8 @@ namespace DGP.Snap.Service.Update
 
         public static void StartUpdateInstall()
         {
+            if (File.Exists("OldUpdater.exe"))
+                File.Delete("OldUpdater.exe");
 
             Computer MyComputer = new Computer();
             MyComputer.FileSystem.RenameFile(Path.GetFullPath("DGP.Snap.Updater.exe"), "OldUpdater.exe");
