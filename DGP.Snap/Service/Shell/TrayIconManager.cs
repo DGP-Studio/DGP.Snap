@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using DGP.Snap.Helper;
 using DGP.Snap.Window.Weather;
+using System.Reflection;
 
 namespace DGP.Snap.Service.Shell
 {
@@ -74,15 +75,25 @@ namespace DGP.Snap.Service.Shell
                     new MenuItem(
                         "桌面部件",
                         new[] {
-                            new MenuItem("动态壁纸", (sender, e) => WindowManager.AddUIelementToTileWindow(new LiveWallPaperView(),0,0,0)),
-                            new MenuItem("天气",(sender,e)=>WindowManager.GetOrAddNormalWindow<WeatherTileWindow>().Show())
+                            new MenuItem("动态壁纸", (sender, e) => WindowManager.AddUIelementToTileWindow(new LiveWallPaperView(), 0, 0, 0)),
+                            new MenuItem("天气", (sender, e) => WindowManager.GetOrAddNormalWindow<WeatherTileWindow>().Show())
                         }),
                     //MenuItemSeparator,
                     //_itemFrontSight,
                     MenuItemSeparator,
                     new MenuItem("退出", (sender, e) => System.Windows.Application.Current.Shutdown()),
-                })
+                }),
+                
             };
+
+            NotifyIcon.Click += 
+                (sender, e) => 
+                {
+                    MethodInfo mi = typeof(NotifyIcon).GetMethod("ShowContextMenu", BindingFlags.NonPublic | BindingFlags.Instance);
+                    mi.Invoke(this.NotifyIcon, null);
+
+                    //NotifyIcon.ContextMenu.Show(NotifyIcon.ContextMenuStrip, Cursor.Position); 
+                };
 
             NotifyIcon.ContextMenu.Popup +=
                 (sender, e) =>

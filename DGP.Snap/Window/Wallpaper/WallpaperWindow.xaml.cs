@@ -26,6 +26,7 @@ namespace DGP.Snap.Window.Wallpaper
             DataContext = this;
 
             InitializeComponent();
+            //Selected = ObservableWallpaperInfos[0];
         }
 
 
@@ -95,7 +96,13 @@ namespace DGP.Snap.Window.Wallpaper
 
         private void MetroWindow_WindowTransitionCompleted(object sender, RoutedEventArgs e)
         {
-            Selected = ObservableWallpaperInfos[0];
+            //处理速度慢的计算机不能正常的给ObservableWallpaperInfos赋值
+            //需要额外添加判断
+            if (ObservableWallpaperInfos.Count > 0)
+                Selected = ObservableWallpaperInfos[0];
+            else
+                TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop/壁纸", "请手动选择你想要查看的壁纸");
+                Selected = null;
         }
     }
 }

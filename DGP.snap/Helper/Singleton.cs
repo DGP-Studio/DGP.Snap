@@ -4,7 +4,7 @@ using System.Collections.Concurrent;
 namespace DGP.Snap.Helper
 {
     /// <summary>
-    /// 由UWP开源项目Windows Template Studio 提供的单例实现方式
+    /// 由开源项目Windows Template Studio 提供的单例实现方式
     /// 单例可以解决静态类的诸多不足
     /// 单例主要是用于维护信息的类的
     /// 静态方法调用比单例快，但静态类不适合维护一个对象
