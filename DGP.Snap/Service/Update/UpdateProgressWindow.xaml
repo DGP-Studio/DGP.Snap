@@ -7,20 +7,17 @@
         xmlns:local="clr-namespace:DGP.Snap.Service.Update"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
-        Background="Black"
         Topmost="True"
         Title="UpdateProgressWindow" Height="200" Width="480" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True"
         ResizeMode="NoResize" ShowInTaskbar="False">
-    <Window.Resources>
-
-    </Window.Resources>
-    <Grid MouseDown="Grid_MouseDown">
+    
+    <Grid MouseDown="Grid_MouseDown" Background="Black">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="正在下载 Snap Desktop 的更新安装包"  Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center"/>
             <TextBlock  Style="{StaticResource BodyTextBlockStyle}" HorizontalAlignment="Center" Margin="0,8,0,0" >
                 可能需要一点时间，请不要退出本程序。
                 <LineBreak/>
-                如果下载遇到问题，可以尝试<Hyperlink>手动下载</Hyperlink>。
+                如果下载遇到问题，可以尝试<Hyperlink Click="Hyperlink_Click">手动下载</Hyperlink>。
             </TextBlock>
             <TextBlock x:Name="ProgressIndicatorText" Margin="0,48,0,4" Style="{StaticResource CaptionTextBlockStyle}" HorizontalAlignment="Left"/>
             <mah:MetroProgressBar IsIndeterminate="True" BorderThickness="0"  Foreground="White" Background="DimGray" x:Name="ProgressBar" Value="0" Height="6" Width="420"></mah:MetroProgressBar>

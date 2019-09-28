@@ -5,7 +5,8 @@ using System.Windows;
 namespace DGP.Snap.Window
 {
     /// <summary>
-    /// TileWindow.xaml 的交互逻辑
+    /// 此窗口保持置于Windows底层的状态，向其中加入继承<see cref="UIElement"/>的实例以实现置底
+    /// 目前尚未实现多窗口支持
     /// </summary>
     public partial class TileWindow : System.Windows.Window
     {
@@ -16,7 +17,8 @@ namespace DGP.Snap.Window
             Height = SystemParameters.PrimaryScreenHeight;
             Width = SystemParameters.PrimaryScreenWidth;
 
-            Left = Top = 0;
+            Left = 0;
+            Top = 0;
         }
 
         //保持置底状态
