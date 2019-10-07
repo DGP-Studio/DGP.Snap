@@ -1,5 +1,6 @@
 ﻿using MahApps.Metro.Controls;
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media.Animation;
 
@@ -29,5 +30,10 @@ namespace DGP.Snap.Service.Update
         }
 
         private void Grid_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e) => DragMove();
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://github.com/DGP-Studio/DGP.Snap/releases");
+        }
     }
 }

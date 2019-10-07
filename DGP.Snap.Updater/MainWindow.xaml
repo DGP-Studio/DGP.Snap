@@ -10,7 +10,6 @@
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True" 
-        Background="Black"
         ShowInTaskbar="False"
         ShowActivated="True"
         Topmost="True"
@@ -18,7 +17,7 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Loaded="Window_Loaded">
-    <Grid MouseDown="Grid_MouseDown">
+    <Grid MouseDown="Grid_MouseDown" Background="Black">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,36,0,0">
             <TextBlock Text="正在从包中提取 Snap Desktop 的文件"  Style="{StaticResource TitleTextBlockStyle}"/>
             <TextBlock Text="一会就好" Style="{StaticResource BodyTextBlockStyle}" HorizontalAlignment="Center" Margin="0,8,0,0"/>
