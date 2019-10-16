@@ -45,8 +45,10 @@ namespace DGP.Snap.Helper
         private static string GetWebResponse(string requestUrl)
         {
             HttpWebRequest request = WebRequest.CreateHttp(requestUrl);
+            //为了能正常的获取GitHub的数据
             request.Proxy = WebRequest.DefaultWebProxy;
             request.Credentials = CredentialCache.DefaultCredentials;
+
             request.Method = "GET";
             request.ContentType = "application/json;charset=UTF-8";
             //request.Headers.Add(HttpRequestHeader.UserAgent, "Wget/1.9.1");
