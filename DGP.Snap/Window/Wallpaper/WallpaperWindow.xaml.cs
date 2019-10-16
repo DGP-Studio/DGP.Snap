@@ -20,6 +20,7 @@ namespace DGP.Snap.Window.Wallpaper
         public WallpaperWindow()
         {
             //单例解决了第一次打开窗口不加载的问题
+            //并不能保证窗口加载图片
             Singleton<WallpaperService>.Instance.InitializeAsync();
             ObservableWallpaperInfos = Singleton<WallpaperService>.Instance.WallpaperInfos;
 
@@ -72,7 +73,7 @@ namespace DGP.Snap.Window.Wallpaper
                 Title = "选择下载位置",
                 //不使用InitialDirectory以记忆上次选择的位置
                 //InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.CommonPictures),
-                Filter = "jpg压缩图像文件| *.jpg"
+                Filter = "jpeg压缩图像文件| *.jpg"
 
             };
             saveFileDialog.ShowDialog();
@@ -91,7 +92,10 @@ namespace DGP.Snap.Window.Wallpaper
 
         private void OnDownloadFileCompleted(object sender, DownloadFileCompletedArgs e)
         {
-            TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop/壁纸", "壁纸下载完成！");
+            if(e.State==CompletedState.Succeeded)
+                TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop/壁纸", ":)\n壁纸下载完成！");
+            else
+                TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop/壁纸", ":(\n未能正常下载");
         }
 
         private void MetroWindow_WindowTransitionCompleted(object sender, RoutedEventArgs e)
@@ -99,10 +103,16 @@ namespace DGP.Snap.Window.Wallpaper
             //处理速度慢的计算机不能正常的给ObservableWallpaperInfos赋值
             //需要额外添加判断
             if (ObservableWallpaperInfos.Count > 0)
+            {
                 Selected = ObservableWallpaperInfos[0];
+                //TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop/壁纸", "加载壁纸时遇到问题\n请手动选择你想要查看的壁纸");
+            }
             else
-                TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop/壁纸", "请手动选择你想要查看的壁纸");
+            {
+                TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop/壁纸", "加载壁纸时遇到问题\n请手动选择你想要查看的壁纸");
                 Selected = null;
+            }
+                
         }
     }
 }
