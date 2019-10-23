@@ -1,9 +1,6 @@
-﻿using DGP.Snap.Helper;
-using System;
+﻿using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Forms;
-using System.Windows.Interop;
 
 namespace DGP.Snap.Window.LiveWallPaper
 {
@@ -26,7 +23,11 @@ namespace DGP.Snap.Window.LiveWallPaper
             if (path != "")
                 VideoSource = new Uri(path);
             else
+            {
                 VideoSource = null;
+
+            }
+                
 
             DataContext = this;
 

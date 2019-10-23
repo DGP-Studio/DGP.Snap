@@ -21,7 +21,6 @@ namespace DGP.Snap
                 AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
 
             base.OnStartup(e);
-
         }
 
         private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -35,17 +34,26 @@ namespace DGP.Snap
 
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
-            if(Debugger.IsAttached)//调试模式
-                _isRunning = new Mutex(true, "DGP.Snap.Mutex.Debug", out _isFirstInstance);
+#if DEBUG
+            if (Debugger.IsAttached)//调试模式
+                _isRunning = new Mutex(true, "DGP.Snap.Mutex.Debug.Debuging", out _isFirstInstance);
             else
-                _isRunning = new Mutex(true, "DGP.Snap.Mutex.Release", out _isFirstInstance);
+                _isRunning = new Mutex(true, "DGP.Snap.Mutex.Debug", out _isFirstInstance);
 
             if (!_isFirstInstance)
             {
                 Shutdown();
                 return;
             }
+#else
+            _isRunning = new Mutex(true, "DGP.Snap.Mutex.Release", out _isFirstInstance);
 
+            if (!_isFirstInstance)
+            {
+                Shutdown();
+                return;
+            }
+#endif
             //托盘图标
             TrayIconManager.Instance();
             //更新
@@ -59,7 +67,7 @@ namespace DGP.Snap
             _isRunning.ReleaseMutex();
 
             TrayIconManager.Instance().Dispose();
-            Debug.WriteLine("正常终止!");
+            //Debug.WriteLine("正常终止!");
             base.OnExit(e);
         }
     }

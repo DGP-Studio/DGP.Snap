@@ -9,6 +9,7 @@ using System.Diagnostics;
 using DGP.Snap.Helper;
 using DGP.Snap.Window.Weather;
 using System.Reflection;
+using System.ComponentModel;
 
 namespace DGP.Snap.Service.Shell
 {
@@ -48,6 +49,7 @@ namespace DGP.Snap.Service.Shell
         /// <summary>
         /// private的原因是为了防止利用 <see cref="TrayIconManager()"/> 构造函数生成多个实例
         /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         private TrayIconManager()
         {
             NotifyIcon = new NotifyIcon
