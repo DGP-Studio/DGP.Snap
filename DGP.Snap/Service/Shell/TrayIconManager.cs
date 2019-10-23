@@ -10,13 +10,14 @@ using DGP.Snap.Helper;
 using DGP.Snap.Window.Weather;
 using System.Reflection;
 using System.ComponentModel;
+using System.Windows.Controls;
 
 namespace DGP.Snap.Service.Shell
 {
     /// <summary>
     /// 托盘图标与其菜单管理类,此类自身实现单例与资源回收
     /// </summary>
-    internal class TrayIconManager : IDisposable
+    internal class TrayIconManager : IDisposable,INotNewable
     {
         private MenuItem MenuItemSeparator { get { return new MenuItem("-"); } }
 
@@ -41,7 +42,7 @@ namespace DGP.Snap.Service.Shell
                     return "[DEBUG]-DEBUGGING";
                 return "[DEBUG]";
 #else
-                return "[正式版]";
+                return "[BETA VERSION]";
 #endif
             }
         }
@@ -60,7 +61,10 @@ namespace DGP.Snap.Service.Shell
                 ContextMenu = new ContextMenu(new[]
                 {
                     //修改MenuItem的OwnerDraw属性可以自定义外观
+
+                    //版本号
                     new MenuItem($"Snap Desktop {Application.ProductVersion}") { Enabled = false },
+                    //发行或测试
                     new MenuItem($"{AppDebugOrRelease}") { Enabled = false },
                     new MenuItem("更新",
                         new[] {
@@ -91,8 +95,8 @@ namespace DGP.Snap.Service.Shell
                 {
                     if (((MouseEventArgs)e).Button == MouseButtons.Left)
                     {
-                        MethodInfo showContextMenuMethodInfo = typeof(NotifyIcon).GetMethod("ShowContextMenu", BindingFlags.NonPublic | BindingFlags.Instance);
-                        showContextMenuMethodInfo.Invoke(this.NotifyIcon, null);
+                        MethodInfo showContextMenuMethod = typeof(NotifyIcon).GetMethod("ShowContextMenu", BindingFlags.NonPublic | BindingFlags.Instance);
+                        showContextMenuMethod.Invoke(this.NotifyIcon, null);
                     } 
                     //_itemAutorun.Checked = AutoStartupHelper.IsAutorun();
                     //NotifyIcon.ContextMenu.Show(NotifyIcon.ContextMenuStrip, Cursor.Position); 
@@ -117,7 +121,7 @@ namespace DGP.Snap.Service.Shell
         public class SystemNotificationManager
         {
             /// <summary>
-            /// 显示经典Windows系统通知
+            /// 显示Windows系统通知
             /// </summary>
             /// <param name="title">显示的标题，一般为 Snap Desktop</param>
             /// <param name="content">显示的内容</param>
@@ -126,7 +130,7 @@ namespace DGP.Snap.Service.Shell
             /// <param name="timedout">通知显示的时间，以毫秒为单位</param>
             public static void ShowNotification(string title, string content, Action clickEvent = null, Action closeEvent = null,int timedout=3000)
             {
-                var icon = Instance().NotifyIcon;
+                var icon = Instance.NotifyIcon;
                 icon.ShowBalloonTip(timedout, title, content, ToolTipIcon.None);
                 icon.BalloonTipClicked += OnIconOnBalloonTipClicked;
                 icon.BalloonTipClosed += OnIconOnBalloonTipClosed;
@@ -152,9 +156,17 @@ namespace DGP.Snap.Service.Shell
         /// 获取<see cref="TrayIconManager"/>的实例
         /// </summary>
         /// <returns></returns>
-        public static TrayIconManager Instance()
+        public static TrayIconManager Instance
         {
-            return _instance ?? (_instance = new TrayIconManager());
+            get
+            {
+                return _instance ?? (_instance = new TrayIconManager());
+            }
         }
+    }
+
+    public partial class TrayIconMeunItemResourceBridge : ContentControl
+    {
+
     }
 }

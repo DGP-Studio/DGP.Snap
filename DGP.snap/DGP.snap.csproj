@@ -88,6 +88,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helper\Extensions\WindowExtension.cs" />
+    <Compile Include="Helper\InterfaceHelpr.cs" />
     <Compile Include="Helper\Json.cs" />
     <Compile Include="Helper\Setting.cs" />
     <Compile Include="Helper\Singleton.cs" />
@@ -163,6 +164,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Service\Shell\TranIconMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Service\Update\UpdateProgressWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

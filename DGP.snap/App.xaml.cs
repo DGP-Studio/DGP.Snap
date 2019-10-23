@@ -34,6 +34,16 @@ namespace DGP.Snap
 
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
+            //实现单实例
+            InitializeSingleApplicationCheck();
+            //托盘图标
+            _ = TrayIconManager.Instance;
+            //更新
+            await Singleton<UpdateService>.Instance.HandleUpdateCheck();
+        }
+
+        private void InitializeSingleApplicationCheck()
+        {
 #if DEBUG
             if (Debugger.IsAttached)//调试模式
                 _isRunning = new Mutex(true, "DGP.Snap.Mutex.Debug.Debuging", out _isFirstInstance);
@@ -54,10 +64,6 @@ namespace DGP.Snap
                 return;
             }
 #endif
-            //托盘图标
-            TrayIconManager.Instance();
-            //更新
-            await Singleton<UpdateService>.Instance.HandleUpdateCheck();
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -66,7 +72,7 @@ namespace DGP.Snap
                 return;
             _isRunning.ReleaseMutex();
 
-            TrayIconManager.Instance().Dispose();
+            TrayIconManager.Instance.Dispose();
             //Debug.WriteLine("正常终止!");
             base.OnExit(e);
         }
