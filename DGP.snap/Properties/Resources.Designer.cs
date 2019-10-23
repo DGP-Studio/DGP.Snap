@@ -63,16 +63,6 @@ namespace DGP.Snap.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        public static System.Drawing.Bitmap FrontSight {
-            get {
-                object obj = ResourceManager.GetObject("FrontSight", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
         public static System.Drawing.Bitmap MahApps_Metro {
             get {
                 object obj = ResourceManager.GetObject("MahApps_Metro", resourceCulture);

@@ -49,6 +49,7 @@ namespace DGP.Snap.Helper
             request.Proxy = WebRequest.DefaultWebProxy;
             request.Credentials = CredentialCache.DefaultCredentials;
 
+
             request.Method = "GET";
             request.ContentType = "application/json;charset=UTF-8";
             //request.Headers.Add(HttpRequestHeader.UserAgent, "Wget/1.9.1");
