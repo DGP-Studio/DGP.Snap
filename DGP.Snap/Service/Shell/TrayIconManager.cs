@@ -1,23 +1,22 @@
-﻿using DGP.Snap.Properties;
+﻿using DGP.Snap.Helper;
+using DGP.Snap.Properties;
 using DGP.Snap.Service.Update;
 using DGP.Snap.Window;
-using DGP.Snap.Window.Wallpaper;
 using DGP.Snap.Window.LiveWallPaper;
-using System;
-using System.Windows.Forms;
-using System.Diagnostics;
-using DGP.Snap.Helper;
+using DGP.Snap.Window.Wallpaper;
 using DGP.Snap.Window.Weather;
-using System.Reflection;
+using System;
 using System.ComponentModel;
-using System.Windows.Controls;
+using System.Diagnostics;
+using System.Reflection;
+using System.Windows.Forms;
 
 namespace DGP.Snap.Service.Shell
 {
     /// <summary>
     /// 托盘图标与其菜单管理类,此类自身实现单例与资源回收
     /// </summary>
-    internal class TrayIconManager : IDisposable,INotNewable
+    internal class TrayIconManager : IDisposable, INotNewable
     {
         private MenuItem MenuItemSeparator { get { return new MenuItem("-"); } }
 
@@ -33,12 +32,12 @@ namespace DGP.Snap.Service.Shell
                     AutoStartupHelper.SetAutoStartState(true);
             });
 
-        private string AppDebugOrRelease
+        public string AppDebugOrRelease
         {
             get
             {
 #if DEBUG
-                if(Debugger.IsAttached)
+                if (Debugger.IsAttached)
                     return "[DEBUG]-DEBUGGING";
                 return "[DEBUG]";
 #else
@@ -58,55 +57,24 @@ namespace DGP.Snap.Service.Shell
                 Text = "Snap Desktop",
                 Icon = Resources.SnapNewIcon,
                 Visible = true,
-                ContextMenu = new ContextMenu(new[]
-                {
-                    //修改MenuItem的OwnerDraw属性可以自定义外观
-
-                    //版本号
-                    new MenuItem($"Snap Desktop {Application.ProductVersion}") { Enabled = false },
-                    //发行或测试
-                    new MenuItem($"{AppDebugOrRelease}") { Enabled = false },
-                    new MenuItem("更新",
-                        new[] {
-                            new MenuItem("检查更新", async (sender, e) => await Singleton<UpdateService>.Instance.HandleUpdateCheck(false)),
-                            new MenuItem("手动下载", (sender, e) => Process.Start("https://github.com/DGP-Studio/DGP.Snap/releases")),
-                        }),
-                    _itemAutorun,//自动启动
-                    MenuItemSeparator,
-                    new MenuItem("操作中心", (sender, e) => WindowManager.GetOrAddNormalWindow<MainWindow>().Show()),
-                    MenuItemSeparator,
-                    new MenuItem("壁纸", (sender, e) => WindowManager.GetOrAddNormalWindow<WallpaperWindow>().Show()),
-                    MenuItemSeparator,
-                    new MenuItem("桌面部件",
-                        new[] {
-                            new MenuItem("动态壁纸", (sender, e) => WindowManager.AddUIelementToTileWindow(new LiveWallPaperView(), 0, 0, 0)),
-                            new MenuItem("天气", (sender, e) => WindowManager.GetOrAddNormalWindow<WeatherTileWindow>().Show())
-                        }),
-                    //MenuItemSeparator,
-                    //_itemFrontSight,
-                    MenuItemSeparator,
-                    new MenuItem("退出", (sender, e) => System.Windows.Application.Current.Shutdown()),
-                }),
-                
+                ContextMenu = new ContextMenu(),
             };
 
-            NotifyIcon.Click += 
-                (sender, e) => 
-                {
-                    if (((MouseEventArgs)e).Button == MouseButtons.Left)
-                    {
-                        MethodInfo showContextMenuMethod = typeof(NotifyIcon).GetMethod("ShowContextMenu", BindingFlags.NonPublic | BindingFlags.Instance);
-                        showContextMenuMethod.Invoke(this.NotifyIcon, null);
-                    } 
-                    //_itemAutorun.Checked = AutoStartupHelper.IsAutorun();
-                    //NotifyIcon.ContextMenu.Show(NotifyIcon.ContextMenuStrip, Cursor.Position); 
-                };
-
-            NotifyIcon.ContextMenu.Popup +=
+            NotifyIcon.Click +=
                 (sender, e) =>
                 {
-                    _itemAutorun.Checked = AutoStartupHelper.IsAutorun();
-                };//设置check
+                    if (((MouseEventArgs)e).Button== MouseButtons.Right)
+                    {
+                        System.Windows.Controls.ContextMenu menu = (System.Windows.Controls.ContextMenu)TrayIconMenuBridge.GetMenu();
+                        menu.IsOpen = true;
+                    }
+                };
+
+            //NotifyIcon.ContextMenu.Popup +=
+            //    (sender, e) =>
+            //    {
+            //        _itemAutorun.Checked = AutoStartupHelper.IsAutorun();
+            //    };//设置check
 
         }
         /// <summary>
@@ -114,7 +82,7 @@ namespace DGP.Snap.Service.Shell
         /// </summary>
         public void Dispose()
         {
-            _itemAutorun.Dispose();
+            //_itemAutorun.Dispose();
             NotifyIcon.Visible = false;
         }
 
@@ -128,7 +96,7 @@ namespace DGP.Snap.Service.Shell
             /// <param name="clickEvent">点击通知触发的<see cref="Action"/></param>
             /// <param name="closeEvent">通知消失时触发的<see cref="Action"/></param>
             /// <param name="timedout">通知显示的时间，以毫秒为单位</param>
-            public static void ShowNotification(string title, string content, Action clickEvent = null, Action closeEvent = null,int timedout=3000)
+            public static void ShowNotification(string title, string content, Action clickEvent = null, Action closeEvent = null, int timedout = 3000)
             {
                 var icon = Instance.NotifyIcon;
                 icon.ShowBalloonTip(timedout, title, content, ToolTipIcon.None);
@@ -165,8 +133,4 @@ namespace DGP.Snap.Service.Shell
         }
     }
 
-    public partial class TrayIconMeunItemResourceBridge : ContentControl
-    {
-
-    }
 }

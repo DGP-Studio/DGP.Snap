@@ -14,7 +14,7 @@ namespace DGP.Snap
     public partial class App : Application
     {
 
-
+        //public string ProductVersion { get { return System.Windows.Forms.Application.ProductVersion; } }
         protected override void OnStartup(StartupEventArgs e)
         {
             if(!Debugger.IsAttached)//不调试时

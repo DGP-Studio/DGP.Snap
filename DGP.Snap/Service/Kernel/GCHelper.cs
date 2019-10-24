@@ -5,16 +5,16 @@ namespace DGP.Snap.Service.Kernel
 {
     class GCHelper
     {
-        private static bool isPreparingCollect = false;
+        private static bool isGarbageCollecting = false;
         public static void PerformAggressiveGC()
         {
-            if (!isPreparingCollect)
+            if (!isGarbageCollecting)
             {
-                isPreparingCollect = true;
+                isGarbageCollecting = true;
                 Task.Delay(1000).ContinueWith(t =>
                 {
                     GC.Collect(GC.MaxGeneration);
-                    isPreparingCollect = false;
+                    isGarbageCollecting = false;
                 });
             }
         }
