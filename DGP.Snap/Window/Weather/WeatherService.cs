@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DGP.Snap.Window.Weather
 {
-    public class WeatherService : INotifyPropertyChanged
+    public class WeatherService : INotifyPropertyChanged,ISupportSingleton
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null)

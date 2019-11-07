@@ -9,6 +9,7 @@
     <RootNamespace>DGP.Snap</RootNamespace>
     <AssemblyName>DGP.Snap</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetPlatformVersion>10.0.18362.0</TargetPlatformVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -87,6 +88,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helper\CryptoRandom.cs" />
     <Compile Include="Helper\Extensions\WindowExtension.cs" />
     <Compile Include="Helper\InterfaceHelpr.cs" />
     <Compile Include="Helper\Json.cs" />
@@ -131,9 +133,13 @@
     <Compile Include="InformationPage.xaml.cs">
       <DependentUpon>InformationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Service\User\QQHelper.cs" />
+    <Compile Include="Service\User\Model.cs" />
+    <Compile Include="Service\User\QQUserInfomationService.cs" />
     <Compile Include="Service\User\UserInfoTileWindow.xaml.cs">
       <DependentUpon>UserInfoTileWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\LiveWallpaper\LiveMatrixRainView.xaml.cs">
+      <DependentUpon>LiveMatrixRainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window\TileWindow.xaml.cs">
       <DependentUpon>TileWindow.xaml</DependentUpon>
@@ -181,6 +187,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Service\User\UserInfoTileWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\LiveWallpaper\LiveMatrixRainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -247,12 +257,12 @@
     <PackageReference Include="MahApps.Metro">
       <Version>2.0.0-alpha0391</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Windows.SDK.Contracts">
+      <Version>10.0.18362.2005</Version>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3-beta2</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\FrontSight.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\MahApps.Metro.png" />
@@ -280,6 +290,9 @@
       <Project>{454c50cd-f0eb-4702-a222-15f8ce72b21e}</Project>
       <Name>DGP.Snap.UI</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Github.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

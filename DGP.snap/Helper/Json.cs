@@ -22,7 +22,6 @@ namespace DGP.Snap.Helper
                 JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
                 jsonSerializerSettings.NullValueHandling = NullValueHandling.Include;
                 jsonSerializerSettings.Formatting = Formatting.Indented;
-                //jsonSerializerSettings.
                 return JsonConvert.SerializeObject(value, jsonSerializerSettings);
             });
         }

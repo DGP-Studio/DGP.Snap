@@ -11,5 +11,11 @@ namespace DGP.Snap.Helper
     /// </summary>
     interface INotNewable
     {
+
+    }
+
+    interface ISupportSingleton
+    {
+
     }
 }

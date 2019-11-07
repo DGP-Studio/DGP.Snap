@@ -1,14 +1,8 @@
 ﻿using DGP.Snap.Helper;
 using DGP.Snap.Properties;
-using DGP.Snap.Service.Update;
-using DGP.Snap.Window;
-using DGP.Snap.Window.LiveWallPaper;
-using DGP.Snap.Window.Wallpaper;
-using DGP.Snap.Window.Weather;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace DGP.Snap.Service.Shell

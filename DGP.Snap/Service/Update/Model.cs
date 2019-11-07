@@ -6,24 +6,24 @@ namespace DGP.Snap.Service.Update
 
     public class People
     {
-        [JsonProperty("login")] public string login { get; set; }
-        [JsonProperty("id")] public int id { get; set; }
-        [JsonProperty("node_id")] public string node_id { get; set; }
-        [JsonProperty("avatar_url")] public string avatar_url { get; set; }
-        [JsonProperty("gravatar_id")] public string gravatar_id { get; set; }
-        [JsonProperty("url")] public string url { get; set; }
-        [JsonProperty("html_url")] public string html_url { get; set; }
-        [JsonProperty("followers_url")] public string followers_url { get; set; }
-        [JsonProperty("following_url")] public string following_url { get; set; }
-        [JsonProperty("gists_url")] public string gists_url { get; set; }
-        [JsonProperty("starred_url")] public string starred_url { get; set; }
-        [JsonProperty("subscriptions_url")] public string subscriptions_url { get; set; }
-        [JsonProperty("organizations_url")] public string organizations_url { get; set; }
-        [JsonProperty("repos_url")] public string repos_url { get; set; }
-        [JsonProperty("events_url")] public string events_url { get; set; }
-        [JsonProperty("received_events_url")] public string received_events_url { get; set; }
-        [JsonProperty("type")] public string type { get; set; }
-        [JsonProperty("site_admin")] public string site_admin { get; set; }
+        [JsonProperty("login")] public string Login { get; set; }
+        [JsonProperty("id")] public int Id { get; set; }
+        [JsonProperty("node_id")] public string Node_id { get; set; }
+        [JsonProperty("avatar_url")] public string Avatar_url { get; set; }
+        [JsonProperty("gravatar_id")] public string Gravatar_id { get; set; }
+        [JsonProperty("url")] public string Url { get; set; }
+        [JsonProperty("html_url")] public string Html_url { get; set; }
+        [JsonProperty("followers_url")] public string Followers_url { get; set; }
+        [JsonProperty("following_url")] public string Following_url { get; set; }
+        [JsonProperty("gists_url")] public string Gists_url { get; set; }
+        [JsonProperty("starred_url")] public string Starred_url { get; set; }
+        [JsonProperty("subscriptions_url")] public string Subscriptions_url { get; set; }
+        [JsonProperty("organizations_url")] public string Organizations_url { get; set; }
+        [JsonProperty("repos_url")] public string Repos_url { get; set; }
+        [JsonProperty("events_url")] public string Events_url { get; set; }
+        [JsonProperty("received_events_url")] public string Received_events_url { get; set; }
+        [JsonProperty("type")] public string Type { get; set; }
+        [JsonProperty("site_admin")] public string Site_admin { get; set; }
     }
 
     public class AssetsItem
@@ -51,7 +51,7 @@ namespace DGP.Snap.Service.Update
         [JsonProperty("html_url")] public string Html_url { get; set; }
         [JsonProperty("id")] public int Id { get; set; }
         [JsonProperty("node_id")] public string Node_id { get; set; }
-        [JsonProperty("tag_name")] public string Tag_name { get; set; }
+        [JsonProperty("tag_name")] public string TagName { get; set; }
         [JsonProperty("target_commitish")] public string Target_commitish { get; set; }
         [JsonProperty("name")] public string Name { get; set; }
         [JsonProperty("draft")] public string Draft { get; set; }

@@ -1,6 +1,7 @@
 ﻿using DGP.Snap.Helper;
 using DGP.Snap.Service.Shell;
 using DGP.Snap.Service.Update;
+using DGP.Snap.Service.User;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -17,7 +18,7 @@ namespace DGP.Snap
         //public string ProductVersion { get { return System.Windows.Forms.Application.ProductVersion; } }
         protected override void OnStartup(StartupEventArgs e)
         {
-            if(!Debugger.IsAttached)//不调试时
+            if (!Debugger.IsAttached)//不调试时
                 AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
 
             base.OnStartup(e);
@@ -35,14 +36,15 @@ namespace DGP.Snap
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
             //实现单实例
-            InitializeSingleApplicationCheck();
+            InitializeAsSingleApplication();
             //托盘图标
             _ = TrayIconManager.Instance;
             //更新
             await Singleton<UpdateService>.Instance.HandleUpdateCheck();
+
         }
 
-        private void InitializeSingleApplicationCheck()
+        private void InitializeAsSingleApplication()
         {
 #if DEBUG
             if (Debugger.IsAttached)//调试模式

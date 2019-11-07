@@ -13,10 +13,9 @@ using System.Windows;
 
 namespace DGP.Snap.Service.Update
 {
-    class UpdateService
+    class UpdateService:ISupportSingleton
     {
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public UpdateService(){}
+        [EditorBrowsable(EditorBrowsableState.Never)] public UpdateService(){}
         /// <summary>
         /// 不要在调用 <see cref="CheckUpdateAvailability()"/> 前使用，默认为<see cref="null"/>
         /// </summary>
@@ -34,8 +33,8 @@ namespace DGP.Snap.Service.Update
             {
                 Release release = await Json.GetWebRequestJsonObjectAsync<Release>("https://api.github.com/repos/DGP-Studio/DGP.Snap/releases/latest");
 
-                var newVersion = release.Tag_name;
-                NewVersion = new Version(release.Tag_name);
+                var newVersion = release.TagName;
+                NewVersion = new Version(release.TagName);
 
                 if (new Version(newVersion) > CurrentVersion)//有新版本
                 {
@@ -145,7 +144,7 @@ namespace DGP.Snap.Service.Update
                     break;
 
                 case UpdateAvailability.NeedUpdate:
-                    TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "发现可用的更新，单击此通知以下载...", () => { DownloadAndInstallPackage(); });
+                    TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", $"发现可用的更新，版本号：{NewVersion}，单击此通知以下载...", () => { DownloadAndInstallPackage(); });
                     break;
 
                 case UpdateAvailability.NotAvailable:

@@ -10,7 +10,7 @@ namespace DGP.Snap.Window.Wallpaper
     /// <summary>
     /// 使用时先调用<see cref="InitializeAsync()"/>
     /// </summary>
-    public class WallpaperService
+    public class WallpaperService:ISupportSingleton
     {
         [EditorBrowsable(EditorBrowsableState.Never)]
         public WallpaperService() { }

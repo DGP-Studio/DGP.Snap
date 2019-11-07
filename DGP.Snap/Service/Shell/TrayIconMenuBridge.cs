@@ -1,7 +1,7 @@
 ﻿using DGP.Snap.Helper;
 using DGP.Snap.Service.Update;
 using DGP.Snap.Window;
-using DGP.Snap.Window.LiveWallPaper;
+using DGP.Snap.Window.LiveWallpaper;
 using DGP.Snap.Window.Wallpaper;
 using DGP.Snap.Window.Weather;
 using System.Diagnostics;
@@ -36,7 +36,7 @@ namespace DGP.Snap.Service.Shell
                 //版本号
                 new MenuItem($"Snap Desktop {System.Windows.Forms.Application.ProductVersion}") { Enabled = false },
                 //发行或测试
-                //new MenuItem($"{TrayIconManager.Instance.AppDebugOrRelease}") { Enabled = false },
+                new MenuItem($"{TrayIconManager.Instance.AppDebugOrRelease}") { Enabled = false },
                 new MenuItem("更新",
                     new[] {
                         new MenuItem("检查更新", async (sender, e) => await Singleton<UpdateService>.Instance.HandleUpdateCheck(false)),
@@ -50,12 +50,14 @@ namespace DGP.Snap.Service.Shell
                 new Separator(),
                 new MenuItem("桌面部件",
                     new[] {
-                        new MenuItem("动态壁纸", (sender, e) => WindowManager.AddUIelementToTileWindow(new LiveWallPaperView(), 0, 0, 0)),
+                        new MenuItem("视频壁纸BETA", (sender, e) => WindowManager.AddUIelementToTileWindow(new LiveWallPaperView(), 0, 0, 0)),
+                        new MenuItem("代码雨", (sender, e) => WindowManager.AddUIelementToTileWindow(new LiveMatrixRainView(), 0, 0, 0)),
                         new MenuItem("天气", (sender, e) => WindowManager.GetOrAddNormalWindow<WeatherTileWindow>().Show())
                     }),
                 new Separator(),
                 new MenuItem("退出", (sender, e) => Application.Current.Shutdown()),
                 new Separator(){ Visibility=Visibility.Hidden,Height=2 },
+                
             };
             foreach (UIElement item in menuItems)
                 ContextMenu.Items.Add(item);
@@ -111,4 +113,4 @@ namespace DGP.Snap.Service.Shell
             }
         }
     }
-}
+} 

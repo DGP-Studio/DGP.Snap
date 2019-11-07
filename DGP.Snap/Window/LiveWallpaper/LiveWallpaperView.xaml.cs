@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Forms;
 
-namespace DGP.Snap.Window.LiveWallPaper
+namespace DGP.Snap.Window.LiveWallpaper
 {
     /// <summary>
     /// WeatherView.xaml 的交互逻辑

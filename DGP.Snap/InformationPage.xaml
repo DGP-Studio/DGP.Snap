@@ -21,7 +21,7 @@
                     ComponentImageSource="/Resources/SnapNewLogo.png" 
                     ComponentName="DGP.Snap" 
                     ComponentAuthor="DGP Studio" 
-                    ComponentDescription="The Snap Desktop"
+                    ComponentDescription="The Snap Desktop."
                     ComponentRepositoryUri="https://github.com/DGP-Studio/DGP.Snap"
                     ComponentLicenseUri="https://github.com/DGP-Studio/DGP.Snap/blob/master/LICENSE.md"/>
                 <TextBlock Text="第三方组件" Margin="24,16,16,0" Grid.Column="1" Foreground="Black" Style="{StaticResource SubtitleTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -47,14 +47,22 @@
                     ComponentRepositoryUri="https://github.com/Avira/.NetFileDownloader"
                     ComponentLicenseUri="https://github.com/Avira/.NetFileDownloader/blob/master/LICENSE"/>
                 
-                <ui:ComponentInformationView 
+                <ui:ComponentInformationView
                     ComponentImageSource="Resources/QuickLook.png"
                     ComponentName="QuickLook"
                     ComponentAuthor="QL-Win"
                     ComponentDescription="This repository has been partially merged into our project."
                     ComponentRepositoryUri="https://github.com/QL-Win/QuickLook"
                     ComponentLicenseUri="https://github.com/QL-Win/QuickLook/blob/master/LICENSE-GPL.txt"/>
+                <TextBlock Text="第三方服务" Margin="24,16,16,0" Grid.Column="1" Foreground="Black" Style="{StaticResource SubtitleTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <ui:ComponentInformationView
+                    ComponentImageSource="Resources/Github.ico"
+                    ComponentName="Github"
+                    ComponentAuthor="Github"
+                    ComponentDescription="Build software better, together."
+                    ComponentRepositoryUri="https://github.com/github"/>
             </StackPanel>
+            
         </ScrollViewer>
     </Grid>
 </Page>
