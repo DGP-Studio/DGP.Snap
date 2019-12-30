@@ -117,8 +117,7 @@ namespace DGP.Snap.Service.Update
             if (File.Exists("OldUpdater.exe"))
                 File.Delete("OldUpdater.exe");
 
-            Computer MyComputer = new Computer();
-            MyComputer.FileSystem.RenameFile(Path.GetFullPath("DGP.Snap.Updater.exe"), "OldUpdater.exe");
+            new Computer().FileSystem.RenameFile(Path.GetFullPath("DGP.Snap.Updater.exe"), "OldUpdater.exe");
 
             Process.Start("OldUpdater.exe");
             Application.Current.Shutdown();

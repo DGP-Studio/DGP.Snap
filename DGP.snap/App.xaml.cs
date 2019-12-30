@@ -1,7 +1,7 @@
 ﻿using DGP.Snap.Helper;
+using DGP.Snap.Service.Setting;
 using DGP.Snap.Service.Shell;
 using DGP.Snap.Service.Update;
-using DGP.Snap.Service.User;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -26,7 +26,7 @@ namespace DGP.Snap
 
         private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            TrayIconManager.SystemNotificationManager.ShowNotification("Snap Deskyop/Exception", e.ExceptionObject.ToString()); 
+            TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop/Exception", e.ExceptionObject.ToString()); 
             Debug.WriteLine(e.ExceptionObject.ToString());
         }
 
@@ -41,7 +41,8 @@ namespace DGP.Snap
             _ = TrayIconManager.Instance;
             //更新
             await Singleton<UpdateService>.Instance.HandleUpdateCheck();
-
+            //
+            await Singleton<SettingStorageService>.Instance.RetriveSettingsAsync();
         }
 
         private void InitializeAsSingleApplication()

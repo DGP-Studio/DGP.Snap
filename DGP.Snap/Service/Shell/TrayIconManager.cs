@@ -1,8 +1,11 @@
 ﻿using DGP.Snap.Helper;
+using DGP.Snap.Helper.Extensions;
 using DGP.Snap.Properties;
+using DGP.Snap.Window;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Forms;
 
 namespace DGP.Snap.Service.Shell
@@ -113,18 +116,11 @@ namespace DGP.Snap.Service.Shell
         }
 
         private static TrayIconManager _instance;
-
         /// <summary>
         /// 获取<see cref="TrayIconManager"/>的实例
         /// </summary>
         /// <returns></returns>
-        public static TrayIconManager Instance
-        {
-            get
-            {
-                return _instance ?? (_instance = new TrayIconManager());
-            }
-        }
+        public static TrayIconManager Instance => _instance ?? (_instance = new TrayIconManager());
     }
 
 }

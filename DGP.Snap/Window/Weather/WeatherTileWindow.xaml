@@ -12,7 +12,10 @@
         Background="Transparent"
         ResizeMode="NoResize"
         Title="WeatherTileWindow" Height="144" Width="340" 
-        Activated="HandleWindowBottomState" StateChanged="HandleWindowBottomState" GotFocus="HandleWindowBottomState"
+        Activated="HandleWindowBottomState" 
+    StateChanged="HandleWindowBottomState" 
+    GotFocus="HandleWindowBottomState"
+    ShowInTaskbar="False"
         Loaded="Window_Loaded">
     <StackPanel Background="#44000000" MouseDown="Grid_MouseDown">
         <Grid  Margin="16,8,0,4">

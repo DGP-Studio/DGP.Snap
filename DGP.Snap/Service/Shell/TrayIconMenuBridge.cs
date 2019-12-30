@@ -7,6 +7,7 @@ using DGP.Snap.Window.Weather;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace DGP.Snap.Service.Shell
 {
@@ -14,7 +15,7 @@ namespace DGP.Snap.Service.Shell
     {
         private static ContextMenu ContextMenu = new ContextMenu() {BorderThickness= new Thickness(0) };
 
-        private TrayIconMenu TrayIconMenu = new TrayIconMenu();
+        private InteractionMenu TrayIconMenu = new InteractionMenu();
 
         private static readonly MenuItem _itemAutorun =
             new MenuItem("开机启动",
@@ -28,6 +29,7 @@ namespace DGP.Snap.Service.Shell
 
         public static object GetMenu()
         {
+            ContextMenu.Background = new SolidColorBrush(Color.FromArgb(160, 255, 255, 255));
             _itemAutorun.Checked = AutoStartupHelper.IsAutorun();
             ContextMenu.Items.Clear();
             UIElement[] menuItems =
@@ -57,7 +59,6 @@ namespace DGP.Snap.Service.Shell
                 new Separator(),
                 new MenuItem("退出", (sender, e) => Application.Current.Shutdown()),
                 new Separator(){ Visibility=Visibility.Hidden,Height=2 },
-                
             };
             foreach (UIElement item in menuItems)
                 ContextMenu.Items.Add(item);
@@ -69,7 +70,7 @@ namespace DGP.Snap.Service.Shell
     /// </summary>
     internal class MenuItem : System.Windows.Controls.MenuItem
     {
-        private TrayIconMenu TrayIconMenu = new TrayIconMenu();
+        private InteractionMenu TrayIconMenu = new InteractionMenu();
         public MenuItem()
         {
             this.Style= TrayIconMenu.GetStyle("StandardMenuItemStyle") as Style;
@@ -88,7 +89,6 @@ namespace DGP.Snap.Service.Shell
             Header = text;
             foreach (MenuItem item in items)
                 Items.Add(item);
-
         }
         public bool Enabled
         {

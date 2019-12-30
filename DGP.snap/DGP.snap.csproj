@@ -9,7 +9,6 @@
     <RootNamespace>DGP.Snap</RootNamespace>
     <AssemblyName>DGP.Snap</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <TargetPlatformVersion>10.0.18362.0</TargetPlatformVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -89,10 +88,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helper\CryptoRandom.cs" />
-    <Compile Include="Helper\Extensions\WindowExtension.cs" />
+    <Compile Include="Helper\Extensions\DictionaryExtensions.cs" />
+    <Compile Include="Helper\Extensions\ListExtensions.cs" />
+    <Compile Include="Helper\Extensions\WindowExtensions.cs" />
     <Compile Include="Helper\InterfaceHelpr.cs" />
     <Compile Include="Helper\Json.cs" />
-    <Compile Include="Helper\Setting.cs" />
+    <Compile Include="Helper\QueryString.cs" />
     <Compile Include="Helper\Singleton.cs" />
     <Compile Include="Helper\Xml.cs" />
     <Compile Include="NotificationPage.xaml.cs">
@@ -100,6 +101,7 @@
     </Compile>
     <Compile Include="Service\Kernel\GCHelper.cs" />
     <Compile Include="Service\Kernel\NativeMethod.cs" />
+    <Compile Include="Service\Setting\SettingStorageService.cs" />
     <Compile Include="Service\Shell\AutoStartupHelper.cs" />
     <Compile Include="Service\Download\CompletedState.cs" />
     <Compile Include="Service\Download\DownloadFileCompletedArgs.cs" />
@@ -121,8 +123,8 @@
     <Compile Include="Service\Navigation\NavHelper.cs" />
     <Compile Include="Service\Navigation\NavigationService.cs" />
     <Compile Include="Service\Shell\TrayIconManager.cs" />
-    <Compile Include="Service\Shell\TrayIconMenu.xaml.cs">
-      <DependentUpon>TrayIconMenu.xaml</DependentUpon>
+    <Compile Include="Service\Shell\InteractionMenu.xaml.cs">
+      <DependentUpon>InteractionMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Service\Shell\TrayIconMenuBridge.cs" />
     <Compile Include="Service\Update\Model.cs" />
@@ -174,7 +176,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Service\Shell\TrayIconMenu.xaml">
+    <Page Include="Service\Shell\InteractionMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -257,11 +259,8 @@
     <PackageReference Include="MahApps.Metro">
       <Version>2.0.0-alpha0391</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.Windows.SDK.Contracts">
-      <Version>10.0.18362.2005</Version>
-    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3-beta2</Version>
+      <Version>12.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -282,9 +281,7 @@
   <ItemGroup>
     <Resource Include="Resources\SnapNewIcon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Service\Setting\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\DGP.Snap.UI\DGP.Snap.UI.csproj">
       <Project>{454c50cd-f0eb-4702-a222-15f8ce72b21e}</Project>

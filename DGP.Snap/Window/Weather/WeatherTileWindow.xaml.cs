@@ -33,11 +33,11 @@ namespace DGP.Snap.Window.Weather
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (IsPinned == Visibility.Hidden)
-            {
-                DragMove();
-            }
-            
+            if(e.LeftButton==MouseButtonState.Pressed&&e.RightButton==MouseButtonState.Released)
+                if (IsPinned == Visibility.Hidden)
+                {
+                    DragMove();
+                }
         }
 
         public WeatherModel WeatherInfo

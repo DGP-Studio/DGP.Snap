@@ -18,9 +18,9 @@ namespace DGP.Snap.Service.Shell
     /// <summary>
     /// TrayIconMenu.xaml 的交互逻辑
     /// </summary>
-    public partial class TrayIconMenu : UserControl
+    public partial class InteractionMenu : UserControl
     {
-        public TrayIconMenu()
+        public InteractionMenu()
         {
             //InitializeComponent();
             

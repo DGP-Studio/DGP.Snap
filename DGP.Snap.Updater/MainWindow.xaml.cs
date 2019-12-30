@@ -19,23 +19,16 @@ namespace DGP.Snap.Updater
 
         private static void InstallPackage()
         {
+            Thread.Sleep(2000);
             using (ZipArchive archive = ZipFile.OpenRead("Package.zip"))
             {
                 foreach (ZipArchiveEntry entry in archive.Entries)
                 {
-                    try
-                    {
-                        entry.ExtractToFile(entry.FullName, overwrite: true);
-                    }
-                    catch(Exception e)
-                    {
-                        MessageBox.Show(e.Message);
-                    }
+                    entry.ExtractToFile(entry.FullName, overwrite: true);
                 }
             }
-            
             Process.Start("DGP.Snap.exe");
-            
+
             Application.Current.Shutdown();
         }
 

@@ -11,7 +11,7 @@ namespace DGP.Snap.Helper
     /// 也可以在延迟初始化类时使用单例
     /// </summary>
     /// <typeparam name="T">想要实现单例的类类型，必须具有无参数的构造函数</typeparam>
-    public static class Singleton<T> where T : new()
+    public static class Singleton<T> where T : ISupportSingleton,new()
     {
         private static ConcurrentDictionary<Type, T> _instances = new ConcurrentDictionary<Type, T>();
 
