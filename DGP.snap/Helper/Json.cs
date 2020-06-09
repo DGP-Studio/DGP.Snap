@@ -19,9 +19,11 @@ namespace DGP.Snap.Helper
         {
             return await Task.Run(() =>
             {
-                JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings();
-                jsonSerializerSettings.NullValueHandling = NullValueHandling.Include;
-                jsonSerializerSettings.Formatting = Formatting.Indented;
+                JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Include,
+                    Formatting = Formatting.Indented
+                };
                 return JsonConvert.SerializeObject(value, jsonSerializerSettings);
             });
         }
@@ -47,7 +49,6 @@ namespace DGP.Snap.Helper
             //为了能正常的获取GitHub的数据
             request.Proxy = WebRequest.DefaultWebProxy;
             request.Credentials = CredentialCache.DefaultCredentials;
-
 
             request.Method = "GET";
             request.ContentType = "application/json;charset=UTF-8";

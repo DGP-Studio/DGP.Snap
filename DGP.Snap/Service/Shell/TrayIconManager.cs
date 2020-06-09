@@ -2,6 +2,7 @@
 using DGP.Snap.Helper.Extensions;
 using DGP.Snap.Properties;
 using DGP.Snap.Window;
+using DGP.Snap.Window.Side;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -33,13 +34,13 @@ namespace DGP.Snap.Service.Shell
         {
             get
             {
-#if DEBUG
+                #if DEBUG
                 if (Debugger.IsAttached)
                     return "[DEBUG]-DEBUGGING";
                 return "[DEBUG]";
-#else
+                #else
                 return "[BETA VERSION]";
-#endif
+                #endif
             }
         }
 
@@ -64,6 +65,10 @@ namespace DGP.Snap.Service.Shell
                     {
                         System.Windows.Controls.ContextMenu menu = (System.Windows.Controls.ContextMenu)TrayIconMenuBridge.GetMenu();
                         menu.IsOpen = true;
+                    }
+                    else
+                    {
+                        WindowManager.GetOrAddNormalWindow<SideWindow>().Show();
                     }
                 };
 

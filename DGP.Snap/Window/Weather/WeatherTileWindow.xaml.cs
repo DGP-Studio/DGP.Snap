@@ -1,18 +1,9 @@
 ﻿using DGP.Snap.Helper;
 using DGP.Snap.Helper.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace DGP.Snap.Window.Weather
 {
@@ -77,10 +68,7 @@ namespace DGP.Snap.Window.Weather
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (IsPinned == Visibility.Hidden)
-                IsPinned = Visibility.Visible;
-            else
-                IsPinned = Visibility.Hidden;
+            IsPinned = IsPinned == Visibility.Hidden ? Visibility.Visible : Visibility.Hidden;
         }
 
         private async void RefreshButton_Click(object sender, RoutedEventArgs e)

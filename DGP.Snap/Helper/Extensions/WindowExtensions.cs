@@ -21,12 +21,12 @@ namespace DGP.Snap.Helper.Extensions
             Debug.WriteLine("Program Manager" + hWndProgMan.ToString());
             //下面似乎是用来创建WorkerW的
             SendMessageTimeout(hWndProgMan,
-                                            0x052C,
-                                            new UIntPtr(0u),
-                                            IntPtr.Zero,
-                                            SendMessageTimeoutFlags.SMTO_NORMAL,
-                                            1000u,
-                                            out UIntPtr _);
+                               0x052C,
+                               new UIntPtr(0u),
+                               IntPtr.Zero,
+                               SendMessageTimeoutFlags.SMTO_NORMAL,
+                               1000u,
+                               out UIntPtr _);
             SetParent(hWndWindow, FindWorkerWPtr());
         }
         private static IntPtr FindWorkerWPtr()
@@ -55,7 +55,6 @@ namespace DGP.Snap.Helper.Extensions
             SetWindowPos(hWndWindow, HWND_BOTTOM, 0, 0, 0, 0,
                 SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE | SWP_SHOWWINDOW);
         }
-
         public static void SetAcrylicblur(this System.Windows.Window window)
         {
 

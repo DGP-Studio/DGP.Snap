@@ -41,7 +41,6 @@ namespace DGP.Snap.Window
 
         }
 
-
     }
 
 }

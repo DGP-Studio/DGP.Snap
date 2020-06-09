@@ -7,10 +7,12 @@ using DGP.Snap.Service.Shell;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Input;
 
 namespace DGP.Snap.Window.Wallpaper
 {
@@ -32,31 +34,29 @@ namespace DGP.Snap.Window.Wallpaper
             //Selected = ObservableWallpaperInfos[0];
         }
 
-
         protected override async void OnClosing(CancelEventArgs e)
         {
-
             await Singleton<SettingStorageService>.Instance.SaveSettingsAsync();
             GC.Collect();
         }
 
         public ObservableCollection<Wallpaper> ObservableWallpaperInfos { get; set; }
 
-
         public event PropertyChangedEventHandler PropertyChanged;
 
+        #region INotifyPropertyChanged
         private void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null)
         {
             if (Equals(storage, value))
             {
                 return;
             }
-
             storage = value;
             OnPropertyChanged(propertyName);
         }
 
         private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        #endregion
 
         private Wallpaper _selected;
 
@@ -85,31 +85,25 @@ namespace DGP.Snap.Window.Wallpaper
             string path = saveFileDialog.FileName;
             if (path == "")
             {
-                //todo 处理未选择，cancel
                 return;
             }
-
-            using (IFileDownloader fileDownloader = new FileDownloader())
-            {
-                fileDownloader.DownloadFileCompleted += (object s, DownloadFileCompletedArgs args)=> 
-                {
-                    if (args.State == CompletedState.Succeeded)
-                        TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop/壁纸", ":)\n壁纸下载完成!");
-                    else
-                        TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop/壁纸", ":(\n未能正常下载");
-                };
-                fileDownloader.DownloadFileAsync(Selected.Uri, path);
-            }
+            //不能using
+            IFileDownloader fileDownloader = new FileDownloader();
+            fileDownloader.DownloadFileCompleted += OnDownloadFileCompleted;
+            fileDownloader.DownloadFileAsync(Selected.Uri, path);
         }
 
-        private void MetroWindow_WindowTransitionCompleted(object sender, RoutedEventArgs e)
+        private void OnDownloadFileCompleted(object sender, DownloadFileCompletedArgs e)
         {
-
+            if (e.State == CompletedState.Succeeded)
+                TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop/壁纸", ":)\n壁纸下载完成！");
+            else
+                TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop/壁纸", ":(\n未能正常下载");
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //this.SetAcrylicblur();
+            this.SetAcrylicblur();
             //处理速度慢的计算机不能正常的给ObservableWallpaperInfos赋值
             //需要额外添加判断
             if (ObservableWallpaperInfos.Count > 0)
@@ -127,8 +121,7 @@ namespace DGP.Snap.Window.Wallpaper
         {
             if (WindowState == WindowState.Maximized)
             {
-                BorderGrid.Margin = new Thickness(7, 7, 7, 7);
-                
+                BorderGrid.Margin = new Thickness(7);
             }
             else//最大化
             {

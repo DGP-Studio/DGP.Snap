@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGP.Snap", "DGP.Snap\DGP.Sn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGP.Snap.UI", "DGP.Snap.UI\DGP.Snap.UI.csproj", "{454C50CD-F0EB-4702-A222-15F8CE72B21E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGP.Snap.Test", "DGP.Snap.Test\DGP.Snap.Test.csproj", "{02D5FAA1-6C7E-4582-AD65-46D43B94A22F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,14 @@ Global
 		{454C50CD-F0EB-4702-A222-15F8CE72B21E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{454C50CD-F0EB-4702-A222-15F8CE72B21E}.Release|x86.ActiveCfg = Release|Any CPU
 		{454C50CD-F0EB-4702-A222-15F8CE72B21E}.Release|x86.Build.0 = Release|Any CPU
+		{02D5FAA1-6C7E-4582-AD65-46D43B94A22F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02D5FAA1-6C7E-4582-AD65-46D43B94A22F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02D5FAA1-6C7E-4582-AD65-46D43B94A22F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{02D5FAA1-6C7E-4582-AD65-46D43B94A22F}.Debug|x86.Build.0 = Debug|Any CPU
+		{02D5FAA1-6C7E-4582-AD65-46D43B94A22F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02D5FAA1-6C7E-4582-AD65-46D43B94A22F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02D5FAA1-6C7E-4582-AD65-46D43B94A22F}.Release|x86.ActiveCfg = Release|Any CPU
+		{02D5FAA1-6C7E-4582-AD65-46D43B94A22F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

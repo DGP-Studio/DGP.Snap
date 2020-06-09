@@ -20,7 +20,6 @@ namespace DGP.Snap
         {
             if (!Debugger.IsAttached)//不调试时
                 AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
-
             base.OnStartup(e);
         }
 
