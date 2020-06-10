@@ -1,4 +1,0 @@
-﻿[*.cs]
-
-# IDE0044: 添加只读修饰符
-dotnet_style_readonly_field = false:suggestion
