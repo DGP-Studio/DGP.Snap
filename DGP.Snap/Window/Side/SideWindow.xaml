@@ -1,0 +1,39 @@
+﻿<Window x:Class="DGP.Snap.Window.Side.SideWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DGP.Snap.Window.Side"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" xmlns:counter="clr-namespace:DGP.Snap.Window.Side.Counter" xmlns:adaptive="clr-namespace:DGP.Snap.Window.Side.Adaptive"
+        mc:Ignorable="d"
+        Title="SideWindow" Height="450" Width="420" WindowStyle="None" Loaded="Window_Loaded" Background="Transparent" 
+        MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" ResizeMode="NoResize" StateChanged="Window_StateChanged" >
+
+    <WindowChrome.WindowChrome >
+        <WindowChrome GlassFrameThickness="-1" CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
+    <Grid  Margin="0,0,4,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="72"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" VerticalAlignment="Top">
+            <Image Source="/DGP.Snap;component/SnapNewIcon.ico" Margin="20,12,20,12"/>
+            <counter:CpuCounterView/>
+            <counter:MemCounterView/>
+            <counter:WebCounterView/>
+        </StackPanel>
+        <StackPanel Grid.Column="0" VerticalAlignment="Bottom">
+            <Button Height="72" Click="SystemSettingButton_Click" Style="{StaticResource DefaultButtonStyle}">
+                <StackPanel >
+                    <TextBlock HorizontalAlignment="Center" Margin="4" Style="{StaticResource SubtitleTextBlockStyle}" Text="&#xE713;" FontFamily="Segoe MDL2 Assets"/>
+                    <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="系统设置"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <adaptive:WeatherView/>
+            <adaptive:DiskInfoView/>
+        </StackPanel>
+    </Grid>
+</Window>

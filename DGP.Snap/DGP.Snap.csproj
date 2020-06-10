@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4C4A2562-5755-46A5-8F62-BABF45267253}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>DGP.Snap</RootNamespace>
+    <AssemblyName>DGP.Snap</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Background</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Build\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Build\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>DGP.Snap.App</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationIcon>SnapNewIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Helper\CryptoRandom.cs" />
+    <Compile Include="Helper\Extensions\DictionaryExtensions.cs" />
+    <Compile Include="Helper\Extensions\ListExtensions.cs" />
+    <Compile Include="Helper\Extensions\WindowExtensions.cs" />
+    <Compile Include="Helper\InterfaceHelpr.cs" />
+    <Compile Include="Helper\Json.cs" />
+    <Compile Include="Helper\QueryString.cs" />
+    <Compile Include="Helper\Singleton.cs" />
+    <Compile Include="Helper\Xml.cs" />
+    <Compile Include="NotificationPage.xaml.cs">
+      <DependentUpon>NotificationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Service\Device\DiskInfo.cs" />
+    <Compile Include="Service\Kernel\GCHelper.cs" />
+    <Compile Include="Service\Kernel\NativeMethod.cs" />
+    <Compile Include="Service\Setting\SettingStorageService.cs" />
+    <Compile Include="Service\Shell\AutoStartupHelper.cs" />
+    <Compile Include="Service\Download\CompletedState.cs" />
+    <Compile Include="Service\Download\DownloadFileCompletedArgs.cs" />
+    <Compile Include="Service\Download\DownloadFileProgressChangedArgs.cs" />
+    <Compile Include="Service\Download\DownloadWebClient.cs" />
+    <Compile Include="Service\Download\EventHandlerExtensions.cs" />
+    <Compile Include="Service\Download\FileDownloader.cs" />
+    <Compile Include="Service\Download\FileHelpers.cs" />
+    <Compile Include="Service\Download\IDnsFallbackResolver.cs" />
+    <Compile Include="Service\Download\IDownloadCache.cs" />
+    <Compile Include="Service\Download\IFileDownloader.cs" />
+    <Compile Include="Service\Download\Logging\ILogger.cs" />
+    <Compile Include="Service\Download\IStreamCopyWorker.cs" />
+    <Compile Include="Service\Download\Logging\LoggerFacade.cs" />
+    <Compile Include="Service\Download\StreamCopyCompleteEventArgs.cs" />
+    <Compile Include="Service\Download\StreamCopyProgressEventArgs.cs" />
+    <Compile Include="Service\Download\StreamCopyWorker.cs" />
+    <Compile Include="Service\Download\WebHeaderCollectionExtensions.cs" />
+    <Compile Include="Service\Navigation\NavHelper.cs" />
+    <Compile Include="Service\Navigation\NavigationService.cs" />
+    <Compile Include="Service\Shell\TrayIconManager.cs" />
+    <Compile Include="Service\Update\Model.cs" />
+    <Compile Include="Service\Update\UpdateProgressWindow.xaml.cs">
+      <DependentUpon>UpdateProgressWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Service\Update\UpdateService.cs" />
+    <Compile Include="InformationPage.xaml.cs">
+      <DependentUpon>InformationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Service\User\Model.cs" />
+    <Compile Include="Service\User\QQUserInfomationService.cs" />
+    <Compile Include="Service\User\UserInfoTileWindow.xaml.cs">
+      <DependentUpon>UserInfoTileWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\LiveWallpaper\LiveMatrixRainView.xaml.cs">
+      <DependentUpon>LiveMatrixRainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Side\Adaptive\DiskInfoView.xaml.cs">
+      <DependentUpon>DiskInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Side\Adaptive\WeatherView.xaml.cs">
+      <DependentUpon>WeatherView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Side\Counter\CpuCounterView.xaml.cs">
+      <DependentUpon>CpuCounterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Side\Counter\MemCounterView.xaml.cs">
+      <DependentUpon>MemCounterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Side\Counter\WebCounterView.xaml.cs">
+      <DependentUpon>WebCounterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Side\SideWindow.xaml.cs">
+      <DependentUpon>SideWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\TileWindow.xaml.cs">
+      <DependentUpon>TileWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Wallpaper\Model.cs" />
+    <Compile Include="Window\Wallpaper\WallpaperService.cs" />
+    <Compile Include="Window\Wallpaper\WallpaperWindow.xaml.cs">
+      <DependentUpon>WallpaperWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Weather\Model.cs" />
+    <Compile Include="Window\Weather\WeatherService.cs" />
+    <Compile Include="Window\LiveWallpaper\LiveWallpaperView.xaml.cs">
+      <DependentUpon>LiveWallpaperView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Weather\WeatherTileWindow.xaml.cs">
+      <DependentUpon>WeatherTileWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\WindowManager.cs" />
+    <Page Include="NotificationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Service\Update\UpdateProgressWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InformationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Service\User\UserInfoTileWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\LiveWallpaper\LiveMatrixRainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\Side\Adaptive\DiskInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\Side\Adaptive\WeatherView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\Side\Counter\CpuCounterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\Side\Counter\MemCounterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\Side\Counter\WebCounterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\Side\SideWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\TileWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\Wallpaper\WallpaperWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\LiveWallpaper\LiveWallpaperView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\Weather\WeatherTileWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include=".editorconfig" />
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SnapNewLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro">
+      <Version>2.0.0-alpha0391</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MahApps.Metro.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Newtonsoft.Json.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\NetFileDownloader.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\QuickLook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SnapNewIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\SnapNewIcon.ico" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DGP.Snap.UI\DGP.Snap.UI.csproj">
+      <Project>{454c50cd-f0eb-4702-a222-15f8ce72b21e}</Project>
+      <Name>DGP.Snap.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Github.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>$(SolutionDir)VersionIncrementer "$(ProjectDir)"</PreBuildEvent>
+  </PropertyGroup>
+</Project>
