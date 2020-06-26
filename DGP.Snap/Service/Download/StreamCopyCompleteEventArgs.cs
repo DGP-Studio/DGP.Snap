@@ -11,6 +11,6 @@ namespace DGP.Snap.Service.Download
     internal class StreamCopyCompleteEventArgs : EventArgs
     {
         public CompletedState CompleteState { get; set; }
-        public Exception Exception { get; set; }
+        public System.Exception Exception { get; set; }
     }
 }

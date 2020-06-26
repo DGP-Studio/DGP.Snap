@@ -7,12 +7,12 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" xmlns:counter="clr-namespace:DGP.Snap.Window.Side.Counter" xmlns:adaptive="clr-namespace:DGP.Snap.Window.Side.Adaptive"
         mc:Ignorable="d"
         Title="SideWindow" Height="450" Width="420" WindowStyle="None" Loaded="Window_Loaded" Background="Transparent" 
-        MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" ResizeMode="NoResize" StateChanged="Window_StateChanged" >
+        MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" ResizeMode="NoResize" >
 
     <WindowChrome.WindowChrome >
         <WindowChrome GlassFrameThickness="-1" CaptionHeight="0"/>
     </WindowChrome.WindowChrome>
-    <Grid  Margin="0,0,4,0">
+    <Grid  Margin="0,0,4,0" Background="{DynamicResource AppStyleBackgroundColor}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="72"/>
             <ColumnDefinition Width="1*"/>
@@ -24,10 +24,16 @@
             <counter:WebCounterView/>
         </StackPanel>
         <StackPanel Grid.Column="0" VerticalAlignment="Bottom">
+            <Button Height="72" Click="ThemeButton_Click" Style="{StaticResource DefaultButtonStyle}">
+                <StackPanel >
+                    <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" HorizontalAlignment="Center" Margin="4" Style="{StaticResource SubtitleTextBlockStyle}" Text="&#xE771;" FontFamily="Segoe MDL2 Assets"/>
+                    <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource CaptionTextBlockStyle}" Text="更改主题"/>
+                </StackPanel>
+            </Button>
             <Button Height="72" Click="SystemSettingButton_Click" Style="{StaticResource DefaultButtonStyle}">
                 <StackPanel >
-                    <TextBlock HorizontalAlignment="Center" Margin="4" Style="{StaticResource SubtitleTextBlockStyle}" Text="&#xE713;" FontFamily="Segoe MDL2 Assets"/>
-                    <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="系统设置"/>
+                    <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" HorizontalAlignment="Center" Margin="4" Style="{StaticResource SubtitleTextBlockStyle}" Text="&#xE713;" FontFamily="Segoe MDL2 Assets"/>
+                    <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource CaptionTextBlockStyle}" Text="系统设置"/>
                 </StackPanel>
             </Button>
         </StackPanel>

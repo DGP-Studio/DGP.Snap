@@ -13,6 +13,7 @@ namespace DGP.Snap.Window.Side.Counter
     /// </summary>
     public partial class MemCounterView : UserControl
     {
+        private double available = 0, capacity = 0;
         public MemCounterView()
         {
             DataContext = this;
@@ -20,13 +21,12 @@ namespace DGP.Snap.Window.Side.Counter
 
             DispatcherTimer timer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(2)
+                Interval = TimeSpan.FromSeconds(5),
             };
             timer.Tick += Timer_Tick;
             timer.Start();
-        }
 
-        private double available = 0, capacity = 0;
+        }
 
         private async void Timer_Tick(object sender, EventArgs e)
         {
@@ -65,5 +65,11 @@ namespace DGP.Snap.Window.Side.Counter
         }
         public static readonly DependencyProperty UsedMemProperty =
             DependencyProperty.Register("UsedMem", typeof(string), typeof(MemCounterView));
+
+        public void Stop()
+        {
+
+        }
+
     }
 }

@@ -4,6 +4,9 @@ using System.Windows;
 
 namespace DGP.Snap.Service.Navigation
 {
+    /// <summary>
+    /// 附加属性帮助类
+    /// </summary>
     public class NavHelper
     {
         public static Type GetNavigateTo(HamburgerMenuItem item)

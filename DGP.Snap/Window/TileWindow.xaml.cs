@@ -9,9 +9,14 @@ namespace DGP.Snap.Window
     /// 此窗口保持置于Windows底层的状态，向其中加入继承<see cref="UIElement"/>的实例以实现置底
     /// 目前尚未实现多窗口支持
     /// </summary>
-    public partial class TileWindow : System.Windows.Window, ISupportSingleton
+    public partial class TileWindow : System.Windows.Window, ISingleton
     {
         public TileWindow()
+        {
+            
+        }
+
+        public void Initialize()
         {
             InitializeComponent();
 

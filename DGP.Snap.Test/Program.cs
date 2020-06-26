@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace DGP.Snap.Test
 {
@@ -7,28 +8,20 @@ namespace DGP.Snap.Test
     {
         private static void Main(string[] args)
         {
-            TestDriveInfo();
             Console.ReadKey();
         }
 
-        private static void TestDriveInfo()
+        public interface IAaa
         {
-            DriveInfo[] allDirves = DriveInfo.GetDrives();
-            //检索计算机上的所有逻辑驱动器名称
-            foreach (DriveInfo item in allDirves)
+            void Init();
+        }
+
+        public class Aaa : IAaa
+        {
+            public async void Init()
             {
-                //Fixed 硬盘
-                //Removable 可移动存储设备，如软盘驱动器或USB闪存驱动器。
-                Console.Write(item.Name + "---" + item.DriveType);
-                if (item.IsReady)
-                {
-                    Console.Write(",容量：" + item.TotalSize + "，可用空间大小：" + item.TotalFreeSpace);
-                }
-                else
-                {
-                    Console.Write("没有就绪");
-                }
-                Console.WriteLine();
+                await Task.Delay(TimeSpan.FromSeconds(1));
+                throw new NotImplementedException();
             }
         }
     }

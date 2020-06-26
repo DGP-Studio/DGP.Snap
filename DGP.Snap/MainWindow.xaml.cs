@@ -1,63 +1,34 @@
-﻿using DGP.Snap.Service.Navigation;
-using MahApps.Metro.Controls;
+﻿using DGP.Snap.Helper.Extensions;
 using System;
-using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
 
 namespace DGP.Snap
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class MainWindow : System.Windows.Window
     {
         public MainWindow()
         {
             InitializeComponent();
-            Service.Navigation.NavigationService.Frame = currentFrame;
-            Service.Navigation.NavigationService.Navigate<NotificationPage>();
-            Service.Navigation.NavigationService.Navigated += Frame_Navigated;
-        }
-
-        private void Frame_Navigated(object sender, NavigationEventArgs e)
-        {
 
         }
 
-        public Frame CurrentFrame => currentFrame;
-
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Application.Current.MainWindow.Close();
+            this.SetAcrylicblur();
         }
 
-        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        private void Window_Deactivated(object sender, System.EventArgs e)
         {
-            Application.Current.MainWindow.WindowState = WindowState.Minimized;
-        }
-
-        private void NavigationView_ItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs args)
-        {
-            if (args.IsItemOptions)
+            try
             {
-                Service.Navigation.NavigationService.Navigate<InformationPage>();
-                return;
+                Close();
             }
-
-            var item = NavigationView.Items
-                            .OfType<HamburgerMenuItem>()
-                            .First(menuItem => menuItem.Label == ((HamburgerMenuItem)args.InvokedItem).Label);
-
-            var pageType = item.GetValue(NavHelper.NavigateToProperty) as Type;
-            Service.Navigation.NavigationService.Navigate(pageType);
-        }
-
-
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-
+            catch(Exception)
+            {
+            }
         }
     }
 }

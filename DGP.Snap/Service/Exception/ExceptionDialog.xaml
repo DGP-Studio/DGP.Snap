@@ -1,0 +1,44 @@
+﻿<Window x:Class="DGP.Snap.Service.Exception.ExceptionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DGP.Snap.Service.Exception"
+        mc:Ignorable="d"
+        Title="ExceptionDialog" 
+        Height="400" 
+        Width="600" 
+        Background="{DynamicResource AppStyleBackgroundColor}"
+        Loaded="Window_Loaded" >
+    
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="-1"/>
+    </WindowChrome.WindowChrome>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="48"/>
+            
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Grid.Row="1" Margin="8" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{DynamicResource AppStyleForegroundColor}" FontSize="36" Text="&#xEA92;" FontFamily="Segoe MDL2 Assets"/>
+            <TextBlock Grid.Row="1" Margin="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{DynamicResource AppStyleForegroundColor}" Text="   程序崩溃了，但在退出程序之前，我们收集到了以下信息" Style="{StaticResource SubtitleTextBlockStyle}"/>
+        </StackPanel>
+        <ScrollViewer Grid.Row="2">
+            <StackPanel>
+                <TextBlock Margin="16,0,0,0" Text="引发异常：" Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource BodyTextBlockStyle}" FontWeight="Bold" FontFamily="Microsoft YaHei"/>
+                <TextBlock Margin="48,0,0,0" Text="{Binding ExceptionName}" Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource BodyTextBlockStyle}"/>
+                <TextBlock Margin="16,0,0,0" Text="包含消息：" Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource BodyTextBlockStyle}" FontWeight="Bold" FontFamily="Microsoft YaHei"/>
+                <TextBlock Margin="48,0,0,0" Text="{Binding Message}" Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource BodyTextBlockStyle}"/>
+                <TextBlock Margin="16,0,0,0" Text="调用位置：" Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource BodyTextBlockStyle}" FontWeight="Bold" FontFamily="Microsoft YaHei"/>
+                <TextBlock Margin="48,0,0,0" Text="{Binding TargetSite}" Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource BodyTextBlockStyle}"/>
+            </StackPanel>
+        </ScrollViewer>
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <Button Style="{StaticResource DefaultButtonStyle}" Content="提交反馈" FontSize="16" Foreground="{DynamicResource AppStyleForegroundColor}" Click="ReportButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

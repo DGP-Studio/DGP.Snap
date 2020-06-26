@@ -22,8 +22,8 @@ namespace DGP.Snap.Window.Wallpaper
         {
             //单例解决了第一次打开窗口不加载的问题
             //并不能保证窗口加载图片
-            Singleton<WallpaperService>.Instance.InitializeAsync();
-            ObservableWallpaperInfos = Singleton<WallpaperService>.Instance.WallpaperInfos;
+            WallpaperService.GetInstance().InitializeAsync();
+            ObservableWallpaperInfos = WallpaperService.GetInstance().WallpaperInfos;
 
             DataContext = this;
 
@@ -33,7 +33,7 @@ namespace DGP.Snap.Window.Wallpaper
 
         protected override async void OnClosing(CancelEventArgs e)
         {
-            await Singleton<SettingStorageService>.Instance.SaveSettingsAsync();
+            await SettingService.GetInstance().SaveSettingsAsync();
             GC.Collect();
         }
 
@@ -94,11 +94,11 @@ namespace DGP.Snap.Window.Wallpaper
         {
             if (e.State == CompletedState.Succeeded)
             {
-                TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop/壁纸", ":)\n壁纸下载完成！");
+                NotificationManager.ShowNotification("Snap Desktop/壁纸", ":)\n壁纸下载完成！");
             }
             else
             {
-                TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop/壁纸", ":(\n未能正常下载");
+                NotificationManager.ShowNotification("Snap Desktop/壁纸", ":(\n未能正常下载");
             }
         }
 
@@ -113,7 +113,7 @@ namespace DGP.Snap.Window.Wallpaper
             }
             else
             {
-                TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop/壁纸", "加载壁纸时遇到问题\n请手动选择你想要查看的壁纸");
+                NotificationManager.ShowNotification("Snap Desktop/壁纸", "加载壁纸时遇到问题\n请手动选择你想要查看的壁纸");
                 Selected = null;
             }
         }

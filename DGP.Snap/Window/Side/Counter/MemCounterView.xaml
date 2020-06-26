@@ -8,7 +8,7 @@
              Width="68" Height="52">
     <StackPanel>
         <Rectangle Height="2" Margin="6,0" VerticalAlignment="Top" Fill="#FF00A2E8"></Rectangle>
-        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" FontSize="18" Margin="0,4,0,0" HorizontalAlignment="Center" Text="内存"/>
-        <TextBlock Style="{StaticResource BaseTextBlockStyle}" HorizontalAlignment="Center" Text="{Binding UsedMem}"/>
+        <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource SubtitleTextBlockStyle}" FontSize="18" Margin="0,4,0,0" HorizontalAlignment="Center" Text="内存"/>
+        <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource BaseTextBlockStyle}" HorizontalAlignment="Center" Text="{Binding UsedMem}"/>
     </StackPanel>
 </UserControl>

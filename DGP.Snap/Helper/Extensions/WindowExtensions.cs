@@ -9,10 +9,20 @@ namespace DGP.Snap.Helper.Extensions
 {
     public static class WindowExtensions
     {
+        /// <summary>
+        /// 获取窗体的句柄
+        /// </summary>
+        /// <param name="window"></param>
+        /// <returns>整型窗体句柄指针</returns>
         public static IntPtr GetHandle(this System.Windows.Window window)
         {
             return new WindowInteropHelper(window).Handle;
         }
+
+        /// <summary>
+        /// 将窗体置底,不能交互，用于动态壁纸
+        /// </summary>
+        /// <param name="window"></param>
         public static void SetBottomMost(this System.Windows.Window window)
         {
             IntPtr hWndWindow = new WindowInteropHelper(window).Handle;
@@ -29,6 +39,11 @@ namespace DGP.Snap.Helper.Extensions
                                out UIntPtr _);
             SetParent(hWndWindow, FindWorkerWPtr());
         }
+
+        /// <summary>
+        /// 查找Windows的WorkerW
+        /// </summary>
+        /// <returns>整型窗体句柄指针</returns>
         private static IntPtr FindWorkerWPtr()
         {
             IntPtr workerw = IntPtr.Zero;
@@ -48,6 +63,11 @@ namespace DGP.Snap.Helper.Extensions
                 }, IntPtr.Zero);
             return hWndProgMan;
         }
+
+        /// <summary>
+        /// 将窗体置底同时保留交互
+        /// </summary>
+        /// <param name="window"></param>
         public static void SetBottomWithInteractivity(this System.Windows.Window window)
         {
             IntPtr hWndWindow = new WindowInteropHelper(window).Handle;
@@ -55,6 +75,11 @@ namespace DGP.Snap.Helper.Extensions
             SetWindowPos(hWndWindow, HWND_BOTTOM, 0, 0, 0, 0,
                 SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE | SWP_SHOWWINDOW);
         }
+
+        /// <summary>
+        /// 为窗体设置Win10亚克力背景
+        /// </summary>
+        /// <param name="window"></param>
         public static void SetAcrylicblur(this System.Windows.Window window)
         {
 

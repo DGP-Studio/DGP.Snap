@@ -7,32 +7,31 @@
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" Loaded="UserControl_Loaded" 
              >
-    <StackPanel Background="#44000000" Height="144" Width="324" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="12">
+    <StackPanel Background="{DynamicResource AppStyleBackgroundColor}" Height="144" Width="324" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="12">
         <Grid Margin="16,8,0,4">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,2,0,0">
-                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="实时天气 | " VerticalAlignment="Center"/>
-                <TextBlock Style="{StaticResource BaseTextBlockStyle}" Text="{Binding WeatherInfo.City, Mode=OneWay}" VerticalAlignment="Center"/>
+                <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource BaseTextBlockStyle}" Text="实时天气 | " VerticalAlignment="Center"/>
+                <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource BaseTextBlockStyle}" Text="{Binding WeatherInfo.City, Mode=OneWay}" VerticalAlignment="Center"/>
             </StackPanel>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,4,0">
-                <TextBox Foreground="White" Background="Transparent" Width="100"  Margin="0,0,8,0" mah:TextBoxHelper.Watermark="查找城市..." KeyDown="TextBox_KeyDown"/>
-                <Button Foreground="White" x:Name="RefreshButton" Width="26" Margin="2,0" Style="{StaticResource DefaultButtonStyle}" Content="&#xE72C;" FontFamily="Segoe MDL2 Assets" Click="RefreshButton_Click" />
+                <TextBox Foreground="{DynamicResource AppStyleForegroundColor}" Background="Transparent" Width="100"  Margin="0,0,4,0" mah:TextBoxHelper.Watermark="查找城市..." KeyDown="TextBox_KeyDown"/>
             </StackPanel>
         </Grid>
 
         <StackPanel Orientation="Horizontal" Margin="16,0">
-            <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="更新于："/>
-            <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{Binding WeatherInfo.UpdateTime}"/>
+            <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource CaptionTextBlockStyle}" Text="更新于："/>
+            <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource CaptionTextBlockStyle}" Text="{Binding WeatherInfo.UpdateTime}"/>
         </StackPanel>
         <Grid>
             <StackPanel HorizontalAlignment="Left" Margin="16,8">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="{Binding WeatherInfo.RealTimeTemp}"/>
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="℃"/>
+                    <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource HeaderTextBlockStyle}" Text="{Binding WeatherInfo.RealTimeTemp}"/>
+                    <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource HeaderTextBlockStyle}" Text="℃"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{Binding WeatherInfo.Forecast.Weathers[0].Day.State}"/>
-                    <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="-"/>
-                    <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{Binding WeatherInfo.Forecast.Weathers[0].Night.State}"/>
+                    <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource CaptionTextBlockStyle}" Text="{Binding WeatherInfo.Forecast.Weathers[0].Day.State}"/>
+                    <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource CaptionTextBlockStyle}" Text="-"/>
+                    <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource CaptionTextBlockStyle}" Text="{Binding WeatherInfo.Forecast.Weathers[0].Night.State}"/>
                     <TextBlock/>
                 </StackPanel>
 
@@ -41,12 +40,12 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="16">
                 <StackPanel Margin="16,0" VerticalAlignment="Center">
-                    <TextBlock Margin="0,4" HorizontalAlignment="Center" Style="{StaticResource CaptionTextBlockStyle}" Text="{Binding WeatherInfo.Direction}"/>
-                    <TextBlock Margin="0,4" HorizontalAlignment="Center" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding WeatherInfo.Power}"/>
+                    <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Margin="0,4" HorizontalAlignment="Center" Style="{StaticResource CaptionTextBlockStyle}" Text="{Binding WeatherInfo.Direction}"/>
+                    <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Margin="0,4" HorizontalAlignment="Center" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding WeatherInfo.Power}"/>
                 </StackPanel>
                 <StackPanel Margin="16,0" VerticalAlignment="Center">
-                    <TextBlock Margin="0,4" HorizontalAlignment="Center" Style="{StaticResource CaptionTextBlockStyle}" Text="湿度"/>
-                    <TextBlock Margin="0,4" HorizontalAlignment="Center" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding WeatherInfo.Humidity}"/>
+                    <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Margin="0,4" HorizontalAlignment="Center" Style="{StaticResource CaptionTextBlockStyle}" Text="湿度"/>
+                    <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Margin="0,4" HorizontalAlignment="Center" Style="{StaticResource BodyTextBlockStyle}" Text="{Binding WeatherInfo.Humidity}"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

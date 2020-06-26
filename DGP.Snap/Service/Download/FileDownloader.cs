@@ -4,7 +4,7 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------------
 
-using DGP.Snap.Service.Download.Logging;
+using DGP.Snap.Helper.Extensions;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -19,7 +19,7 @@ namespace DGP.Snap.Service.Download
     public class FileDownloader : IFileDownloader
     {
         private readonly IDownloadCache downloadCache;
-        private readonly ILogger logger = LoggerFacade.GetCurrentClassLogger();
+        //private readonly ILogger logger = LoggerFacade.GetCurrentClassLogger();
         private readonly ManualResetEvent readyToDownload = new ManualResetEvent(true);
         private readonly System.Timers.Timer attemptTimer = new System.Timers.Timer();
         private readonly object cancelSync = new object();
@@ -158,7 +158,7 @@ namespace DGP.Snap.Service.Download
                 isCancelled = true;
             }
 
-            logger.Debug("CancelDownloadAsync called.");
+            //logger.Debug("CancelDownloadAsync called.");
             if (worker != null)
             {
                 worker.Cancel();
@@ -183,17 +183,17 @@ namespace DGP.Snap.Service.Download
             }
 
             downloadCache.Invalidate(uri);
-            logger.Debug("Cached resource was invalidated: {0}", uri);
+            //logger.Debug("Cached resource was invalidated: {0}", uri);
         }
 
         private void DownloadFileAsync(Uri source, string destinationPath, bool useServerFileName)
         {
             if (!WaitSafeStart())
             {
-                throw new Exception("Unable to start download because another request is still in progress.");
+                throw new System.Exception("Unable to start download because another request is still in progress.");
             }
 
-            logger.Debug("DownloadFileAsync({0}, {1}) is called.", source, destinationPath);
+            //logger.Debug("DownloadFileAsync({0}, {1}) is called.", source, destinationPath);
 
             useFileNameFromServer = useServerFileName;
             fileSource = source;
@@ -222,7 +222,7 @@ namespace DGP.Snap.Service.Download
                 return;
             }
 
-            logger.Debug("FileDownloader attempt {0} of {1}.", attemptNumber, MaxAttempts);
+            //logger.Debug("FileDownloader attempt {0} of {1}.", attemptNumber, MaxAttempts);
 
             localFileName = ComposeLocalFilename();
 
@@ -242,7 +242,7 @@ namespace DGP.Snap.Service.Download
             if (TotalBytesToReceive == -1)
             {
                 TotalBytesToReceive = 0;
-                logger.Warn("Received no Content-Length header from server for {0}. Cache is not used, Resume is not supported", fileSource);
+                //logger.Warn("Received no Content-Length header from server for {0}. Cache is not used, Resume is not supported", fileSource);
                 TriggerWebClientDownloadFileAsync();
             }
             else
@@ -290,7 +290,7 @@ namespace DGP.Snap.Service.Download
 
         private void DownloadFromCache(string cachedResource)
         {
-            logger.Debug("Taking file from cache.");
+            //logger.Debug("Taking file from cache.");
             OnDownloadProgressChanged(this, new DownloadFileProgressChangedArgs(100, TotalBytesToReceive, TotalBytesToReceive));
             InvokeDownloadCompleted(CompletedState.Succeeded, cachedResource, null, true);
             readyToDownload.Set();
@@ -298,7 +298,7 @@ namespace DGP.Snap.Service.Download
 
         private void TriggerWebClientDownloadFileAsync()
         {
-            logger.Debug("Falling back to legacy DownloadFileAsync.");
+            //logger.Debug("Falling back to legacy DownloadFileAsync.");
             try
             {
                 isFallback = true;
@@ -311,11 +311,11 @@ namespace DGP.Snap.Service.Download
 
                 downloadWebClient = CreateWebClient();
                 downloadWebClient.DownloadFileAsync(fileSource, localFileName);
-                logger.Debug("Download async started. Source: {0} Destination: {1}", fileSource, localFileName);
+                //logger.Debug("Download async started. Source: {0} Destination: {1}", fileSource, localFileName);
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
-                logger.Warn("Failed to download Source:{0}, Destination:{1}, Error:{2}.", fileSource, localFileName, ex.Message);
+                //logger.Warn("Failed to download Source:{0}, Destination:{1}, Error:{2}.", fileSource, localFileName, ex.Message);
                 if (!AttemptDownload())
                 {
                     InvokeDownloadCompleted(CompletedState.Failed, localFileName, ex);
@@ -353,9 +353,9 @@ namespace DGP.Snap.Service.Download
                     }
                 }
             }
-            catch (Exception e)
+            catch (System.Exception)
             {
-                logger.Warn("Error while cleaning up web client : {0}", e.Message);
+                //logger.Warn("Error while cleaning up web client : {0}", e.Message);
             }
         }
 
@@ -366,7 +366,7 @@ namespace DGP.Snap.Service.Download
                 attemptTimer.Interval = DelayBetweenAttempts.TotalMilliseconds;
                 attemptTimer.AutoReset = false;
                 attemptTimer.Start();
-                logger.Debug("Downloader scheduled next attempt in {0} seconds.", DelayBetweenAttempts.TotalSeconds);
+                //logger.Debug("Downloader scheduled next attempt in {0} seconds.", DelayBetweenAttempts.TotalSeconds);
                 return true;
             }
 
@@ -378,19 +378,19 @@ namespace DGP.Snap.Service.Download
         {
             if (!UseCaching)
             {
-                logger.Debug("Not using cache. Source: {0} Destination: {1}", fileSource, localFileName);
+                //logger.Debug("Not using cache. Source: {0} Destination: {1}", fileSource, localFileName);
                 return localFileName;
             }
 
             var cachedDestinationPath = downloadCache.Get(fileSource, headers);
             if (cachedDestinationPath == null)
             {
-                logger.Debug("No cache item found. Source: {0} Destination: {1}", fileSource, localFileName);
+                //logger.Debug("No cache item found. Source: {0} Destination: {1}", fileSource, localFileName);
                 DeleteDownloadedFile();
                 return localFileName;
             }
 
-            logger.Debug("Download resource was found in cache. Source: {0} Destination: {1}", fileSource, cachedDestinationPath);
+            //logger.Debug("Download resource was found in cache. Source: {0} Destination: {1}", fileSource, cachedDestinationPath);
             return cachedDestinationPath;
         }
 
@@ -413,11 +413,11 @@ namespace DGP.Snap.Service.Download
                 TryCleanupExistingDownloadWebClient();
                 downloadWebClient = CreateWebClient();
                 downloadWebClient.OpenReadAsync(source, seekPosition);
-                logger.Debug("Download started. Source: {0} Destination: {1} Size: {2}", source, fileDestination, totalBytesToReceive);
+                //logger.Debug("Download started. Source: {0} Destination: {1} Size: {2}", source, fileDestination, totalBytesToReceive);
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
-                logger.Debug("Download failed: {0}", e.Message);
+                //logger.Debug("Download failed: {0}", e.Message);
                 if (!AttemptDownload())
                 {
                     InvokeDownloadCompleted(CompletedState.Failed, localFileName, e);
@@ -437,9 +437,9 @@ namespace DGP.Snap.Service.Download
                     return webResponse.Headers;
                 }
             }
-            catch (Exception e)
+            catch (System.Exception)
             {
-                logger.Warn("Unable to read http headers for {0}: {1}; typeof(Exception)={2}", source, e.Message, e.GetType());
+                //logger.Warn("Unable to read http headers for {0}: {1}; typeof(Exception)={2}", source, e.Message, e.GetType());
                 return null;
             }
         }
@@ -465,7 +465,7 @@ namespace DGP.Snap.Service.Download
             DownloadProgressChanged.SafeInvoke(sender, args);
         }
 
-        private void InvokeDownloadCompleted(CompletedState downloadCompletedState, string fileName, Exception error = null, bool fromCache = false)
+        private void InvokeDownloadCompleted(CompletedState downloadCompletedState, string fileName, System.Exception error = null, bool fromCache = false)
         {
             var downloadTime = fromCache ? TimeSpan.Zero : DateTime.Now.Subtract(DownloadStartTime);
             if (worker != null)
@@ -481,7 +481,7 @@ namespace DGP.Snap.Service.Download
             var webClient = sender as DownloadWebClient;
             if (webClient == null)
             {
-                logger.Warn("Wrong sender in OnOpenReadCompleted: Actual:{0} Expected:{1}", sender.GetType(), typeof(DownloadWebClient));
+                //logger.Warn("Wrong sender in OnOpenReadCompleted: Actual:{0} Expected:{1}", sender.GetType(), typeof(DownloadWebClient));
                 return;
             }
 
@@ -489,13 +489,13 @@ namespace DGP.Snap.Service.Download
             {
                 if (isCancelled)
                 {
-                    logger.Debug("Download was cancelled.");
+                    //logger.Debug("Download was cancelled.");
                     return;
                 }
 
                 if (!webClient.HasResponse)
                 {
-                    logger.Debug("DownloadWebClient returned no response.");
+                    //logger.Debug("DownloadWebClient returned no response.");
                     TriggerWebClientDownloadFileAsync();
                     return;
                 }
@@ -521,9 +521,9 @@ namespace DGP.Snap.Service.Download
                 stream.ReadTimeout = timeout;
                 return true;
             }
-            catch (Exception e)
+            catch (System.Exception)
             {
-                logger.Warn("Unable to set read timeout for source stream {0}", e.Message);
+                //logger.Warn("Unable to set read timeout for source stream {0}", e.Message);
                 return false;
             }
         }
@@ -549,7 +549,7 @@ namespace DGP.Snap.Service.Download
                     destinationStream.SetLength(0);
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 if (destinationStream != null)
                 {
@@ -602,14 +602,14 @@ namespace DGP.Snap.Service.Download
             var webClient = sender as DownloadWebClient;
             if (webClient == null)
             {
-                logger.Warn("Wrong sender in OnDownloadCompleted: Actual:{0} Expected:{1}", sender.GetType(), typeof(DownloadWebClient));
+                //logger.Warn("Wrong sender in OnDownloadCompleted: Actual:{0} Expected:{1}", sender.GetType(), typeof(DownloadWebClient));
                 InvokeDownloadCompleted(CompletedState.Failed, localFileName);
                 return;
             }
 
             if (args.Cancelled)
             {
-                logger.Debug("Download cancelled. Source: {0} Destination: {1}", fileSource, localFileName);
+                //logger.Debug("Download cancelled. Source: {0} Destination: {1}", fileSource, localFileName);
                 DeleteDownloadedFile();
 
                 InvokeDownloadCompleted(CompletedState.Canceled, localFileName);
@@ -631,13 +631,13 @@ namespace DGP.Snap.Service.Download
                     if (newFileSource != null)
                     {
                         fileSource = newFileSource;
-                        logger.Debug("Download failed in case of DNS resolve error. Retry downloading with new source: {0}.", fileSource);
+                        //logger.Debug("Download failed in case of DNS resolve error. Retry downloading with new source: {0}.", fileSource);
                         AttemptDownload();
                         return;
                     }
                 }
 
-                logger.Debug("Download failed. Source: {0} Destination: {1} Error: {2}", fileSource, localFileName, args.Error);
+                //logger.Debug("Download failed. Source: {0} Destination: {1} Error: {2}", fileSource, localFileName, args.Error);
 
                 if (!AttemptDownload())
                 {
@@ -652,7 +652,7 @@ namespace DGP.Snap.Service.Download
                     localFileName = ApplyNewFileName(localFileName, webClient.GetOriginalFileNameFromDownload());
                 }
 
-                logger.Debug("Download completed. Source: {0} Destination: {1}", fileSource, localFileName);
+                //logger.Debug("Download completed. Source: {0} Destination: {1}", fileSource, localFileName);
                 if (UseCaching)
                 {
                     downloadCache.Add(fileSource, localFileName, webClient.ResponseHeaders);
@@ -690,7 +690,7 @@ namespace DGP.Snap.Service.Download
                 {
                     File.Delete(newFilePath);
                 }
-                catch (Exception)
+                catch (System.Exception)
                 {
                     newFilePath = Path.Combine(CreateTempFolder(downloadDirectory), newFileName);
                 }
@@ -711,7 +711,7 @@ namespace DGP.Snap.Service.Download
             {
                 downloadWebClient.CancelAsync();
                 downloadWebClient.OpenReadCompleted -= OnOpenReadCompleted;
-                logger.Debug("Successfully cancelled web client.");
+                //logger.Debug("Successfully cancelled web client.");
             }
         }
 
@@ -728,7 +728,7 @@ namespace DGP.Snap.Service.Download
             }
         }
 
-        private bool IsNameResolutionFailure(Exception exception)
+        private bool IsNameResolutionFailure(System.Exception exception)
         {
             var webException = exception as WebException;
             return webException != null && webException.Status == WebExceptionStatus.NameResolutionFailure;
@@ -736,10 +736,10 @@ namespace DGP.Snap.Service.Download
 
         private bool WaitSafeStart()
         {
-            logger.Debug("Calling DownloadFileAsync...");
+            //logger.Debug("Calling DownloadFileAsync...");
             if (!readyToDownload.WaitOne(SafeWaitTimeout))
             {
-                logger.Warn("Failed to call DownloadFileAsync, another request is in progress: Source:{0}, Destination:{1}", fileSource, localFileName);
+                //logger.Warn("Failed to call DownloadFileAsync, another request is in progress: Source:{0}, Destination:{1}", fileSource, localFileName);
                 return false;
             }
             readyToDownload.Reset();
@@ -759,7 +759,7 @@ namespace DGP.Snap.Service.Download
                     Thread.Sleep(500);
                     return;
                 }
-                catch (Exception)
+                catch (System.Exception)
                 {
                     waitCounter = waitCounter.Add(TimeSpan.FromMilliseconds(500));
                     Thread.Sleep(500);
@@ -773,7 +773,7 @@ namespace DGP.Snap.Service.Download
             {
                 if (isCancelled)
                 {
-                    logger.Debug("Download was cancelled.");
+                    //logger.Debug("Download was cancelled.");
                     return true;
                 }
             }

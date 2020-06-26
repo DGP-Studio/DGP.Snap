@@ -1,6 +1,7 @@
 ﻿using DGP.Snap.Helper;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Net;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DGP.Snap.Service.User
 {
-    public class QQUserInfomationService : ISupportSingleton
+    public class QQUserInfomationService : ISingleton
     {
         private const string BaseUriString = @"https://users.qzone.qq.com/fcg-bin/cgi_get_portrait.fcg?uins=";
 
@@ -37,39 +38,9 @@ namespace DGP.Snap.Service.User
             }
         }
 
-    }
-
-    public static class ImageExtensions
-    {
-        public static Image GetImageFromNet(this string url, Action<WebRequest> requestAction = null, Func<WebResponse, Image> responseFunc = null)
+        public void Initialize()
         {
-            return new Uri(url).GetImageFromNet(requestAction, responseFunc);
-        }
-
-        public static Image GetImageFromNet(this Uri url, Action<WebRequest> requestAction = null, Func<WebResponse, Image> responseFunc = null)
-        {
-            Image img;
-            try
-            {
-                WebRequest request = WebRequest.Create(url);
-                requestAction?.Invoke(request);
-                using (WebResponse response = request.GetResponse())
-                {
-                    if (responseFunc != null)
-                    {
-                        img = responseFunc(response);
-                    }
-                    else
-                    {
-                        img = Image.FromStream(response.GetResponseStream());
-                    }
-                }
-            }
-            catch
-            {
-                img = null;
-            }
-            return img;
+            Debug.WriteLine(this);
         }
     }
 }

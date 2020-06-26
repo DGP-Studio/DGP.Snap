@@ -13,8 +13,8 @@
       SnapsToDevicePixels="True"
       UseLayoutRounding="True">
 
-    <Grid Background="White">
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <Grid Background="#aaffffff">
+        <ScrollViewer VerticalScrollBarVisibility="Hidden">
             <StackPanel>
                 <TextBlock Text="本程序" Margin="24,16,16,0" Grid.Column="1" Foreground="Black" Style="{StaticResource SubtitleTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 <ui:ComponentInformationView 
@@ -58,9 +58,22 @@
                 <ui:ComponentInformationView
                     ComponentImageSource="Resources/Github.ico"
                     ComponentName="Github"
-                    ComponentAuthor="Github"
-                    ComponentDescription="Build software better, together."
+                    ComponentAuthor="Microsoft"
+                    ComponentDescription="We use Github to publish our application."
                     ComponentRepositoryUri="https://github.com/github"/>
+                <ui:ComponentInformationView
+                    ComponentImageSource="Resources/Bing.png"
+                    ComponentName="Bing"
+                    ComponentAuthor="Microsoft"
+                    ComponentDescription="We use Bing.com to get daily image."
+                    ComponentRepositoryUri="https://bing.com"/>
+                <ui:ComponentInformationView
+                    ComponentImageSource="Resources/Xiaoniao.png"
+                    ComponentName="小鸟壁纸"
+                    ComponentAuthor="360"
+                    ComponentDescription="We use bizhi.360.cn to get wallpaper."
+                    ComponentRepositoryUri="https://bizhi.360.cn/"/>
+                <TextBlock Text="" Margin="24,16,16,0" Grid.Column="1" Foreground="Black" Style="{StaticResource SubtitleTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </StackPanel>
             
         </ScrollViewer>

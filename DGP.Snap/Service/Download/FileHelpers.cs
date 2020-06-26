@@ -4,7 +4,6 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------------
 
-using DGP.Snap.Service.Download.Logging;
 using System;
 using System.IO;
 
@@ -12,7 +11,7 @@ namespace DGP.Snap.Service.Download
 {
     internal static class FileHelpers
     {
-        private static readonly ILogger Logger = LoggerFacade.GetCurrentClassLogger();
+        //private static readonly ILogger Logger = LoggerFacade.GetCurrentClassLogger();
 
         public static bool TryGetFileSize(string filename, out long filesize)
         {
@@ -21,9 +20,9 @@ namespace DGP.Snap.Service.Download
                 var fileInfo = new FileInfo(filename);
                 filesize = fileInfo.Length;
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
-                Logger.Debug("Failed to get file size for {0}. Exception: {1}", filename, e.Message);
+                //Logger.Debug("Failed to get file size for {0}. Exception: {1}", filename, e.Message);
                 filesize = 0;
                 return false;
             }
@@ -36,9 +35,9 @@ namespace DGP.Snap.Service.Download
             {
                 File.Delete(filename);
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
-                Logger.Debug("Unable to delete file {0}. Exception: {1}", filename, e.Message);
+                //Logger.Debug("Unable to delete file {0}. Exception: {1}", filename, e.Message);
                 return false;
             }
             return true;
@@ -53,9 +52,9 @@ namespace DGP.Snap.Service.Download
                     File.Delete(destination);
                     File.Move(source, destination);
                 }
-                catch (Exception e)
+                catch (System.Exception e)
                 {
-                    Logger.Warn("Unable replace local file {0} with cached resource {1}, {2}", destination, source, e.Message);
+                    //Logger.Warn("Unable replace local file {0} with cached resource {1}, {2}", destination, source, e.Message);
                     return false;
                 }
             }

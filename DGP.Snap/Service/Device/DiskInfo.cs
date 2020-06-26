@@ -9,12 +9,10 @@ namespace DGP.Snap.Service.Device
         public string Available { get; set; }
         public string Present { get => Available + " / " + TotalSize; }
         public double UsedPersentage { get; set; }
-
         public string DiskType { get; set; }
 
         public static implicit operator DiskInfo(DriveInfo driveInfo)
         {
-
             return new DiskInfo
             {
                 Name = driveInfo.Name.Replace("\\", ""),

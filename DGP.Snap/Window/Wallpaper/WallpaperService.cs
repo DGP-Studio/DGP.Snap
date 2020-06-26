@@ -10,10 +10,8 @@ namespace DGP.Snap.Window.Wallpaper
     /// <summary>
     /// 使用时先调用<see cref="InitializeAsync()"/>
     /// </summary>
-    public class WallpaperService : ISupportSingleton
+    public class WallpaperService
     {
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public WallpaperService() { }
         /// <summary>
         /// 异步初始化 <see cref="WallpaperService"/>
         /// </summary>
@@ -79,5 +77,27 @@ namespace DGP.Snap.Window.Wallpaper
                 WallpaperInfos.Add(wallpaperInfo);
             }
         }
+        #region 单例
+        private static WallpaperService instance;
+        private static object _lock = new object();
+        private WallpaperService()
+        {
+
+        }
+        public static WallpaperService GetInstance()
+        {
+            if (instance == null)
+            {
+                lock (_lock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new WallpaperService();
+                    }
+                }
+            }
+            return instance;
+        }
+        #endregion
     }
 }

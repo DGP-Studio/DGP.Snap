@@ -5,10 +5,12 @@ namespace DGP.Snap.Service.Kernel
 {
     public class NativeMethod
     {
+        #region User32
+
         #region SetWindowPos
         /// <summary>
-        /// 更改一个子窗口，弹出窗口或顶级窗口的大小，位置和Z顺序。&#x000A;
-        /// 这些窗口根据其在屏幕上的显示方式进行排序。&#x000A;
+        /// 更改一个子窗口，弹出窗口或顶级窗口的大小，位置和Z顺序。
+        /// 这些窗口根据其在屏幕上的显示方式进行排序。
         /// 最顶层的窗口有最高排序，是Z顺序中的第一个窗口
         /// </summary>
         /// <param name="hWnd"><see cref="System.Windows.Window"/>实例的句柄</param>
@@ -26,7 +28,6 @@ namespace DGP.Snap.Service.Kernel
         public const uint SWP_NOACTIVATE = 0x0010;
         public const uint SWP_SHOWWINDOW = 0x0040;
         public static readonly IntPtr HWND_BOTTOM = new IntPtr(1);
-
         #endregion
 
         #region SetWindowLong
@@ -153,5 +154,30 @@ namespace DGP.Snap.Service.Kernel
         }
         [DllImport("user32.dll")] public static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
         #endregion
+
+        #endregion
+
+        #region Kernel32
+
+        #region GlobalMemoryStatus
+        [StructLayout(LayoutKind.Sequential)]
+        public struct MemoryInfo
+        {
+            public uint Length;
+            public uint MemoryLoad;
+            public uint TotalPhysical;//总内存
+            public uint AvailablePhysical;//可用物理内存
+            public uint TotalPageFile;
+            public uint AvailablePageFile;
+            public uint TotalVirtual;
+            public uint AvailableVirtual;
+        }
+
+        [DllImport("kernel32")]
+        public static extern void GlobalMemoryStatus(ref MemoryInfo meminfo);
+        #endregion
+
+        #endregion
     }
 }
+

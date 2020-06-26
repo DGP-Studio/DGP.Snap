@@ -1,6 +1,7 @@
 ﻿using DGP.Snap.Helper;
 using DGP.Snap.Service.Download;
 using DGP.Snap.Service.Shell;
+using DGP.Snap.Service.Update.Model;
 using Microsoft.VisualBasic.Devices;
 using System;
 using System.ComponentModel;
@@ -12,9 +13,8 @@ using System.Windows;
 
 namespace DGP.Snap.Service.Update
 {
-    internal class UpdateService : ISupportSingleton
+    internal class UpdateService
     {
-        [EditorBrowsable(EditorBrowsableState.Never)] public UpdateService() { }
         /// <summary>
         /// 不要在调用 <see cref="CheckUpdateAvailability()"/> 前使用，默认为<see cref="null"/>
         /// </summary>
@@ -25,8 +25,9 @@ namespace DGP.Snap.Service.Update
         /// </summary>
         public Version NewVersion { get; set; } = null;
 
-        public Version CurrentVersion { get { return Assembly.GetExecutingAssembly().GetName().Version; } }
-        public async Task<UpdateAvailability> CheckUpdateAvailability()
+        public Version CurrentVersion => Assembly.GetExecutingAssembly().GetName().Version;
+
+        private async Task<UpdateAvailability> CheckUpdateAvailability()
         {
             try
             {
@@ -57,7 +58,7 @@ namespace DGP.Snap.Service.Update
                 }
 
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 Debug.WriteLine(e.Message);
                 return UpdateAvailability.NotAvailable;
@@ -104,7 +105,7 @@ namespace DGP.Snap.Service.Update
             }
             else if (eventArgs.State == CompletedState.Failed)
             {
-                TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "在下载更新包时遇到问题");
+                NotificationManager.ShowNotification("Snap Desktop", "在下载更新包时遇到问题");
                 //download failed
             }
         }
@@ -132,11 +133,11 @@ namespace DGP.Snap.Service.Update
                 case UpdateAvailability.IsInsiderVersion:
                     if (isStartupCheck)
                     {
-                        TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", $"{Environment.UserName}:\n你正在使用开发版 Snap Desktop", () => { });
+                        NotificationManager.ShowNotification("Snap Desktop", $"{Environment.UserName}:\n你正在使用开发版 Snap Desktop", () => { });
                     }
                     else
                     {
-                        TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "开发版 Snap Desktop ，不需要更新");
+                        NotificationManager.ShowNotification("Snap Desktop", "开发版 Snap Desktop ，不需要更新");
                     }
 
                     break;
@@ -144,24 +145,46 @@ namespace DGP.Snap.Service.Update
                 case UpdateAvailability.IsNewestRelease:
                     if (isStartupCheck)
                     {
-                        TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", $"欢迎{Environment.UserName}");
+                        NotificationManager.ShowNotification("Snap Desktop", $"欢迎{Environment.UserName}");
                     }
                     else
                     {
-                        TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "不需要更新，这是 Snap Desktop 的最新发行版");
+                        NotificationManager.ShowNotification("Snap Desktop", "不需要更新，这是 Snap Desktop 的最新发行版");
                     }
 
                     break;
 
                 case UpdateAvailability.NeedUpdate:
-                    TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", $"发现可用的更新，版本号：{NewVersion}，单击此通知以下载...", () => { DownloadAndInstallPackage(); });
+                    NotificationManager.ShowNotification("Snap Desktop", $"发现可用的更新，版本号：{NewVersion}，单击此通知以下载...", () => { DownloadAndInstallPackage(); });
                     break;
 
                 case UpdateAvailability.NotAvailable:
-                    TrayIconManager.SystemNotificationManager.ShowNotification("Snap Desktop", "检查更新失败...\n ·你的设备可能需要联网");
+                    NotificationManager.ShowNotification("Snap Desktop", "检查更新失败...\n ·你的设备可能需要联网");
                     break;
             }
         }
-    }
 
+        #region 单例
+        private static UpdateService instance;
+        private static object _lock = new object();
+        private UpdateService()
+        {
+
+        }
+        public static UpdateService GetInstance()
+        {
+            if (instance == null)
+            {
+                lock (_lock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new UpdateService();
+                    }
+                }
+            }
+            return instance;
+        }
+        #endregion
+    }
 }

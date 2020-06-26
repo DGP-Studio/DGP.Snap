@@ -4,7 +4,7 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------------
 
-using DGP.Snap.Service.Download.Logging;
+using DGP.Snap.Helper.Extensions;
 using System;
 using System.IO;
 using System.Threading;
@@ -14,7 +14,7 @@ namespace DGP.Snap.Service.Download
     internal class StreamCopyWorker : IStreamCopyWorker, IDisposable
     {
         private const int DefaultBufferSize = 1024 * 1024;
-        private readonly ILogger logger = LoggerFacade.GetCurrentClassLogger();
+        //private readonly ILogger logger = LoggerFacade.GetCurrentClassLogger();
         private readonly ManualResetEvent streamCopyFinished = new ManualResetEvent(true);
         private readonly System.Timers.Timer progressUpdateTimer;
         private readonly TimeSpan safeWaitTimeout;
@@ -77,10 +77,10 @@ namespace DGP.Snap.Service.Download
                 return;
             }
 
-            this.logger.Debug("StreamCopyWorker is finishing background thread...");
+            //this.logger.Debug("StreamCopyWorker is finishing background thread...");
             if (!this.streamCopyFinished.WaitOne(this.safeWaitTimeout))
             {
-                this.logger.Warn("StreamCopyWorker failed to finish background thread in timely manner.");
+                //this.logger.Warn("StreamCopyWorker failed to finish background thread in timely manner.");
                 return;
             }
 
@@ -89,7 +89,7 @@ namespace DGP.Snap.Service.Download
             FinalizeStream(ref this.destinationStream);
             FinalizeStream(ref this.sourceStream);
 
-            this.logger.Debug("StreamCopyWorker cancelled.");
+            //this.logger.Debug("StreamCopyWorker cancelled.");
         }
 
         private void OnCompleted(StreamCopyCompleteEventArgs args)
@@ -109,15 +109,15 @@ namespace DGP.Snap.Service.Download
                 return;
             }
 
-            Exception error = null;
+            System.Exception error = null;
             try
             {
                 Copy();
                 EmitFinalProgress();
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
-                this.logger.Warn("StreamCopyWorker caught exception: {0}", ex.Message);
+                //this.logger.Warn("StreamCopyWorker caught exception: {0}", ex.Message);
                 this.completedState = CompletedState.Failed;
                 error = ex;
             }
@@ -127,15 +127,15 @@ namespace DGP.Snap.Service.Download
 
         private bool InitializeCopyProcess()
         {
-            this.logger.Debug("Starting StreamCopyWorker thread...");
+            //this.logger.Debug("Starting StreamCopyWorker thread...");
 
             if (!this.streamCopyFinished.WaitOne(this.safeWaitTimeout))
             {
-                this.logger.Error("Failed to start StreamCopyWorker thread.");
+                //this.logger.Error("Failed to start StreamCopyWorker thread.");
                 return false;
             }
             this.streamCopyFinished.Reset();
-            this.logger.Debug("StreamCopyWorker thread started.");
+            //this.logger.Debug("StreamCopyWorker thread started.");
 
             Position = 0;
             ChangeState(WorkerState.Started);
@@ -157,7 +157,7 @@ namespace DGP.Snap.Service.Download
 
                     if (GetState() == WorkerState.Canceled || GetState() == WorkerState.Finished)
                     {
-                        this.logger.Debug("StreamCopyWorker cancelled.");
+                        //this.logger.Debug("StreamCopyWorker cancelled.");
                         this.completedState = CompletedState.Canceled;
                         return;
                     }
@@ -175,14 +175,14 @@ namespace DGP.Snap.Service.Download
             {
                 if (Position != this.totalBytes)
                 {
-                    throw new Exception(string.Format("Stream incomplete. Expected size: {0}, actual size {1}", this.totalBytes, Position));
+                    throw new System.Exception(string.Format("Stream incomplete. Expected size: {0}, actual size {1}", this.totalBytes, Position));
                 }
 
                 OnProgressChanged(new StreamCopyProgressEventArgs { BytesReceived = Position });
             }
         }
 
-        private void FinalizeCopyProcess(Exception error)
+        private void FinalizeCopyProcess(System.Exception error)
         {
             this.progressUpdateTimer.Stop();
 
@@ -191,7 +191,7 @@ namespace DGP.Snap.Service.Download
 
             ChangeState(WorkerState.Finished);
 
-            this.logger.Debug("StreamCopyWorker Completed.");
+            //this.logger.Debug("StreamCopyWorker Completed.");
             this.streamCopyFinished.Set();
             OnCompleted(new StreamCopyCompleteEventArgs { CompleteState = this.completedState, Exception = error });
         }
@@ -209,9 +209,9 @@ namespace DGP.Snap.Service.Download
                 stream.Dispose();
                 stream = null;
             }
-            catch (Exception ex)
+            catch (System.Exception)
             {
-                this.logger.Warn("StreamCopyWorker is not able to dispose stream. Exception: {0}", ex.Message);
+                //this.logger.Warn("StreamCopyWorker is not able to dispose stream. Exception: {0}", ex.Message);
             }
         }
 

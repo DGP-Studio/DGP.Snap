@@ -7,12 +7,12 @@
              mc:Ignorable="d" 
              Width="68" Height="104" Loaded="UserControl_Loaded">
     <StackPanel>
-        <Rectangle Height="2" Margin="6,0" VerticalAlignment="Top" Fill="#FF00A2E8"></Rectangle>
-        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" FontSize="18" Margin="0,4,0,0" HorizontalAlignment="Center" Text="上传" />
-        <TextBlock Style="{StaticResource BaseTextBlockStyle}" HorizontalAlignment="Center" Text="{Binding Upload}"/>
-        <Rectangle Height="2" VerticalAlignment="Top" Fill="#FF00A2E8" Margin="6,8,6,0"/>
-        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" FontSize="18" Margin="0,4,0,0" HorizontalAlignment="Center" Text="下载" />
-        <TextBlock Style="{StaticResource BaseTextBlockStyle}" HorizontalAlignment="Center" Text="{Binding Download}"/>
+        <Rectangle Height="2" Margin="6,0" VerticalAlignment="Top" Fill="{DynamicResource AppDefaultColor}"></Rectangle>
+        <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource SubtitleTextBlockStyle}" FontSize="18" Margin="0,4,0,0" HorizontalAlignment="Center" Text="上传" />
+        <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource BaseTextBlockStyle}" HorizontalAlignment="Center" Text="{Binding Upload}"/>
+        <Rectangle Height="2" VerticalAlignment="Top" Fill="{DynamicResource AppDefaultColor}" Margin="6,8,6,0"/>
+        <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource SubtitleTextBlockStyle}" FontSize="18" Margin="0,4,0,0" HorizontalAlignment="Center" Text="下载" />
+        <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource BaseTextBlockStyle}" HorizontalAlignment="Center" Text="{Binding Download}"/>
     </StackPanel>
 
 </UserControl>

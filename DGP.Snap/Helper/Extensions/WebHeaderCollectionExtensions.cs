@@ -1,13 +1,7 @@
-﻿//----------------------------------------------------------------------------------------------------
-// <copyright company="Avira Operations GmbH & Co. KG and its licensors">
-// © 2016 Avira Operations GmbH & Co. KG and its licensors.  All rights reserved.
-// </copyright>
-//----------------------------------------------------------------------------------------------------
-
-using System.Net;
+﻿using System.Net;
 using System.Net.Mime;
 
-namespace DGP.Snap.Service.Download
+namespace DGP.Snap.Helper.Extensions
 {
     internal static class WebHeaderCollectionExtensions
     {

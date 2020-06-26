@@ -20,8 +20,6 @@ namespace DGP.Snap.Service.Navigation
         {
             get
             {
-
-
                 //_frame = mainWindow?.CurrentFrame;
                 return _frame;
             }

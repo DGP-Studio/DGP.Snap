@@ -1,6 +1,9 @@
 ﻿using DGP.Snap.Helper.Extensions;
+using DGP.Snap.Service.Setting;
+using DGP.Snap.Service.Shell;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media.Animation;
@@ -16,11 +19,12 @@ namespace DGP.Snap.Window.Side
         {
             DataContext = this;
             InitializeComponent();
-
-            Left = Screen.PrimaryScreen.Bounds.Width - 72;
+            
+            Left = SystemParameters.WorkArea.Width - 72;
             Top = 0;
             Width = 420;
-            Height = Screen.PrimaryScreen.WorkingArea.Height;
+            Height = SystemParameters.WorkArea.Height;
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -28,12 +32,14 @@ namespace DGP.Snap.Window.Side
             this.SetBottomWithInteractivity();
             this.SetAcrylicblur();
         }
-
+        /// <summary>
+        /// 不使用EventArgs
+        /// </summary>
         public static event EventHandler OnRefreshRequired;
 
         private bool isFirstExtend = true;
 
-        private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        private async void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (isFirstExtend)
             {
@@ -41,9 +47,15 @@ namespace DGP.Snap.Window.Side
             }
             else
             {
-                OnRefreshRequired.Invoke(this, new EventArgs());
-            }
+                await Task.Run(() =>
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        OnRefreshRequired.Invoke(this, null);
+                    });
+                });
 
+            }
             ExtendSideBar();
         }
         private void Window_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
@@ -53,7 +65,7 @@ namespace DGP.Snap.Window.Side
 
         private void ExtendSideBar()
         {
-            double to = Screen.PrimaryScreen.WorkingArea.Width - 416;
+            double to = SystemParameters.WorkArea.Width - 416;
             DoubleAnimation posAnimation = new DoubleAnimation()
             {
                 To = to,
@@ -66,7 +78,7 @@ namespace DGP.Snap.Window.Side
 
         private void RetractSideBar()
         {
-            double to = Screen.PrimaryScreen.WorkingArea.Width - 72;
+            double to = SystemParameters.WorkArea.Width - 72;
             DoubleAnimation posAnimation = new DoubleAnimation()
             {
                 To = to,
@@ -76,14 +88,15 @@ namespace DGP.Snap.Window.Side
             BeginAnimation(LeftProperty, posAnimation);
         }
 
-        private void Window_StateChanged(object sender, EventArgs e)
-        {
-            this.SetBottomWithInteractivity();
-        }
-
         private void SystemSettingButton_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("ms-settings:home");
+        }
+
+        private void ThemeButton_Click(object sender, RoutedEventArgs e)
+        {
+            ThemeManager.ToggleTheme();
+            SettingService.GetInstance()["App_Theme"] = ThemeManager.GetCurrentTheme();
         }
     }
 }

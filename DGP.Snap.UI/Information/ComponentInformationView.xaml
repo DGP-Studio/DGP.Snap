@@ -40,7 +40,7 @@
             <Setter Property="FontWeight" Value="Normal" />
         </Style>
     </UserControl.Resources>
-    <Grid Background="White" >
+    <Grid Background="#CCFFFFFF" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="240"/>
@@ -58,7 +58,7 @@
         <TextBlock Text="{Binding ComponentDescription}" Grid.Column="2" Foreground="Black" Margin="8,4,0,0" Style="{StaticResource BodyTextBlockStyle}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Grid.Column="2" Margin="8,0,0,4" HorizontalAlignment="Left" VerticalAlignment="Bottom">
                         <Hyperlink NavigateUri="{Binding ComponentRepositoryUri}" Click="OnHyperLinkInvoked" RequestNavigate="OnHyperlinkRequestNavigate">
-                            Github Repository
+                            Link
                         </Hyperlink>
                         <Hyperlink NavigateUri="{Binding ComponentLicenseUri}" Click="OnHyperLinkInvoked" RequestNavigate="OnHyperlinkRequestNavigate">
                             License

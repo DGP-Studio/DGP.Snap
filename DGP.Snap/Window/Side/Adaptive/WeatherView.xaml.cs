@@ -1,6 +1,7 @@
 ﻿using DGP.Snap.Helper;
 using DGP.Snap.Service.Setting;
-using DGP.Snap.Window.Weather;
+using DGP.Snap.Service.Weather;
+using DGP.Snap.Service.Weather.Model;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,14 +23,13 @@ namespace DGP.Snap.Window.Side.Adaptive
 
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            await Singleton<WeatherService>.Instance.InitializeAsync();
-            WeatherInfo = Singleton<WeatherService>.Instance.WeatherInformation;
-
+            await WeatherService.GetInstance().InitializeAsync();
+            WeatherInfo = WeatherService.GetInstance().WeatherInformation;
         }
 
         private async void OnRefreshRequired(object sender, System.EventArgs e)
         {
-            WeatherInfo = await Singleton<WeatherService>.Instance.GetRefreshedWeatherAsync(WeatherInfo.City);
+            WeatherInfo = await WeatherService.GetInstance().GetRefreshedWeatherAsync(WeatherInfo.City);
             Debug.WriteLine("weather");
         }
 
@@ -43,15 +43,15 @@ namespace DGP.Snap.Window.Side.Adaptive
 
         private async void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            WeatherInfo = await Singleton<WeatherService>.Instance.GetRefreshedWeatherAsync(WeatherInfo.City);
+            WeatherInfo = await WeatherService.GetInstance().GetRefreshedWeatherAsync(WeatherInfo.City);
         }
         private async void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                WeatherInfo = await Singleton<WeatherService>.Instance.GetRefreshedWeatherAsync(((TextBox)sender).Text);
-                Singleton<SettingStorageService>.Instance.AppSettings.Add("Weather_Location", (((TextBox)sender).Text));
-                await Singleton<SettingStorageService>.Instance.SaveSettingsAsync();
+                WeatherInfo = await WeatherService.GetInstance().GetRefreshedWeatherAsync(((TextBox)sender).Text);
+                SettingService.GetInstance().AppSettings["Weather_Location"] = ((TextBox)sender).Text;
+                await SettingService.GetInstance().SaveSettingsAsync();
                 ;
             }
         }

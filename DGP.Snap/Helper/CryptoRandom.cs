@@ -7,52 +7,52 @@ namespace DGP.Snap.Helper
     {
         private static RandomNumberGenerator r;
         /// <summary>
-        /// Creates an instance of the default implementation of a cryptographic random number generator that can be used to generate random data.
+        /// 创建可用于生成随机数据的密码随机数生成器默认实现的实例
         /// </summary>
         public CryptoRandom()
         {
-            r = RandomNumberGenerator.Create();
+            r = Create();
         }
         /// <summary>
-        /// Fills the elements of a specified array of bytes with random numbers.
+        /// 用随机数填充指定字节数组的元素
         /// </summary>
-        /// <param name="buffer">An array of bytes to contain random numbers.</param>
+        /// <param name="buffer">包含随机数的字节数组</param>
         public override void GetBytes(byte[] buffer)
         {
             r.GetBytes(buffer);
         }
         /// <summary>
-        /// Returns a random number between 0.0 and 1.0
+        /// 返回介于0.0和1.0之间的随机数
         /// </summary>
         /// <returns></returns>
         public double NextDouble()
         {
             byte[] b = new byte[4];
             r.GetBytes(b);
-            return (double)BitConverter.ToUInt32(b, 0) / UInt32.MaxValue;
+            return (double)BitConverter.ToUInt32(b, 0) / uint.MaxValue;
         }
         /// <summary>
-        /// Returns a random number within the specified range.
+        /// 返回指定范围内的随机数
         /// </summary>
-        /// <param name="minPValue">The inclusive lower bound of the random number returned.</param>
-        /// <param name="maxPValue">The exclusive upper bound of the random number returned. maxValue must be greater than or equal to minValue.</param>
+        /// <param name="minPValue">随机数（含）下限</param>
+        /// <param name="maxPValue">随机数的（不含）上限，maxValue必须大于或等于minValue。</param>
         /// <returns></returns>
         public int Next(int minPValue, int maxPValue)
         {
             return (int)Math.Round(NextDouble() * (maxPValue - minPValue - 1)) + minPValue;
         }
         /// <summary>
-        /// Returns a nonnegative random number
+        /// 返回一个非负的随机数
         /// </summary>
         /// <returns></returns>
         public int Next()
         {
-            return Next(0, Int32.MaxValue);
+            return Next(0, int.MaxValue);
         }
         /// <summary>
-        /// Returns a nonnegative random number less than the specified maximum
+        /// 返回小于指定最大值的非负随机数
         /// </summary>
-        /// <param name="maxValue">The inclusive upper bound of the random number returned. maxValue must be greater than or equal 0</param>
+        /// <param name="maxValue">返回的随机数的（含）上限，maxValue必须大于或等于0</param>
         /// <returns></returns>
         public int Next(int maxValue)
         {

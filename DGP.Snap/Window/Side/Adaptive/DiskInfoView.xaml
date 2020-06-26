@@ -7,22 +7,22 @@
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" >
     <Grid Width="324"  Margin="12">
-        <ListView x:Name="diskInfoList" ItemsSource="{Binding DiskInfos,Mode=OneWay}" HorizontalAlignment="Stretch" Margin="0">
+        <ListView x:Name="diskInfoList" ItemsSource="{Binding DiskInfos,Mode=OneWay}" HorizontalAlignment="Stretch" Margin="0" Background="Transparent" Foreground="Transparent" >
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border HorizontalAlignment="Stretch" Height="48" Background="#44000000" Margin="-3,4,0,4">
-                        <Button Tag="{Binding Path=Name}" Style="{StaticResource DefaultButtonStyle}" Click="Button_Click">
+                    <Border HorizontalAlignment="Stretch" Height="48" Margin="-5,4,0,4" BorderThickness="0">
+                        <Button Tag="{Binding Path=Name}" Style="{StaticResource DefaultButtonStyle}" Click="Button_Click" Background="{DynamicResource AppStyleBackgroundColor}" >
                             <Grid Width="316" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="48"/>
                                     <ColumnDefinition Width="48"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" FontSize="28" FontFamily="Segoe MDL2 Assets"  Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=DiskType}" Style="{StaticResource SubheaderTextBlockStyle}" />
-                                <TextBlock Grid.Column="1"  Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=Name}" Style="{StaticResource SubheaderTextBlockStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
-                                <mah:MetroProgressBar Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="8" Value="{Binding Path=UsedPersentage}"  Height="4" Foreground="#FF00A2E8" Minimum="0" Maximum="1"/>
-                                <TextBlock Grid.Column="2" Margin="8" Style="{StaticResource BaseTextBlockStyle}" VerticalAlignment="Bottom" Text="{Binding Path=Present}" />
+                                <TextBlock Grid.Column="0" FontSize="28" FontFamily="Segoe MDL2 Assets"  Foreground="{DynamicResource AppStyleForegroundColor}" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=DiskType}" Style="{StaticResource SubheaderTextBlockStyle}" />
+                                <TextBlock Grid.Column="1"  Foreground="{DynamicResource AppStyleForegroundColor}" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=Name}" Style="{StaticResource SubheaderTextBlockStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+                                <mah:MetroProgressBar Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="8" Value="{Binding Path=UsedPersentage}"  Height="4" Foreground="{DynamicResource AppDefaultColor}" Minimum="0" Maximum="1"/>
+                                <TextBlock Grid.Column="2" Foreground="{DynamicResource AppStyleForegroundColor}" Margin="8" Style="{StaticResource BaseTextBlockStyle}" VerticalAlignment="Bottom" Text="{Binding Path=Present}" />
                             </Grid>
                         </Button>
                     </Border>

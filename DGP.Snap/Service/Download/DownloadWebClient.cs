@@ -4,7 +4,7 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------------
 
-using DGP.Snap.Service.Download.Logging;
+using DGP.Snap.Helper.Extensions;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -15,7 +15,7 @@ namespace DGP.Snap.Service.Download
     [DesignerCategory("Code")]
     internal class DownloadWebClient : WebClient
     {
-        private readonly ILogger logger = LoggerFacade.GetCurrentClassLogger();
+        //private readonly ILogger logger = LoggerFacade.GetCurrentClassLogger();
         private readonly CookieContainer cookieContainer = new CookieContainer();
         private WebResponse webResponse;
         private long position;
@@ -62,9 +62,9 @@ namespace DGP.Snap.Service.Download
                 }
                 return Path.GetFileName(this.webResponse.ResponseUri.LocalPath);
             }
-            catch (Exception ex)
+            catch (System.Exception)
             {
-                this.logger.Warn("Can't get the name of the downloading file. Exception: {0}", ex.Message);
+                //this.logger.Warn("Can't get the name of the downloading file. Exception: {0}", ex.Message);
                 return null;
             }
         }
@@ -73,7 +73,7 @@ namespace DGP.Snap.Service.Download
         {
             var response = base.GetWebResponse(request);
             this.webResponse = response;
-            this.logger.Debug("Recieved web response for sync call, IsFromCache: {0}, url {1}", response != null && response.IsFromCache, request.RequestUri);
+            //this.logger.Debug("Recieved web response for sync call, IsFromCache: {0}, url {1}", response != null && response.IsFromCache, request.RequestUri);
             return response;
         }
 
@@ -82,7 +82,7 @@ namespace DGP.Snap.Service.Download
             var response = base.GetWebResponse(request, result);
             this.webResponse = response;
 
-            this.logger.Debug("Recieved web response for async call, IsFromCache: {0}, url {1}", response != null && response.IsFromCache, request.RequestUri);
+            //this.logger.Debug("Recieved web response for async call, IsFromCache: {0}, url {1}", response != null && response.IsFromCache, request.RequestUri);
             return response;
         }
 

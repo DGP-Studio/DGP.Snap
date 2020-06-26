@@ -8,7 +8,6 @@ namespace DGP.Snap.Service.Shell
 {
     internal class AutoStartupHelper
     {
-
         /// <summary>
         /// 快捷方式名称
         /// </summary>
@@ -25,7 +24,6 @@ namespace DGP.Snap.Service.Shell
         /// <param name="flag">自启开关</param>
         public static void SetAutoStartState(bool flag = true)
         {
-
             List<string> shortcutPaths = GetAppShortcutFromFolder(Environment.GetFolderPath(Environment.SpecialFolder.Startup), AppFullPath);
 
             if (flag)//开机启动
@@ -101,7 +99,7 @@ namespace DGP.Snap.Service.Shell
                 shortcut.Save();                                                                                //保存快捷方式
                 return true;
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 _ = ex.Message;
             }
@@ -159,7 +157,7 @@ namespace DGP.Snap.Service.Shell
         }
 
         /// <summary>
-        /// 根据路径删除文件-用于取消自启时,从计算机自启目录删除程序的快捷方式
+        /// 根据路径删除文件(夹)
         /// </summary>
         /// <param name="path">路径</param>
         private static void DeleteFile(string path)

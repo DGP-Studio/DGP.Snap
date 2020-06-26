@@ -4,70 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DGP.Snap.Helper
+namespace DGP.Snap.Helper.QueryString
 {
-    /// <summary>
-    /// A single query string parameter (name and value pair).
-    /// </summary>
-    public sealed class QueryStringParameter
-    {
-        private string _name;
-
-        /// <summary>
-        /// The name of the parameter. Cannot be null.
-        /// </summary>
-        public string Name
-        {
-            get { return _name; }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("Name");
-                }
-
-                _name = value;
-            }
-        }
-
-        /// <summary>
-        /// The value of the parameter (or null if there's no value).
-        /// </summary>
-        public string Value { get; set; }
-
-        /// <summary>
-        /// Initializes a new query string parameter with the specified name and optional value.
-        /// </summary>
-        /// <param name="name">The name of the parameter. Cannot be null.</param>
-        /// <param name="value">The optional value of the parameter.</param>
-        internal QueryStringParameter(string name, string value = null)
-        {
-            if (name == null)
-            {
-                throw new ArgumentNullException("name");
-            }
-
-            Name = name;
-            Value = value;
-        }
-    }
-
-    /// <summary>
-    /// Specifies the separator to be used between query string parameters.
-    /// </summary>
-    public enum QueryStringSeparator
-    {
-        /// <summary>
-        /// The default separator for query string parameters. Generated query string is like "a=1&b=5".
-        /// </summary>
-        Ampersand,
-
-        /// <summary>
-        /// An alternative separator for query string parameters. Generated query string is like "a=1;b=5".
-        /// </summary>
-        Semicolon
-    }
-
     /// <summary>
     /// A portable string serializer/deserializer for .NET.
     /// </summary>
@@ -527,4 +465,3 @@ namespace DGP.Snap.Helper
         }
     }
 }
-

@@ -6,8 +6,17 @@ using System.Threading.Tasks;
 
 namespace DGP.Snap.Helper
 {
+    /// <summary>
+    /// Json序列化反序列化工具类
+    /// </summary>
     public static class Json
     {
+        /// <summary>
+        /// 将JSON异步反序列化为指定的.NET类型
+        /// </summary>
+        /// <typeparam name="T">要反序列化的对象的类型。</typeparam>
+        /// <param name="value">要反序列化的JSON</param>
+        /// <returns>JSON字符串中的反序列化对象</returns>
         public static async Task<T> ToObjectAsync<T>(string value)
         {
             return await Task.Run(() =>
@@ -15,6 +24,12 @@ namespace DGP.Snap.Helper
                 return JsonConvert.DeserializeObject<T>(value);
             });
         }
+
+        /// <summary>
+        /// 将指定的对象序列化为JSON字符串
+        /// </summary>
+        /// <param name="value">要序列化的对象</param>
+        /// <returns>对象的JSON字符串表示形式</returns>
         public static async Task<string> StringifyAsync(object value)
         {
             return await Task.Run(() =>
@@ -43,6 +58,11 @@ namespace DGP.Snap.Helper
             });
         }
 
+        /// <summary>
+        /// 获取网页响应
+        /// </summary>
+        /// <param name="requestUrl">请求的URL</param>
+        /// <returns>响应字符串</returns>
         private static string GetWebResponse(string requestUrl)
         {
             HttpWebRequest request = WebRequest.CreateHttp(requestUrl);
@@ -54,7 +74,7 @@ namespace DGP.Snap.Helper
             request.ContentType = "application/json;charset=UTF-8";
             //request.Headers.Add(HttpRequestHeader.UserAgent, "Wget/1.9.1");
             request.UserAgent = "Wget/1.9.1";
-            //request.Timeout = 5000;
+            request.Timeout = 5000;
             string jsonMetaString;
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())//获取响应
             {
@@ -63,10 +83,7 @@ namespace DGP.Snap.Helper
                     jsonMetaString = responseStreamReader.ReadToEnd();
                 }
             }
-
             return jsonMetaString;
         }
-
-
     }
 }

@@ -28,7 +28,7 @@
     <!--<mah:MetroWindow.WindowButtonCommands>
         <mah:WindowButtonCommands x:Name="WinBtnCmd" Margin="0,0,0,1" HorizontalAlignment="Right" Style="{DynamicResource MahApps.Metro.Styles.WindowButtonCommands.Win10}" />
     </mah:MetroWindow.WindowButtonCommands>-->
-    <Grid Background="Transparent" x:Name="BorderGrid" Margin="0,0,0,0">
+    <Grid Background="{DynamicResource AppStyleBackgroundColor}" x:Name="BorderGrid" Margin="0,0,0,0">
         
         <Grid.RowDefinitions>
             <RowDefinition x:Name="RowWidth" Height="30"/>
@@ -39,11 +39,11 @@
             <Grid Background="Transparent" />
             <StackPanel HorizontalAlignment="Left" Margin="4,8,0,8" Orientation="Horizontal">
                 <Image Width="16" Height="16" Source="/DGP.Snap;component/Resources/SnapNewLogo.png"/>
-                <TextBlock Margin="4,0,0,0" VerticalAlignment="Center" Style="{StaticResource CaptionTextBlockStyle}" Foreground="Black" Text="壁纸"/>
+                <TextBlock Margin="4,0,0,0" VerticalAlignment="Center" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{DynamicResource AppStyleForegroundColor}" Text="壁纸"/>
             </StackPanel>
         </Grid>
 
-        <mah:SplitView Grid.Row="1" DisplayMode="Inline" IsPaneOpen="True" OpenPaneLength="280" PaneBackground="#00FFFFFF" Background="#A0FFFFFF">
+        <mah:SplitView Grid.Row="1" DisplayMode="Inline" IsPaneOpen="True" OpenPaneLength="280" PaneBackground="#00FFFFFF" >
             <mah:SplitView.Pane>
                 <ListView SelectionMode="Single" Background="#00FFFFFF" x:Name="List" 
                           ItemsSource="{Binding ObservableWallpaperInfos,Mode=OneWay}" 
@@ -51,13 +51,13 @@
                           >
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border HorizontalAlignment="Left" Margin="10" Width="236" Height="64" Background="#A0FFFFFF">
+                            <Border HorizontalAlignment="Left" Margin="10" Width="236" Height="64" Background="Transparent" BorderThickness="0">
                                 <Border.Effect>
                                     <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.6"/>
                                 </Border.Effect>
-                                <Grid Background="#00FFFFFF">
-                                    <TextBlock Margin="8" VerticalAlignment="Top" Foreground="Black" Text="{Binding Path=Description}" Style="{StaticResource BodyTextBlockStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"></TextBlock>
-                                    <TextBlock Foreground="Black" Margin="4" VerticalAlignment="Bottom" Text="{Binding Path=Uri}" Style="{StaticResource CaptionTextBlockStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                                <Grid Background="{DynamicResource AppStyleBackgroundColor}">
+                                    <TextBlock Margin="8" VerticalAlignment="Top" Foreground="{DynamicResource AppStyleForegroundColor}" Text="{Binding Path=Description}" Style="{StaticResource BodyTextBlockStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"></TextBlock>
+                                    <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Margin="4" VerticalAlignment="Bottom" Text="{Binding Path=Uri}" Style="{StaticResource CaptionTextBlockStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>
@@ -66,15 +66,15 @@
                         <Style TargetType="{x:Type ListViewItem}">
                             <Setter Property="Background" Value="#00FFFFFF"/>
                             <Setter Property="BorderThickness" Value="0"/>
-                            <Setter Property="mah:ItemHelper.ActiveSelectionBackgroundBrush" Value="{DynamicResource AccentColorBrush}"/>
+                            <!--<Setter Property="mah:ItemHelper.ActiveSelectionBackgroundBrush" Value="{DynamicResource AccentColorBrush}"/>
                             <Setter Property="mah:ItemHelper.ActiveSelectionForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}"/>
                             <Setter Property="mah:ItemHelper.DisabledForegroundBrush" Value="{DynamicResource GrayNormalBrush}"/>
                             <Setter Property="mah:ItemHelper.DisabledSelectedBackgroundBrush" Value="{DynamicResource GrayBrush7}"/>
                             <Setter Property="mah:ItemHelper.DisabledSelectedForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}"/>
                             <Setter Property="mah:ItemHelper.HoverBackgroundBrush" Value="{DynamicResource AccentColorBrush3}"/>
                             <Setter Property="mah:ItemHelper.HoverSelectedBackgroundBrush" Value="{DynamicResource AccentColorBrush}"/>
-                            <Setter Property="mah:ItemHelper.SelectedBackgroundBrush" Value="{DynamicResource AccentColorBrush2}"/>
-                            <Setter Property="mah:ItemHelper.SelectedForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}"/>
+                            <Setter Property="mah:ItemHelper.SelectedBackgroundBrush" Value="{DynamicResource AppDefaultColor}"/>
+                            <Setter Property="mah:ItemHelper.SelectedForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}"/>-->
                             <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                             <Setter Property="Margin" Value="0"/>
@@ -96,7 +96,7 @@
                                             </Trigger>
                                             <Trigger Property="IsSelected" Value="True">
                                                 <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.SelectedForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
-                                                <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.SelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                <Setter Property="Background" TargetName="Border" Value="{DynamicResource AppDefaultColor}"/>
                                                 <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource HighlightBrush}"/>
                                             </Trigger>
                                             <MultiTrigger>
@@ -105,7 +105,7 @@
                                                     <Condition Property="Selector.IsSelectionActive" Value="True"/>
                                                 </MultiTrigger.Conditions>
                                                 <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.ActiveSelectionForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
-                                                <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.ActiveSelectionBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                <Setter Property="Background" TargetName="Border" Value="{DynamicResource AppDefaultColor}"/>
                                                 <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource HighlightBrush}"/>
                                             </MultiTrigger>
                                             <MultiTrigger>
@@ -113,14 +113,14 @@
                                                     <Condition Property="IsMouseOver" Value="True"/>
                                                     <Condition Property="IsSelected" Value="True"/>
                                                 </MultiTrigger.Conditions>
-                                                <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.HoverSelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                <Setter Property="Background" TargetName="Border" Value="{DynamicResource AppDefaultColor}"/>
                                             </MultiTrigger>
                                             <MultiTrigger>
                                                 <MultiTrigger.Conditions>
                                                     <Condition Property="IsMouseOver" Value="True"/>
                                                     <Condition Property="IsSelected" Value="False"/>
                                                 </MultiTrigger.Conditions>
-                                                <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.HoverBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                <Setter Property="Background" TargetName="Border" Value="{DynamicResource AppDefaultColor}"/>
                                             </MultiTrigger>
                                             <Trigger Property="IsEnabled" Value="False">
                                                 <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.DisabledForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
@@ -132,7 +132,7 @@
                                                     <Condition Property="IsSelected" Value="True"/>
                                                 </MultiTrigger.Conditions>
                                                 <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.DisabledSelectedForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
-                                                <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.DisabledSelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
+                                                <Setter Property="Background" TargetName="Border" Value="{DynamicResource AppDefaultColor}"/>
                                                 <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource GrayBrush7}"/>
                                             </MultiTrigger>
                                         </ControlTemplate.Triggers>
@@ -160,7 +160,7 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button Click="DownloadButton_Click" ToolTipService.ToolTip="下载" Width="48" Height="48" Style="{StaticResource DefaultButtonStyle}" FontSize="16" FontFamily="Segoe MDL2 Assets" Content="&#xE896;" Foreground="Black"/>
+                            <Button Click="DownloadButton_Click" ToolTipService.ToolTip="下载" Width="48" Height="48" Style="{StaticResource DefaultButtonStyle}" FontSize="16" FontFamily="Segoe MDL2 Assets" Content="&#xE896;" Foreground="{DynamicResource AppStyleForegroundColor}"/>
                         </StackPanel>
                     </Grid>
                     

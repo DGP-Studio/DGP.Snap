@@ -23,7 +23,7 @@ namespace DGP.Snap.Service.Download
         /// <param name="bytesTotal">File size</param>
         /// <param name="bytesReceived">Received bytes</param>
         /// <param name="error">Exception object</param>
-        public DownloadFileCompletedArgs(CompletedState state, string fileName, Uri fileSource, TimeSpan downloadTime, long bytesTotal, long bytesReceived, Exception error)
+        public DownloadFileCompletedArgs(CompletedState state, string fileName, Uri fileSource, TimeSpan downloadTime, long bytesTotal, long bytesReceived, System.Exception error)
         {
             State = state;
             FileName = fileName;
@@ -52,7 +52,7 @@ namespace DGP.Snap.Service.Download
         /// <summary>
         /// Gets the error, or null if there is no error
         /// </summary>
-        public Exception Error { get; private set; }
+        public System.Exception Error { get; private set; }
 
         /// <summary>
         /// Gets the total download time
