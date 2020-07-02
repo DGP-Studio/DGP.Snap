@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DGP.Snap.Window.Side"
-        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" xmlns:counter="clr-namespace:DGP.Snap.Window.Side.Counter" xmlns:adaptive="clr-namespace:DGP.Snap.Window.Side.Adaptive"
+        xmlns:counter="clr-namespace:DGP.Snap.Window.Side.Counter" 
+        xmlns:adaptive="clr-namespace:DGP.Snap.Window.Side.Adaptive"
         mc:Ignorable="d"
-        Title="SideWindow" Height="450" Width="420" WindowStyle="None" Loaded="Window_Loaded" Background="Transparent" 
-        MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" ResizeMode="NoResize" >
+        Title="SideWindow" Height="600" Width="420" WindowStyle="None" Loaded="Window_Loaded" Background="Transparent" 
+        MouseEnter="Window_MouseEnterAsync" MouseLeave="Window_MouseLeave" ResizeMode="NoResize" >
 
     <WindowChrome.WindowChrome >
         <WindowChrome GlassFrameThickness="-1" CaptionHeight="0"/>

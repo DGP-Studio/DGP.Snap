@@ -1,7 +1,6 @@
 ﻿using DGP.Snap.Helper;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -44,7 +43,7 @@ namespace DGP.Snap.Window.Wallpaper
         private async Task Get360ImageUriCollectionAsync()
         {
 
-            ThreeSixZeroWallpaperJsonObject wallPaper360JsonInfo = await Json.GetWebRequestJsonObjectAsync<ThreeSixZeroWallpaperJsonObject>(WallPaper360BaseUrL);//await GetRequest360WallPaperImageJsonInfoAsync();
+            ThreeSixZeroWallpaperJsonObject wallPaper360JsonInfo = await Json.GetWebRequestObjectAsync<ThreeSixZeroWallpaperJsonObject>(WallPaper360BaseUrL);//await GetRequest360WallPaperImageJsonInfoAsync();
 
             foreach (DataItemFor360 dataItem in wallPaper360JsonInfo.Data)
             {
@@ -65,7 +64,7 @@ namespace DGP.Snap.Window.Wallpaper
         {
             string basedBingUrl = "http://cn.bing.com";
 
-            BingImageJsonObject bingImageJsonInfo = await Json.GetWebRequestJsonObjectAsync<BingImageJsonObject>(WallPaperBingBaseUrL);
+            BingImageJsonObject bingImageJsonInfo = await Json.GetWebRequestObjectAsync<BingImageJsonObject>(WallPaperBingBaseUrL);
 
             foreach (ImageItemForBing imageItemForBing in bingImageJsonInfo.Images)
             {

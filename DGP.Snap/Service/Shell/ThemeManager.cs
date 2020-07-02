@@ -1,6 +1,4 @@
 ﻿using DGP.Snap.Service.Setting;
-using MahApps.Metro;
-using System;
 using System.Windows;
 using System.Windows.Media;
 
@@ -11,19 +9,21 @@ namespace DGP.Snap.Service.Shell
         private const string AppStyleBackgroundColor = "AppStyleBackgroundColor";
         private const string AppStyleForegroundColor = "AppStyleForegroundColor";
 
-        private static bool isBlack=true;
+        private static bool isBlack = true;
 
         public static void Initialize()
         {
             if (SettingService.GetInstance()["App_Theme"] == null)
+            {
                 isBlack = true;
+            }
             else
             {
                 //SettingService s = SettingService.GetInstance();
-                isBlack = 
+                isBlack =
                     SettingService.GetInstance()["App_Theme"] == (object)Theme.Dark;
             }
-                
+
 
             if (isBlack)//黑变白
             {
@@ -40,11 +40,11 @@ namespace DGP.Snap.Service.Shell
             if (isBlack)//黑变白
             {
                 SetLightTheme();
-            }  
+            }
             else//白变黑
             {
                 SetDarkTheme();
-            }  
+            }
         }
 
         private static void SetLightTheme()

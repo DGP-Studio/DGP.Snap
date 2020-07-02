@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-
-namespace DGP.Snap.Helper
+﻿namespace DGP.Snap.Helper
 {
     /// <summary>
     /// 单例

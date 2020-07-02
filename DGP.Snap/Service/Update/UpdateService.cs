@@ -4,7 +4,6 @@ using DGP.Snap.Service.Shell;
 using DGP.Snap.Service.Update.Model;
 using Microsoft.VisualBasic.Devices;
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -16,22 +15,22 @@ namespace DGP.Snap.Service.Update
     internal class UpdateService
     {
         /// <summary>
-        /// 不要在调用 <see cref="CheckUpdateAvailability()"/> 前使用，默认为<see cref="null"/>
+        /// 不要在调用 <see cref="CheckUpdateAvailabilityAsync()"/> 前使用，默认为<see cref="null"/>
         /// </summary>
         public Uri PackageUri { get; set; } = null;
 
         /// <summary>
-        /// 不要在调用 <see cref="CheckUpdateAvailability()"/> 前使用，默认为<see cref="null"/>
+        /// 不要在调用 <see cref="CheckUpdateAvailabilityAsync()"/> 前使用，默认为<see cref="null"/>
         /// </summary>
         public Version NewVersion { get; set; } = null;
 
         public Version CurrentVersion => Assembly.GetExecutingAssembly().GetName().Version;
 
-        private async Task<UpdateAvailability> CheckUpdateAvailability()
+        private async Task<UpdateAvailability> CheckUpdateAvailabilityAsync()
         {
             try
             {
-                Release release = await Json.GetWebRequestJsonObjectAsync<Release>("https://api.github.com/repos/DGP-Studio/DGP.Snap/releases/latest");
+                Release release = await Json.GetWebRequestObjectAsync<Release>("https://api.github.com/repos/DGP-Studio/DGP.Snap/releases/latest");
 
                 var newVersion = release.TagName;
                 NewVersion = new Version(release.TagName);
@@ -125,9 +124,9 @@ namespace DGP.Snap.Service.Update
             Application.Current.Shutdown();
         }
 
-        public async Task HandleUpdateCheck(bool isStartupCheck = true)
+        public async Task HandleUpdateCheckAsync(bool isStartupCheck = true)
         {
-            UpdateAvailability updateAvailability = await CheckUpdateAvailability();
+            UpdateAvailability updateAvailability = await CheckUpdateAvailabilityAsync();
             switch (updateAvailability)
             {
                 case UpdateAvailability.IsInsiderVersion:

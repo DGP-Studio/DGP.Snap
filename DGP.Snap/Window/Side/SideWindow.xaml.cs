@@ -5,7 +5,6 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Media.Animation;
 
 namespace DGP.Snap.Window.Side
@@ -19,7 +18,7 @@ namespace DGP.Snap.Window.Side
         {
             DataContext = this;
             InitializeComponent();
-            
+
             Left = SystemParameters.WorkArea.Width - 72;
             Top = 0;
             Width = 420;
@@ -39,7 +38,7 @@ namespace DGP.Snap.Window.Side
 
         private bool isFirstExtend = true;
 
-        private async void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        private async void Window_MouseEnterAsync(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (isFirstExtend)
             {
@@ -51,13 +50,14 @@ namespace DGP.Snap.Window.Side
                 {
                     Dispatcher.Invoke(() =>
                     {
-                        OnRefreshRequired.Invoke(this, null);
+                        OnRefreshRequired.Invoke(this, new EventArgs());
                     });
                 });
 
             }
             ExtendSideBar();
         }
+
         private void Window_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             RetractSideBar();

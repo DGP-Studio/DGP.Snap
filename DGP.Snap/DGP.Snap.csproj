@@ -90,8 +90,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helper\CryptoRandom.cs" />
     <Compile Include="Helper\Extensions\DictionaryExtensions.cs" />
+    <Compile Include="Helper\Extensions\DispatcherObjectExtensions.cs" />
     <Compile Include="Helper\Extensions\EventHandlerExtensions.cs" />
     <Compile Include="Helper\Extensions\ImageExtensions.cs" />
     <Compile Include="Helper\Extensions\ListExtensions.cs" />
@@ -110,16 +112,17 @@
       <DependentUpon>ExceptionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Service\Exception\ExceptionService.cs" />
-    <Compile Include="Service\Kernel\GCHelper.cs" />
+    <Compile Include="Service\Kernel\GCService.cs" />
     <Compile Include="Service\Kernel\NativeMethod.cs" />
+    <Compile Include="Service\LifeCycle\LifeCycleService.cs" />
     <Compile Include="Service\Setting\SettingService.cs" />
-    <Compile Include="Service\Shell\AutoStartupHelper.cs" />
+    <Compile Include="Service\Shell\AutoStartupService.cs" />
     <Compile Include="Service\Download\CompletedState.cs" />
     <Compile Include="Service\Download\DownloadFileCompletedArgs.cs" />
     <Compile Include="Service\Download\DownloadFileProgressChangedArgs.cs" />
     <Compile Include="Service\Download\DownloadWebClient.cs" />
     <Compile Include="Service\Download\FileDownloader.cs" />
-    <Compile Include="Service\Download\FileHelpers.cs" />
+    <Compile Include="Service\Download\FileUtils.cs" />
     <Compile Include="Service\Download\IDnsFallbackResolver.cs" />
     <Compile Include="Service\Download\IDownloadCache.cs" />
     <Compile Include="Service\Download\IFileDownloader.cs" />
@@ -132,7 +135,7 @@
     <Compile Include="Service\Shell\Theme.cs" />
     <Compile Include="Service\Shell\NotificationManager.cs" />
     <Compile Include="Service\Shell\ThemeManager.cs" />
-    <Compile Include="Service\Shell\TrayIconManager.cs" />
+    <Compile Include="Service\Shell\NotifyIconManager.cs" />
     <Compile Include="Service\Update\UpdateAvailability.cs" />
     <Compile Include="Service\Update\Model\AssetsItem.cs" />
     <Compile Include="Service\Update\Model\People.cs" />
@@ -175,9 +178,6 @@
     <Compile Include="Window\Side\SideWindow.xaml.cs">
       <DependentUpon>SideWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Window\TileWindow.xaml.cs">
-      <DependentUpon>TileWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Window\Wallpaper\Model.cs" />
     <Compile Include="Window\Wallpaper\WallpaperService.cs" />
     <Compile Include="Window\Wallpaper\WallpaperWindow.xaml.cs">
@@ -185,7 +185,7 @@
     </Compile>
     <Compile Include="Service\Weather\WeatherService.cs" />
     <Compile Include="Window\WindowManager.cs" />
-    <Page Include="MainWindow.xaml">
+    <Page Include="AboutWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -193,8 +193,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Service\Exception\ExceptionDialog.xaml">
@@ -234,10 +234,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window\Side\SideWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Window\TileWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -289,6 +285,11 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="CSharpGuidelinesAnalyzer">
+      <Version>3.5.0</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="GraphQL.Client">
       <Version>3.1.3</Version>
     </PackageReference>

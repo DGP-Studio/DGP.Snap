@@ -1,5 +1,4 @@
-﻿using DGP.Snap.Helper;
-using DGP.Snap.Helper.Extensions;
+﻿using DGP.Snap.Helper.Extensions;
 using DGP.Snap.Service.Download;
 using DGP.Snap.Service.Kernel;
 using DGP.Snap.Service.Setting;
@@ -52,7 +51,7 @@ namespace DGP.Snap.Window.Wallpaper
             OnPropertyChanged(propertyName);
         }
 
-        private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         #endregion
 
         private Wallpaper _selected;
@@ -62,12 +61,12 @@ namespace DGP.Snap.Window.Wallpaper
             get { return _selected; }
             set
             {
-                GCHelper.PerformAggressiveGC();
+                GCService.PerformAggressiveGC();
                 Set(ref _selected, value);
             }
         }
 
-        private void DownloadButton_Click(object sender, RoutedEventArgs e)
+        private void DownloadButton_Click(object sender, RoutedEventArgs eventArgs)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
@@ -86,13 +85,13 @@ namespace DGP.Snap.Window.Wallpaper
             }
             //不能using
             IFileDownloader fileDownloader = new FileDownloader();
-            fileDownloader.DownloadFileCompleted += OnDownloadFileCompleted;
+            fileDownloader.DownloadFileCompleted += FileDownloaderOnDownloadFileCompleted;
             fileDownloader.DownloadFileAsync(Selected.Uri, path);
         }
 
-        private void OnDownloadFileCompleted(object sender, DownloadFileCompletedArgs e)
+        private void FileDownloaderOnDownloadFileCompleted(object sender, DownloadFileCompletedArgs eventArgs)
         {
-            if (e.State == CompletedState.Succeeded)
+            if (eventArgs.State == CompletedState.Succeeded)
             {
                 NotificationManager.ShowNotification("Snap Desktop/壁纸", ":)\n壁纸下载完成！");
             }
@@ -102,7 +101,7 @@ namespace DGP.Snap.Window.Wallpaper
             }
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs eventArgs)
         {
             this.SetAcrylicblur();
             //处理速度慢的计算机不能正常的给ObservableWallpaperInfos赋值
@@ -118,7 +117,7 @@ namespace DGP.Snap.Window.Wallpaper
             }
         }
 
-        private void Win_StateChanged(object sender, EventArgs e)
+        private void Win_StateChanged(object sender, EventArgs eventArgs)
         {
             if (WindowState == WindowState.Maximized)
             {

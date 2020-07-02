@@ -9,7 +9,7 @@ using System.IO;
 
 namespace DGP.Snap.Service.Download
 {
-    internal static class FileHelpers
+    internal static class FileUtils
     {
         //private static readonly ILogger Logger = LoggerFacade.GetCurrentClassLogger();
 
@@ -20,7 +20,7 @@ namespace DGP.Snap.Service.Download
                 var fileInfo = new FileInfo(filename);
                 filesize = fileInfo.Length;
             }
-            catch (System.Exception e)
+            catch (System.Exception)
             {
                 //Logger.Debug("Failed to get file size for {0}. Exception: {1}", filename, e.Message);
                 filesize = 0;
@@ -35,7 +35,7 @@ namespace DGP.Snap.Service.Download
             {
                 File.Delete(filename);
             }
-            catch (System.Exception e)
+            catch (System.Exception)
             {
                 //Logger.Debug("Unable to delete file {0}. Exception: {1}", filename, e.Message);
                 return false;
@@ -52,7 +52,7 @@ namespace DGP.Snap.Service.Download
                     File.Delete(destination);
                     File.Move(source, destination);
                 }
-                catch (System.Exception e)
+                catch (System.Exception)
                 {
                     //Logger.Warn("Unable replace local file {0} with cached resource {1}, {2}", destination, source, e.Message);
                     return false;

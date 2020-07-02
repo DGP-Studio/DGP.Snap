@@ -1,4 +1,6 @@
 ﻿[*.cs]
 
-# IDE0044: 添加只读修饰符
-dotnet_style_readonly_field = false:suggestion
+# AV2235: Call to Task.ContinueWith should be replaced with an await expression
+dotnet_diagnostic.AV2235.severity = none
+dotnet_diagnostic.AV2407.severity = none
+dotnet_diagnostic.AV2235.severity = suggestion

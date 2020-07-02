@@ -2,7 +2,6 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -16,7 +15,7 @@ namespace DGP.Snap.Service.User
 
         [EditorBrowsable(EditorBrowsableState.Never)] public QQUserInfomationService() { }
 
-        public async Task<QQUserInfo> GetQQUserInfo(string requestQQNumber)
+        public async Task<QQUserInfo> GetQQUserInfoAsync(string requestQQNumber)
         {
             string requestUrl = BaseUriString + requestQQNumber;
             HttpWebRequest request = WebRequest.CreateHttp(requestUrl);

@@ -25,7 +25,7 @@ namespace DGP.Snap.Service.Weather
 
         public async Task<WeatherModel> GetRefreshedWeatherAsync(string cityname)
         {
-            return await Xml.GetWebRequestXmlObjectAsync<WeatherModel>(BaseUri + cityname);
+            return await Xml.GetWebRequestObjectAsync<WeatherModel>(BaseUri + cityname);
         }
 
         public async Task InitializeAsync()
@@ -33,27 +33,30 @@ namespace DGP.Snap.Service.Weather
             if (_weatherInformation == null)
             {
                 object location = SettingService.GetInstance()["Weather_Location"];
-                _weatherInformation = await Xml.GetWebRequestXmlObjectAsync<WeatherModel>(BaseUri + (string)location);
+                _weatherInformation = await Xml.GetWebRequestObjectAsync<WeatherModel>(BaseUri + (string)location);
             }
             return;
         }
 
-        //private const string BaseUri = "http://wthrcdn.etouch.cn/WeatherApi?city=";
-        private const string BaseUri = "http://wthr.etouch.cn/WeatherApi?city=";
-        private object weatherlock=new object();
+        private const string BaseUri = "http://wthrcdn.etouch.cn/WeatherApi?city=";
+        private object weatherlock = new object();
 
         private WeatherModel _weatherInformation = null;
         public WeatherModel WeatherInformation
         {
             get
             {
-                lock(weatherlock)
+                lock (weatherlock)
+                {
                     return _weatherInformation;
+                }
             }
             set
             {
-                lock(weatherlock)
+                lock (weatherlock)
+                {
                     Set(ref _weatherInformation, value);
+                }
             }
         }
 

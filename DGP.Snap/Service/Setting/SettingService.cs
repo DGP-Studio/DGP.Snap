@@ -2,7 +2,6 @@
 using DGP.Snap.Helper.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -49,7 +48,9 @@ namespace DGP.Snap.Service.Setting
         {
             AppSettings = await ReadSettingsAsync();
             if (AppSettings == null)
+            {
                 AppSettings = new Dictionary<string, object>();
+            }
         }
 
         public object this[string key]
@@ -76,7 +77,7 @@ namespace DGP.Snap.Service.Setting
         private static object _lock = new object();
         private SettingService()
         {
-            
+
         }
         public static SettingService GetInstance()
         {

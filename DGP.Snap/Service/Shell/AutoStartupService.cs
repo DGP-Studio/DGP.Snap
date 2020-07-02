@@ -6,7 +6,7 @@ using System.IO;
 
 namespace DGP.Snap.Service.Shell
 {
-    internal class AutoStartupHelper
+    internal class AutoStartupService
     {
         /// <summary>
         /// 快捷方式名称

@@ -21,7 +21,9 @@ namespace DGP.Snap.Service.Kernel
         /// <param name="cy">窗口的新高度（以像素为单位）</param>
         /// <param name="uFlags">窗口大小和定位标志</param>
         /// <returns>如果函数调用成功，则返回值为<see cref="true"/></returns>
+#pragma warning disable AV1706 // Identifier contains an abbreviation or is too short
         [DllImport("user32.dll")] public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+#pragma warning restore AV1706 // Identifier contains an abbreviation or is too short
 
         public const uint SWP_NOSIZE = 0x0001;
         public const uint SWP_NOMOVE = 0x0002;
@@ -64,7 +66,9 @@ namespace DGP.Snap.Service.Kernel
         /// <param name="className"></param>
         /// <param name="windowTitle"></param>
         /// <returns></returns>
+#pragma warning disable AV1706 // Identifier contains an abbreviation or is too short
         [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)] public static extern IntPtr FindWindowEx(IntPtr hWndParent, IntPtr hWndChildAfter, string lpszClass, IntPtr windowTitle);
+#pragma warning restore AV1706 // Identifier contains an abbreviation or is too short
         #endregion
 
         #region SetParent
@@ -79,7 +83,9 @@ namespace DGP.Snap.Service.Kernel
 
         #region SendMessageTimeout
 
+#pragma warning disable AV1562 // Do not declare a parameter as ref or out
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)] public static extern IntPtr SendMessageTimeout(IntPtr hWnd, uint Msg, UIntPtr wParam, IntPtr lParam, SendMessageTimeoutFlags fuFlags, uint uTimeout, out UIntPtr lpdwResult);
+#pragma warning restore AV1562 // Do not declare a parameter as ref or out
         public enum SendMessageTimeoutFlags : uint
         {
             SMTO_NORMAL = 0x0,
@@ -152,7 +158,9 @@ namespace DGP.Snap.Service.Kernel
             WCA_VISUAL_OWNER = 22,
             WCA_LAST = 23,
         }
+#pragma warning disable AV1562 // Do not declare a parameter as ref or out
         [DllImport("user32.dll")] public static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
+#pragma warning restore AV1562 // Do not declare a parameter as ref or out
         #endregion
 
         #endregion
@@ -160,21 +168,43 @@ namespace DGP.Snap.Service.Kernel
         #region Kernel32
 
         #region GlobalMemoryStatus
+        //typedef struct _MEMORYSTATUSEX
+        //{
+        //    DWORD dwLength;
+        //    DWORD dwMemoryLoad;
+        //    DWORDLONG ullTotalPhys;
+        //    DWORDLONG ullAvailPhys;
+        //    DWORDLONG ullTotalPageFile;
+        //    DWORDLONG ullAvailPageFile;
+        //    DWORDLONG ullTotalVirtual;
+        //    DWORDLONG ullAvailVirtual;
+        //    DWORDLONG ullAvailExtendedVirtual;
+        //}
+        //MEMORYSTATUSEX, *LPMEMORYSTATUSEX;
         [StructLayout(LayoutKind.Sequential)]
-        public struct MemoryInfo
+#pragma warning disable AV1706 // Identifier contains an abbreviation or is too short
+        public struct MemoryStatusEx
+#pragma warning restore AV1706 // Identifier contains an abbreviation or is too short
         {
-            public uint Length;
-            public uint MemoryLoad;
-            public uint TotalPhysical;//总内存
-            public uint AvailablePhysical;//可用物理内存
-            public uint TotalPageFile;
-            public uint AvailablePageFile;
-            public uint TotalVirtual;
-            public uint AvailableVirtual;
+            public uint dwLength; //当前结构体大小
+            public uint dwMemoryLoad; //当前内存使用率
+            public ulong ullTotalPhys; //总计物理内存大小
+            public ulong ullAvailPhys; //可用物理内存大小
+            public ulong ullTotalPageFile; //总计交换文件大小
+            public ulong ullAvailPageFile; //总计交换文件大小
+            public ulong ullTotalVirtual; //总计虚拟内存大小
+            public ulong ullAvailVirtual; //可用虚拟内存大小
+            public ulong ullAvailExtendedVirtual; //保留 这个值始终为0
         }
 
-        [DllImport("kernel32")]
-        public static extern void GlobalMemoryStatus(ref MemoryInfo meminfo);
+        [DllImport("kernel32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+#pragma warning disable AV1706 // Identifier contains an abbreviation or is too short
+#pragma warning disable AV1562 // Do not declare a parameter as ref or out
+        public static extern bool GlobalMemoryStatusEx(ref MemoryStatusEx meminfo);
+#pragma warning restore AV1562 // Do not declare a parameter as ref or out
+#pragma warning restore AV1706 // Identifier contains an abbreviation or is too short
+
         #endregion
 
         #endregion

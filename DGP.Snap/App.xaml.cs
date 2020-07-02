@@ -1,5 +1,4 @@
-﻿using DGP.Snap.Helper;
-using DGP.Snap.Service.Exception;
+﻿using DGP.Snap.Service.Exception;
 using DGP.Snap.Service.Setting;
 using DGP.Snap.Service.Shell;
 using DGP.Snap.Service.Update;
@@ -17,34 +16,30 @@ namespace DGP.Snap
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            //if (!Debugger.IsAttached)//不调试时
-            //{
-                AppDomain.CurrentDomain.UnhandledException += ExceptionService.OnUnhandledException;
-            //}
+            AppDomain.CurrentDomain.UnhandledException += ExceptionService.OnUnhandledException;
             base.OnStartup(e);
-            
         }
 
-        private async void Application_Startup(object sender, StartupEventArgs e)
+        private async void StartupAsync(object sender, StartupEventArgs e)
         {
             //实现单实例
-            InitializeAsSingleApplication();
+            InitializeAsSingle();
             //托盘图标
-            TrayIconManager.GetInstance();
+            NotifyIconManager.GetInstance();
             //更新
-            await UpdateService.GetInstance().HandleUpdateCheck();
+            await UpdateService.GetInstance().HandleUpdateCheckAsync();
             //读取设置
             await SettingService.GetInstance().RetriveSettingsAsync();
             //主题色
-            ThemeManager.Initialize();   
+            ThemeManager.Initialize();
         }
 
         #region 单例
         private bool _isFirstInstance;
         private Mutex _isRunning;
-        private void InitializeAsSingleApplication()
+        private void InitializeAsSingle()
         {
-            #if DEBUG
+#if DEBUG
             if (Debugger.IsAttached)//调试模式
             {
                 _isRunning = new Mutex(true, "DGP.Snap.Mutex.Debug.Debuging", out _isFirstInstance);
@@ -59,7 +54,7 @@ namespace DGP.Snap
                 Shutdown();
                 return;
             }
-            #else
+#else
             _isRunning = new Mutex(true, "DGP.Snap.Mutex.Release", out _isFirstInstance);
 
             if (!_isFirstInstance)
@@ -79,7 +74,7 @@ namespace DGP.Snap
             }
             _isRunning.ReleaseMutex();
 
-            TrayIconManager.GetInstance().Dispose();
+            NotifyIconManager.GetInstance().Dispose();
             base.OnExit(e);
         }
     }

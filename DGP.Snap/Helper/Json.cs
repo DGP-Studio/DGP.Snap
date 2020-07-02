@@ -49,7 +49,7 @@ namespace DGP.Snap.Helper
         /// <typeparam name="TRequestType"></typeparam>
         /// <param name="requestUrl"></param>
         /// <returns></returns>
-        public static async Task<TRequestType> GetWebRequestJsonObjectAsync<TRequestType>(string requestUrl)
+        public static async Task<TRequestType> GetWebRequestObjectAsync<TRequestType>(string requestUrl)
         {
             return await Task.Run(async () =>
             {

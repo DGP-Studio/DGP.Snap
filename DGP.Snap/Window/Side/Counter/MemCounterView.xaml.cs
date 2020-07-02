@@ -1,10 +1,13 @@
-﻿using MahApps.Metro.Controls;
+﻿using DGP.Snap.Service.Kernel;
+using MahApps.Metro.Controls;
 using System;
 using System.Management;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using static DGP.Snap.Service.Kernel.NativeMethod;
 
 namespace DGP.Snap.Window.Side.Counter
 {
@@ -13,7 +16,6 @@ namespace DGP.Snap.Window.Side.Counter
     /// </summary>
     public partial class MemCounterView : UserControl
     {
-        private double available = 0, capacity = 0;
         public MemCounterView()
         {
             DataContext = this;
@@ -21,41 +23,19 @@ namespace DGP.Snap.Window.Side.Counter
 
             DispatcherTimer timer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(5),
+                Interval = TimeSpan.FromSeconds(1),
             };
             timer.Tick += Timer_Tick;
             timer.Start();
 
         }
 
-        private async void Timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs eventArgs)
         {
-            await Task.Run(() =>
-            {
-                //总
-                using (ManagementClass totalMemoryManager = new ManagementClass("Win32_PhysicalMemory"))
-                {
-                    using (ManagementObjectCollection totalMemoryManagersObjects = totalMemoryManager.GetInstances())
-                    {
-                        foreach (ManagementObject manager1 in totalMemoryManagersObjects)
-                        {
-                            capacity += Math.Round(long.Parse(manager1.Properties["Capacity"].Value.ToString()) / 1024 / 1024 / 1024.0, 1);
-                        }
-                    }
-                }
-                //可用
-                using (ManagementClass availableMemoryManager = new ManagementClass("Win32_PerfFormattedData_PerfOS_Memory"))
-                {
-                    using (ManagementObjectCollection availableMemoryManagerObjects = availableMemoryManager.GetInstances())
-                    {
-                        foreach (ManagementObject manager2 in availableMemoryManagerObjects)
-                        {
-                            available += ((Math.Round(long.Parse(manager2.Properties["AvailableMBytes"].Value.ToString()) / 1024.0, 1)));
-                        }
-                    }
-                }
-                this.Invoke(() => { UsedMem = $"{Math.Round((capacity - available) / capacity * 100, 0)}%"; });
-            });
+            MemoryStatusEx memoryInfo = new MemoryStatusEx();
+            memoryInfo.dwLength= (uint)Marshal.SizeOf(memoryInfo);
+            GlobalMemoryStatusEx(ref memoryInfo);
+            UsedMem = $"{Math.Round((memoryInfo.ullTotalPhys - memoryInfo.ullAvailPhys) / (double)memoryInfo.ullTotalPhys * 100, 0)}%";
         }
 
         public string UsedMem

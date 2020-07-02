@@ -15,7 +15,7 @@ namespace DGP.Snap.Helper
         /// <typeparam name="TRequestType">请求的类类型</typeparam>
         /// <param name="requestUrl"></param>
         /// <returns></returns>
-        public static async Task<TRequestType> GetWebRequestXmlObjectAsync<TRequestType>(string requestUrl)
+        public static async Task<TRequestType> GetWebRequestObjectAsync<TRequestType>(string requestUrl)
         {
             HttpWebRequest request = WebRequest.CreateHttp(requestUrl);
             //request.Proxy = WebRequest.DefaultWebProxy;

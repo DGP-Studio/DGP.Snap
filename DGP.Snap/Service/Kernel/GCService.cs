@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace DGP.Snap.Service.Kernel
 {
-    internal class GCHelper
+    internal class GCService
     {
         private static bool isGarbageCollecting = false;
         /// <summary>
@@ -14,7 +14,7 @@ namespace DGP.Snap.Service.Kernel
             if (!isGarbageCollecting)
             {
                 isGarbageCollecting = true;
-                Task.Delay(1000).ContinueWith(t =>
+                Task.Delay(1000).ContinueWith(_ =>
                 {
                     GC.Collect(GC.MaxGeneration);
                     isGarbageCollecting = false;

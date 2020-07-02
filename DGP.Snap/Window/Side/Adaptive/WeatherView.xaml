@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DGP.Snap.Window.Side.Adaptive"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-             mc:Ignorable="d" Loaded="UserControl_Loaded" 
+             mc:Ignorable="d" Loaded="UserControl_LoadedAsync" 
              >
     <StackPanel Background="{DynamicResource AppStyleBackgroundColor}" Height="144" Width="324" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="12">
         <Grid Margin="16,8,0,4">
@@ -14,7 +14,7 @@
                 <TextBlock Foreground="{DynamicResource AppStyleForegroundColor}" Style="{StaticResource BaseTextBlockStyle}" Text="{Binding WeatherInfo.City, Mode=OneWay}" VerticalAlignment="Center"/>
             </StackPanel>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,4,0">
-                <TextBox Foreground="{DynamicResource AppStyleForegroundColor}" Background="Transparent" Width="100"  Margin="0,0,4,0" mah:TextBoxHelper.Watermark="查找城市..." KeyDown="TextBox_KeyDown"/>
+                <TextBox Foreground="{DynamicResource AppStyleForegroundColor}" Background="Transparent" Width="100"  Margin="0,0,4,0" ToolTip="查找城市..." KeyDown="TextBox_KeyDownAsync"/>
             </StackPanel>
         </Grid>
 

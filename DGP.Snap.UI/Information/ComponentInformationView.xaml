@@ -60,9 +60,6 @@
                         <Hyperlink NavigateUri="{Binding ComponentRepositoryUri}" Click="OnHyperLinkInvoked" RequestNavigate="OnHyperlinkRequestNavigate">
                             Link
                         </Hyperlink>
-                        <Hyperlink NavigateUri="{Binding ComponentLicenseUri}" Click="OnHyperLinkInvoked" RequestNavigate="OnHyperlinkRequestNavigate">
-                            License
-                        </Hyperlink>
         </TextBlock>
     </Grid>
 </UserControl>

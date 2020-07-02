@@ -1,5 +1,4 @@
-﻿using DGP.Snap.Helper;
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace DGP.Snap.Service.Shell
@@ -16,7 +15,7 @@ namespace DGP.Snap.Service.Shell
         /// <param name="timedout">通知显示的时间，以毫秒为单位</param>
         public static void ShowNotification(string title, string content, Action clickEvent = null, Action closeEvent = null, int timedout = 3000)
         {
-            NotifyIcon icon = TrayIconManager.GetInstance().NotifyIcon;
+            NotifyIcon icon = NotifyIconManager.GetInstance().NotifyIcon;
             icon.ShowBalloonTip(timedout, title, content, ToolTipIcon.None);
             icon.BalloonTipClicked += OnIconOnBalloonTipClicked;
             icon.BalloonTipClosed += OnIconOnBalloonTipClosed;

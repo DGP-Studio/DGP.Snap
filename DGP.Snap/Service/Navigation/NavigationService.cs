@@ -93,7 +93,7 @@ namespace DGP.Snap.Service.Navigation
 
         /// <summary>
         /// 异步导航到包含 <typeparamref name="TPage"/>类型 的实例化对象的内容。
-        /// 调用时需确保 <see cref="MainWindow"/> 实例化。
+        /// 调用时需确保 <see cref="AboutWindow"/> 实例化。
         /// </summary>
         /// <typeparam name="TPage"></typeparam>
         /// <param name="parameter"></param>

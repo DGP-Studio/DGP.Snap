@@ -172,7 +172,7 @@ namespace DGP.Snap.Service.Download
 
         private void DeleteDownloadedFile()
         {
-            FileHelpers.TryFileDelete(localFileName);
+            FileUtils.TryFileDelete(localFileName);
         }
 
         private void InvalidateCache(Uri uri)
@@ -258,7 +258,7 @@ namespace DGP.Snap.Service.Download
             string downloadedFileName = GetDestinationFileName(headers);
 
             long downloadedFileSize;
-            if (!FileHelpers.TryGetFileSize(downloadedFileName, out downloadedFileSize))
+            if (!FileUtils.TryGetFileSize(downloadedFileName, out downloadedFileSize))
             {
                 ////todo: handle this case in future. Now in case of error we simply proceed with downloadedFileSize=0
             }
@@ -275,7 +275,7 @@ namespace DGP.Snap.Service.Download
 
             if (downloadedFileSize != TotalBytesToReceive)
             {
-                if (!FileHelpers.ReplaceFile(downloadedFileName, localFileName))
+                if (!FileUtils.ReplaceFile(downloadedFileName, localFileName))
                 {
                     InvalidateCache(fileSource);
                 }
@@ -408,7 +408,7 @@ namespace DGP.Snap.Service.Download
             try
             {
                 long seekPosition;
-                FileHelpers.TryGetFileSize(fileDestination, out seekPosition);
+                FileUtils.TryGetFileSize(fileDestination, out seekPosition);
 
                 TryCleanupExistingDownloadWebClient();
                 downloadWebClient = CreateWebClient();

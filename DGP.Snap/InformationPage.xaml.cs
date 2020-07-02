@@ -1,8 +1,5 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Navigation;
 
 namespace DGP.Snap
 {
@@ -13,18 +10,22 @@ namespace DGP.Snap
     {
         public InformationPage()
         {
+            AppVersion = Application.ResourceAssembly.GetName().Version.ToString();
+            DataContext = this;
             InitializeComponent();
         }
 
-        private void OnHyperLinkInvoked(object sender, RoutedEventArgs e)
+        public string AppVersion
         {
-            Process.Start(((Hyperlink)sender).NavigateUri.ToString());
-            e.Handled = true;
+            get { return (string)GetValue(AppVersionProperty); }
+            set { SetValue(AppVersionProperty, value); }
         }
+        public static readonly DependencyProperty AppVersionProperty =
+            DependencyProperty.Register("AppVersion", typeof(string), typeof(InformationPage), new PropertyMetadata(""));
 
-        private void OnHyperlinkRequestNavigate(object sender, RequestNavigateEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            e.Handled = true;
+            SnapInfoView.ComponentDescription = $"v {AppVersion}";
         }
     }
 }
