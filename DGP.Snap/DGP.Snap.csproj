@@ -81,6 +81,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -108,6 +110,7 @@
     <Compile Include="Helper\Singleton.cs" />
     <Compile Include="Helper\Xml.cs" />
     <Compile Include="Service\Device\DiskInfo.cs" />
+    <Compile Include="Service\Device\Monitor.cs" />
     <Compile Include="Service\Exception\ExceptionDialog.xaml.cs">
       <DependentUpon>ExceptionDialog.xaml</DependentUpon>
     </Compile>
@@ -132,6 +135,7 @@
     <Compile Include="Service\Download\StreamCopyWorker.cs" />
     <Compile Include="Service\Navigation\NavHelper.cs" />
     <Compile Include="Service\Navigation\NavigationService.cs" />
+    <Compile Include="Service\Shell\TaskBarService.cs" />
     <Compile Include="Service\Shell\Theme.cs" />
     <Compile Include="Service\Shell\NotificationManager.cs" />
     <Compile Include="Service\Shell\ThemeManager.cs" />
@@ -257,6 +261,10 @@
     </EmbeddedResource>
     <None Include=".editorconfig" />
     <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
+    <None Include="ClassDiagram3.cd" />
+    <None Include="ClassDiagram4.cd" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6">

@@ -31,6 +31,8 @@ namespace DGP.Snap.Window.Wallpaper
             }
         }
 
+        public event EventHandler<bool> InitializeCompleted;
+
         private const string WallPaper360BaseUrL = @"http://wallpaper.apc.360.cn/index.php?c=WallPaper&a=getAppsByOrder&order=create_time&start=0&count=180&from=360chrome";
         private const string WallPaperBingBaseUrL = @"https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=8";
 
@@ -43,7 +45,7 @@ namespace DGP.Snap.Window.Wallpaper
         private async Task Get360ImageUriCollectionAsync()
         {
 
-            ThreeSixZeroWallpaperJsonObject wallPaper360JsonInfo = await Json.GetWebRequestObjectAsync<ThreeSixZeroWallpaperJsonObject>(WallPaper360BaseUrL);//await GetRequest360WallPaperImageJsonInfoAsync();
+            BirdWallpaperJsonObject wallPaper360JsonInfo = await Json.GetWebRequestObjectAsync<BirdWallpaperJsonObject>(WallPaper360BaseUrL);//await GetRequest360WallPaperImageJsonInfoAsync();
 
             foreach (DataItemFor360 dataItem in wallPaper360JsonInfo.Data)
             {

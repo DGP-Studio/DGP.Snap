@@ -16,7 +16,7 @@ namespace DGP.Snap.Service.Shell
         public static void ShowNotification(string title, string content, Action clickEvent = null, Action closeEvent = null, int timedout = 3000)
         {
             NotifyIcon icon = NotifyIconManager.GetInstance().NotifyIcon;
-            icon.ShowBalloonTip(timedout, title, content, ToolTipIcon.None);
+            icon.ShowBalloonTip(timedout, null/*title*/, content, ToolTipIcon.None);
             icon.BalloonTipClicked += OnIconOnBalloonTipClicked;
             icon.BalloonTipClosed += OnIconOnBalloonTipClosed;
 

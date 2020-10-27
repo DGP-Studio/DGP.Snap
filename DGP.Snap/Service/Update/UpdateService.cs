@@ -132,7 +132,7 @@ namespace DGP.Snap.Service.Update
                 case UpdateAvailability.IsInsiderVersion:
                     if (isStartupCheck)
                     {
-                        NotificationManager.ShowNotification("Snap Desktop", $"{Environment.UserName}:\n你正在使用开发版 Snap Desktop", () => { });
+                        NotificationManager.ShowNotification("Snap Desktop", $"{Environment.UserName}:\n你正在使用开发版 Snap Desktop");
                     }
                     else
                     {

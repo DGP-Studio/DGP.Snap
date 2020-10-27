@@ -7,8 +7,16 @@
         xmlns:counter="clr-namespace:DGP.Snap.Window.Side.Counter" 
         xmlns:adaptive="clr-namespace:DGP.Snap.Window.Side.Adaptive"
         mc:Ignorable="d"
-        Title="SideWindow" Height="600" Width="420" WindowStyle="None" Loaded="Window_Loaded" Background="Transparent" 
-        MouseEnter="Window_MouseEnterAsync" MouseLeave="Window_MouseLeave" ResizeMode="NoResize" >
+        Title="SideWindow" 
+        Height="600" 
+        Width="420" 
+        WindowStyle="None" 
+        Loaded="Window_Loaded" 
+        Background="Transparent" 
+        ShowInTaskbar="False"
+        MouseEnter="Window_MouseEnterAsync" 
+        MouseLeave="Window_MouseLeave" 
+        ResizeMode="NoResize" >
 
     <WindowChrome.WindowChrome >
         <WindowChrome GlassFrameThickness="-1" CaptionHeight="0"/>

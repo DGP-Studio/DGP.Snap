@@ -4,6 +4,7 @@ using DGP.Snap.Service.Weather.Model;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows.Ink;
 
 namespace DGP.Snap.Service.Weather
 {
@@ -33,7 +34,10 @@ namespace DGP.Snap.Service.Weather
             if (_weatherInformation == null)
             {
                 object location = SettingService.GetInstance()["Weather_Location"];
-                _weatherInformation = await Xml.GetWebRequestObjectAsync<WeatherModel>(BaseUri + (string)location);
+                if(location!=null)
+                    _weatherInformation = await Xml.GetWebRequestObjectAsync<WeatherModel>(BaseUri + (string)location);
+                else
+                    _weatherInformation = await Xml.GetWebRequestObjectAsync<WeatherModel>(BaseUri + "北京");
             }
             return;
         }

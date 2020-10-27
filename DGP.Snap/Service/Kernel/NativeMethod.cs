@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace DGP.Snap.Service.Kernel
 {
@@ -27,8 +28,12 @@ namespace DGP.Snap.Service.Kernel
 
         public const uint SWP_NOSIZE = 0x0001;
         public const uint SWP_NOMOVE = 0x0002;
+        public const uint SWP_NOZORDER = 0x0004;
         public const uint SWP_NOACTIVATE = 0x0010;
         public const uint SWP_SHOWWINDOW = 0x0040;
+        public const int SWP_ASYNCWINDOWPOS = 0x4000;
+
+
         public static readonly IntPtr HWND_BOTTOM = new IntPtr(1);
         #endregion
 
@@ -163,24 +168,58 @@ namespace DGP.Snap.Service.Kernel
 #pragma warning restore AV1562 // Do not declare a parameter as ref or out
         #endregion
 
+        #region EnumDisplaySettings
+        public const int ENUM_CURRENT_SETTINGS = -1;
+        public const int ENUM_REGISTRY_SETTINGS = -2;
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+        public struct DEVMODE
+        {
+            private const int CCHDEVICENAME = 32;
+            private const int CCHFORMNAME = 32;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = CCHDEVICENAME)]
+            public string dmDeviceName;
+            public short dmSpecVersion;
+            public short dmDriverVersion;
+            public short dmSize;
+            public short dmDriverExtra;
+            public int dmFields;
+            public int dmPositionX;
+            public int dmPositionY;
+            public ScreenOrientation dmDisplayOrientation;
+            public int dmDisplayFixedOutput;
+            public short dmColor;
+            public short dmDuplex;
+            public short dmYResolution;
+            public short dmTTOption;
+            public short dmCollate;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = CCHFORMNAME)]
+            public string dmFormName;
+            public short dmLogPixels;
+            public int dmBitsPerPel;
+            public int dmPelsWidth;
+            public int dmPelsHeight;
+            public int dmDisplayFlags;
+            public int dmDisplayFrequency;
+            public int dmICMMethod;
+            public int dmICMIntent;
+            public int dmMediaType;
+            public int dmDitherType;
+            public int dmReserved1;
+            public int dmReserved2;
+            public int dmPanningWidth;
+            public int dmPanningHeight;
+        }
+
+        [DllImport("user32.dll")] public static extern bool EnumDisplaySettings(string deviceName, int modeNum, ref DEVMODE devMode);
+
+        #endregion
+
         #endregion
 
         #region Kernel32
 
         #region GlobalMemoryStatus
-        //typedef struct _MEMORYSTATUSEX
-        //{
-        //    DWORD dwLength;
-        //    DWORD dwMemoryLoad;
-        //    DWORDLONG ullTotalPhys;
-        //    DWORDLONG ullAvailPhys;
-        //    DWORDLONG ullTotalPageFile;
-        //    DWORDLONG ullAvailPageFile;
-        //    DWORDLONG ullTotalVirtual;
-        //    DWORDLONG ullAvailVirtual;
-        //    DWORDLONG ullAvailExtendedVirtual;
-        //}
-        //MEMORYSTATUSEX, *LPMEMORYSTATUSEX;
         [StructLayout(LayoutKind.Sequential)]
 #pragma warning disable AV1706 // Identifier contains an abbreviation or is too short
         public struct MemoryStatusEx

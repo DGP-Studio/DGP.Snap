@@ -37,16 +37,17 @@ namespace DGP.Snap
         #region 单例
         private bool _isFirstInstance;
         private Mutex _isRunning;
+        private string _appName = "DGP.Snap";
         private void InitializeAsSingle()
         {
 #if DEBUG
             if (Debugger.IsAttached)//调试模式
             {
-                _isRunning = new Mutex(true, "DGP.Snap.Mutex.Debug.Debuging", out _isFirstInstance);
+                _isRunning = new Mutex(true, _appName+".Mutex.Debug.Debuging", out _isFirstInstance);
             }
             else
             {
-                _isRunning = new Mutex(true, "DGP.Snap.Mutex.Debug", out _isFirstInstance);
+                _isRunning = new Mutex(true, _appName + ".Mutex.Debug", out _isFirstInstance);
             }
 
             if (!_isFirstInstance)
@@ -55,7 +56,7 @@ namespace DGP.Snap
                 return;
             }
 #else
-            _isRunning = new Mutex(true, "DGP.Snap.Mutex.Release", out _isFirstInstance);
+            _isRunning = new Mutex(true, _appName+".Mutex.Release", out _isFirstInstance);
 
             if (!_isFirstInstance)
             {

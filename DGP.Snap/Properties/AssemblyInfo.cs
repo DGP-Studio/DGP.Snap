@@ -37,7 +37,7 @@ using System.Windows;
                                               //、应用程序或任何主题专用资源字典中找到时使用)
 )]
 
-[assembly: AssemblyVersion("0.0.0.959")]
-[assembly: AssemblyFileVersion("0.0.0.959")]
+[assembly: AssemblyVersion("0.0.1.1")]
+[assembly: AssemblyFileVersion("0.0.1.1")]
 //[assembly: NeutralResourcesLanguage("")]
 

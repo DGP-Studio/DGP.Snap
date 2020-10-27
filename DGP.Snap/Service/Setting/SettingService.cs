@@ -57,14 +57,13 @@ namespace DGP.Snap.Service.Setting
         {
             get
             {
-                try
-                {
-                    return !AppSettings.TryGetValue(key, out object value) ? null : value;
-                }
-                catch
-                {
-                    return new object();
-                }
+
+                if (AppSettings.TryGetValue(key, out object value))
+                    return value;
+                else
+                    return null;
+                //return !(AppSettings?.TryGetValue(key, out object value)) ? null : value;
+
             }
             set
             {

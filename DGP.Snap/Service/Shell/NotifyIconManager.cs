@@ -33,6 +33,18 @@ namespace DGP.Snap.Service.Shell
                 }
             });
 
+        private readonly MenuItem itemCenterTask =
+            new MenuItem("居中任务栏(实验性)",
+            (sender, e) =>
+            {
+                if (!TaskBarService.GetInstance().Applied)
+                    TaskBarService.GetInstance().Centerlize();
+                else
+                    TaskBarService.GetInstance().ReturnNormal();
+            });
+
+
+
         private NotifyIconManager()
         {
             NotifyIcon = new NotifyIcon
@@ -43,6 +55,7 @@ namespace DGP.Snap.Service.Shell
                 ContextMenu = new ContextMenu(new[]
                 {
                     new MenuItem("壁纸", (sender, e) => WindowManager.GetOrAddWindow<WallpaperWindow>().Show()),
+                    itemCenterTask,
                     MenuItemSeparator,
 
                     new MenuItem("更新",new[] {
@@ -76,6 +89,7 @@ namespace DGP.Snap.Service.Shell
                 (sender, e) =>
                 {
                     itemAutorun.Checked = AutoStartupService.IsAutorun();
+                    itemCenterTask.Checked = TaskBarService.GetInstance().Applied;
                 };
 
         }

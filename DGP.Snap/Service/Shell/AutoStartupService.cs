@@ -42,6 +42,10 @@ namespace DGP.Snap.Service.Shell
                 {
                     CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.Startup), ShortcutName, AppFullPath, "Snap Desktop");
                 }
+                else
+                {
+
+                }
             }
             else//IsOff//开机不启动
             {

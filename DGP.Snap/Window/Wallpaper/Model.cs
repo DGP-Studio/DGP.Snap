@@ -13,7 +13,7 @@ namespace DGP.Snap.Window.Wallpaper
         public string Description { get; set; }
     }
 
-    public class ThreeSixZeroWallpaperJsonObject
+    public class BirdWallpaperJsonObject
     {
         [JsonProperty("errno")] public string Errno { get; set; }
         [JsonProperty("errmsg")] public string Errmsg { get; set; }
@@ -88,97 +88,4 @@ namespace DGP.Snap.Window.Wallpaper
         [JsonProperty("tooltips")] public TooltipsForBing Tooltips { get; set; }
     }
 
-    public class OwnerForBaidu
-    {
-        [JsonProperty("userName")] public string UserName { get; set; }
-        [JsonProperty("userId")] public string UserId { get; set; }
-        [JsonProperty("userSign")] public string UserSign { get; set; }
-        [JsonProperty("isSelf")] public string IsSelf { get; set; }
-        [JsonProperty("portrait")] public string Portrait { get; set; }
-        [JsonProperty("isVip")] public string IsVip { get; set; }
-        [JsonProperty("isLanv")] public string IsLanv { get; set; }
-        [JsonProperty("isJiaju")] public string IsJiaju { get; set; }
-        [JsonProperty("isHunjia")] public string IsHunjia { get; set; }
-        [JsonProperty("orgName")] public string OrgName { get; set; }
-        [JsonProperty("resUrl")] public string ResUrl { get; set; }
-        [JsonProperty("cert")] public string Cert { get; set; }
-        [JsonProperty("budgetNum")] public string BudgetNum { get; set; }
-        [JsonProperty("lanvName")] public string LanvName { get; set; }
-        [JsonProperty("contactName")] public string contactName { get; set; }
-    }
-
-    public class ImgsItemForBaidu
-    {
-        [JsonProperty("id")] public string Id { get; set; }
-        [JsonProperty("desc")] public string Desc { get; set; }
-        [JsonProperty("tags")] public List<string> Tags { get; set; }
-        [JsonProperty("owner")] public OwnerForBaidu Owner { get; set; }
-        [JsonProperty("fromPageTitle")] public string FromPageTitle { get; set; }
-        [JsonProperty("column")] public string Column { get; set; }
-        [JsonProperty("parentTag")] public string ParentTag { get; set; }
-        [JsonProperty("date")] public string Date { get; set; }
-        [JsonProperty("downloadUrl")] public string DownloadUrl { get; set; }
-        [JsonProperty("imageUrl")] public string ImageUrl { get; set; }
-        [JsonProperty("imageWidth")] public int ImageWidth { get; set; }
-        [JsonProperty("imageHeight")] public int ImageHeight { get; set; }
-        [JsonProperty("thumbnailUrl")] public string ThumbnailUrl { get; set; }
-        [JsonProperty("thumbnailWidth")] public int ThumbnailWidth { get; set; }
-        [JsonProperty("thumbnailHeight")] public int ThumbnailHeight { get; set; }
-        [JsonProperty("thumbLargeWidth")] public int ThumbLargeWidth { get; set; }
-        [JsonProperty("thumbLargeHeight")] public int ThumbLargeHeight { get; set; }
-        [JsonProperty("thumbLargeUrl")] public string ThumbLargeUrl { get; set; }
-        [JsonProperty("thumbLargeTnWidth")] public int ThumbLargeTnWidth { get; set; }
-        [JsonProperty("thumbLargeTnHeight")] public int ThumbLargeTnHeight { get; set; }
-        [JsonProperty("thumbLargeTnUrl")] public string ThumbLargeTnUrl { get; set; }
-        [JsonProperty("siteName")] public string SiteName { get; set; }
-        [JsonProperty("siteLogo")] public string SiteLogo { get; set; }
-        [JsonProperty("siteUrl")] public string SiteUrl { get; set; }
-        [JsonProperty("fromUrl")] public string FromUrl { get; set; }
-        [JsonProperty("isBook")] public string IsBook { get; set; }
-        [JsonProperty("bookId")] public string BookId { get; set; }
-        [JsonProperty("objUrl")] public string ObjUrl { get; set; }
-        [JsonProperty("shareUrl")] public string ShareUrl { get; set; }
-        [JsonProperty("setId")] public string SetId { get; set; }
-        [JsonProperty("albumId")] public string AlbumId { get; set; }
-        [JsonProperty("isAlbum")] public int IsAlbum { get; set; }
-        [JsonProperty("albumName")] public string AlbumName { get; set; }
-        [JsonProperty("albumNum")] public int AlbumNum { get; set; }
-        [JsonProperty("userId")] public string UserId { get; set; }
-        [JsonProperty("isVip")] public int IsVip { get; set; }
-        [JsonProperty("isDapei")] public int IsDapei { get; set; }
-        [JsonProperty("dressId")] public string DressId { get; set; }
-        [JsonProperty("dressBuyLink")] public string DressBuyLink { get; set; }
-        [JsonProperty("dressPrice")] public int DressPrice { get; set; }
-        [JsonProperty("dressDiscount")] public int DressDiscount { get; set; }
-        [JsonProperty("dressExtInfo")] public string DressExtInfo { get; set; }
-        [JsonProperty("dressTag")] public string DressTag { get; set; }
-        [JsonProperty("dressNum")] public int DressNum { get; set; }
-        [JsonProperty("objTag")] public string ObjTag { get; set; }
-        [JsonProperty("dressImgNum")] public int DressImgNum { get; set; }
-        [JsonProperty("hostName")] public string HostName { get; set; }
-        [JsonProperty("pictureId")] public string PictureId { get; set; }
-        [JsonProperty("pictureSign")] public string PictureSign { get; set; }
-        [JsonProperty("dataSrc")] public string DataSrc { get; set; }
-        [JsonProperty("contentSign")] public string ContentSign { get; set; }
-        [JsonProperty("albumDi")] public string AlbumDi { get; set; }
-        [JsonProperty("canAlbumId")] public string CanAlbumId { get; set; }
-        [JsonProperty("albumObjNum")] public string AlbumObjNum { get; set; }
-        [JsonProperty("appId")] public string AppId { get; set; }
-        [JsonProperty("photoId")] public string PhotoId { get; set; }
-        [JsonProperty("fromName")] public int FromName { get; set; }
-        [JsonProperty("fashion")] public string Fashion { get; set; }
-        [JsonProperty("title")] public string Title { get; set; }
-    }
-
-    public class BaiduImageJsonObject
-    {
-        [JsonProperty("col")] public string Col { get; set; }
-        [JsonProperty("tag")] public string Tag { get; set; }
-        [JsonProperty("tag3 ")] public string Tag3 { get; set; }
-        [JsonProperty("sort")] public string Sort { get; set; }
-        [JsonProperty("totalNum")] public int TotalNum { get; set; }
-        [JsonProperty("startIndex")] public int StartIndex { get; set; }
-        [JsonProperty("returnNumber")] public int ReturnNumber { get; set; }
-        [JsonProperty("imgs")] public List<ImgsItemForBaidu> Imgs { get; set; }
-    }
 }
